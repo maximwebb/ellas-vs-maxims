@@ -1,17 +1,12 @@
 public abstract class GameObject {
 
-    int position;
+    int posX;
+    int posY;
 
-    GameObject(){
-
+    GameObject(int posX, int posY) {
+        this.posX = posX;
+        this.posY = posY;
     }
-
-    abstract void onUpdate();
     
-
-
-
-
-
-
+    abstract void onUpdate();
 }
