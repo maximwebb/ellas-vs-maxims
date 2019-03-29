@@ -15,6 +15,15 @@ public class Plant extends Entity {
 		this.cooldown = 0;
 	}
 	
+	// Constructor class
+	public void damage(int damage) {
+		super(start_row, start_x);
+		this.health -= damage;
+		if this.health <= 0{
+			this = null;
+		}
+	}
+	
 	// The update method is called every step to update all entities
 	public void update(){
 
