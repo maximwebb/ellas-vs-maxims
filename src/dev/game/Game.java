@@ -8,6 +8,7 @@ import java.awt.image.BufferStrategy;
 public class Game implements Runnable {
 
 	private Display display;
+	private float frameRate;
 	public int width, height;
 	public String title;
 
@@ -18,10 +19,11 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 
-	public Game(String title, int width, int height) {
+	public Game(String title, int width, int height, float frameRate) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		this.frameRate = frameRate;
 	}
 
 	private void init() {
@@ -48,7 +50,7 @@ public class Game implements Runnable {
 		bs.show();
 		g.dispose();
 		try {
-			Thread.sleep(20);
+			Thread.sleep((long)(1000/this.frameRate));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
