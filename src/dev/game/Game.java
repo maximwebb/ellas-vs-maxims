@@ -1,9 +1,11 @@
 package dev.game;
 
 import dev.game.display.Display;
+import dev.game.gfx.ImageLoader;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Game implements Runnable {
 
@@ -18,6 +20,8 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 
+	private BufferedImage testImage;
+
 	public Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -26,6 +30,7 @@ public class Game implements Runnable {
 
 	private void init() {
 		display = new Display(title, width, height);
+		testImage = ImageLoader.loadImage("/textures/ella.png");
 	}
 
 	/* Updates to various objects happen here */
@@ -42,8 +47,7 @@ public class Game implements Runnable {
 		g = bs.getDrawGraphics();
 		/* Draw graphics */
 		g.clearRect(0, 0, width, height);
-		g.setColor(Color.CYAN);
-		g.fillRect(0, 0, 100, 100);
+		g.drawImage(testImage, 10, 10, null);
 
 		bs.show();
 		g.dispose();
