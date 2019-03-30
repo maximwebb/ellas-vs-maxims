@@ -4,6 +4,7 @@ import dev.game.display.Display;
 import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -26,6 +27,7 @@ public class Game implements Runnable {
 	private Plant maxim;
 	private BufferedImage background;
 
+
 	public Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -38,6 +40,7 @@ public class Game implements Runnable {
 		ella = new Zombie(width, 25, -2, 0, Assets.zombie);
 		maxim = new Plant(25, 25, 0, 0, Assets.plant);
 		background = ImageLoader.loadImage("/backgrounds/lawn.png");
+
 	}
 
 	/* Updates to various objects happen here */
