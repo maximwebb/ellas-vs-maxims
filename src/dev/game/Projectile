@@ -1,5 +1,5 @@
-public class Projectile extends GameObject
-{
+public class Projectile extends GameObject {
+
 	private int velocityX;
 	private int velocityY;
 	
