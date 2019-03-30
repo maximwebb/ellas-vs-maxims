@@ -13,16 +13,15 @@ public class Game implements Runnable {
 	private Display display;
 	public int width, height;
 	public String title;
+	private boolean showFPS = false;
 
 	private boolean running = false;
+
 	private Thread thread;
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
 	private Graphics g;
-
-	private BufferedImage testImage;
-	private int number;
 
 	public Game(String title, int width, int height) {
 		this.title = title;
@@ -32,9 +31,7 @@ public class Game implements Runnable {
 
 	private void init() {
 		display = new Display(title, width, height);
-		//testImage = ImageLoader.loadImage("/textures/ella.png");
 		Assets.init();
-		testImage = Assets.ella;
 	}
 
 	/* Updates to various objects happen here */
@@ -51,26 +48,45 @@ public class Game implements Runnable {
 		g = bs.getDrawGraphics();
 		/* Draw graphics */
 		g.clearRect(0, 0, width, height);
-		g.drawImage(testImage, 10, 10, null);
 
 		bs.show();
 		g.dispose();
-		try {
-			Thread.sleep(20);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	/* Required for Runnable */
 	public void run() {
 		init();
 
+		int FPS = 60;
+		double timePerTick = 1000000000 / FPS;
+		double delta = 0;
+		long currentTime;
+		long lastTime = System.nanoTime();
+		long timer = 0;
+		int ticks = 0;
+
 		/* Game loop */
 		while (running) {
-			tick();
-			render();
+			currentTime = System.nanoTime();
+			delta += (currentTime - lastTime) / timePerTick;
+			timer += currentTime - lastTime;
+			lastTime = currentTime;
+
+			if (delta >= 1) {
+				tick();
+				render();
+				ticks++;
+				delta--;
+			}
+
+			if (timer >= 1000000000) {
+				if (showFPS) {
+					System.out.println("Frames: " + ticks);
+				}
+				ticks = 0;
+				timer = 0;
+			}
+
 		}
 
 		stop();
