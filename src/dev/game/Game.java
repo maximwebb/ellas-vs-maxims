@@ -1,6 +1,7 @@
 package dev.game;
 
 import dev.game.display.Display;
+import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
 
 import java.awt.*;
@@ -21,6 +22,7 @@ public class Game implements Runnable {
 	private Graphics g;
 
 	private BufferedImage testImage;
+	private int number;
 
 	public Game(String title, int width, int height) {
 		this.title = title;
@@ -30,7 +32,9 @@ public class Game implements Runnable {
 
 	private void init() {
 		display = new Display(title, width, height);
-		testImage = ImageLoader.loadImage("/textures/ella.png");
+		//testImage = ImageLoader.loadImage("/textures/ella.png");
+		Assets.init();
+		testImage = Assets.ella;
 	}
 
 	/* Updates to various objects happen here */
