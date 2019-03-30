@@ -1,0 +1,22 @@
+public class Projectile extends GameObject
+{
+	private int velocityX;
+	private int velocityY;
+	
+	Projectile(int posX, int posY) {
+		super(posX, posY);
+		this.velocityX = 0;
+		this.velocityY = 0;
+	}
+	
+	@Override
+	public void onUpdate() {
+		this.posX += this.velocityX;
+		this.posY += this.velocityY;
+	}
+	
+	public void setVelocity(int velocityX, int velocityY) {
+		this.velocityX = velocityX;
+		this.velocityY = velocityY;
+	}
+}
