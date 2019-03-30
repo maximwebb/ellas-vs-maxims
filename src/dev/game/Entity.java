@@ -24,6 +24,14 @@ public class Entity {
 		posY += velY;
 	}
 
+	public int getVelX(){
+		return velX;
+	}
+
+	public int getVelY(){
+		return velY;
+	}
+
 	public int getPosX() {
 		return posX;
 	}
@@ -35,4 +43,5 @@ public class Entity {
 	public BufferedImage getSprite() {
 		return sprite;
 	}
+
 }

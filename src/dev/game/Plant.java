@@ -9,6 +9,12 @@ public class Plant extends Entity {
 		super(posX, posY, velX, velY, Assets.plant);
 	}
 
+	public Plant(Plant plant, int posX, int posY){
+		super(posX, posY, plant.getVelX(), plant.getVelY(), plant.getSprite());
+
+	}
+
+	public void shoot() {}
 	@Override
 	public void update() {
 		super.update();
@@ -35,4 +41,7 @@ public class Plant extends Entity {
 			}
 		}
 	}
+
+
+
 }

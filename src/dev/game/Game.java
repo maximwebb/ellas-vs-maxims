@@ -4,6 +4,7 @@ import dev.game.display.Display;
 import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -21,7 +22,7 @@ public class Game implements Runnable {
 	private Stack<Entity> entitiesToAdd;
 	private Stack<Entity> entitiesToRemove;
 	private Thread thread;
-	private static Game intance = new Game("Ellas vs. Maxim", 640, 480);
+	private static Game intance = new Game("Ellas vs. Maxim", 1920, 1080);
 
 	private Room room;
 
@@ -31,6 +32,9 @@ public class Game implements Runnable {
 
 	/* Add test properties here */
 	private BufferedImage background;
+
+	private static Tile[][] grid;
+	private static Plant maximPlant;
 
 	private Game(String title, int width, int height) {
 		this.title = title;
@@ -46,6 +50,8 @@ public class Game implements Runnable {
 		Assets.init();
 		setRoom(Rooms.getArenaRoom());
 		background = ImageLoader.loadImage("/backgrounds/lawn.png");
+		fillGrid(4, 6, 200);
+
 	}
 
 	/* Updates to various objects happen here */
@@ -72,11 +78,19 @@ public class Game implements Runnable {
 		/* Draw graphics */
 		g.clearRect(0, 0, width, height);
 		g.drawImage(background, 0, 0, null);
+		for(int i = 0; i<grid.length; i++) {
+			for (int j = 0; j < grid[i].length; j++) {
+				if(!grid[i][j].empty){
+					Plant p = grid[i][j].getPlant();
+					g.drawImage(p.getSprite(), p.getPosX(), p.getPosY(), null);
+				}
+
+			}
+		}
 
 		for (Entity entity: room.getEntities()){
 			g.drawImage(entity.getSprite(),entity.getPosX(),entity.getPosY(),null);
 		}
-
 		bs.show();
 		g.dispose();
 	}
@@ -155,7 +169,46 @@ public class Game implements Runnable {
 		}
 	}
 
+
+	//Vertical and horizontal determine number of tiles in the grid, border the free space on the right
+	public void fillGrid(int vertical, int horizontal, int border){
+		grid = new Tile[vertical][horizontal];
+		int w = (width-border)/horizontal;
+		int h = height/vertical;
+		for(int i = 0; i<vertical; i++){
+			for(int j = 0; j<horizontal; j++){
+				grid[i][j] = new Tile();
+				grid[i][j].setPosition((border + j*w), (i*h));
+				grid[i][j].setDimensions(w, h);
+			}
+		}
+	}
+
+	public static Tile[][] getGrid(){
+		return grid;
+	}
+
+	//adds plant to tile which contains clicked coordinates
+	public static void addPlant(int x, int y){
+		maximPlant = new Plant(25, 25, 0, 0);
+		for(int i = 0; i<grid.length; i++){
+			for(int j = 0; j<grid[i].length; j++){
+				int posX = grid[i][j].getPosX();
+				int posY = grid[i][j].getPosY();
+				int w = grid[i][j].getWidth();
+				int h = grid[i][j].getHeight();
+				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY)){
+					grid[i][j].setPlant(new Plant(maximPlant, posX+25, posY+25));
+					grid[i][j].empty = false;
+				}
+
+			}
+		}
+	}
+
+
 	public Room getRoom() {
 		return room;
 	}
+
 }
