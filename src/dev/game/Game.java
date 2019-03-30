@@ -25,10 +25,12 @@ public class Game implements Runnable {
 	/* Add test properties here */
 	private Zombie ella;
 	private Plant maxim;
-	private static Plant maximPlant;
 	private BufferedImage background;
 
+
 	private static Tile[][] grid;
+	private static Plant maximPlant;
+	private boolean justPlanted;
 
 
 	public Game(String title, int width, int height) {
@@ -44,7 +46,7 @@ public class Game implements Runnable {
 		maxim = new Plant(25, 25, 0, 0, Assets.plant);
 		background = ImageLoader.loadImage("/backgrounds/lawn.png");
 
-		fillGrid(6, 8, 200);
+		fillGrid(6, 10, 200);
 
 	}
 
@@ -65,6 +67,15 @@ public class Game implements Runnable {
 		g.drawImage(background, 0, 0, null);
 		g.drawImage(ella.sprite, ella.posX, ella.posY, null);
 		g.drawImage(maxim.sprite, maxim.posX, maxim.posY, null);
+		for(int i = 0; i<grid.length; i++) {
+			for (int j = 0; j < grid[i].length; j++) {
+				if(!grid[i][j].empty){
+					Plant p = grid[i][j].getPlant();
+					g.drawImage(p.sprite, p.posX, p.posY, null);
+				}
+
+			}
+		}
 		bs.show();
 		g.dispose();
 	}
@@ -135,7 +146,7 @@ public class Game implements Runnable {
 		for(int i = 0; i<vertical; i++){
 			for(int j = 0; j<horizontal; j++){
 				grid[i][j] = new Tile();
-				grid[i][j].setPosition((border + i*w), (j*h));
+				grid[i][j].setPosition((border + j*w), (i*h));
 				grid[i][j].setDimensions(w, h);
 			}
 		}
@@ -147,7 +158,7 @@ public class Game implements Runnable {
 
 	//adds plant to tile which contains clicked coordinates
 	public static void addPlant(int x, int y){
-		maximPlant = new Plant(25, 25, 0, 0,ImageLoader.loadImage("/textures/plantButton.png"));
+		maximPlant = new Plant(25, 25, 0, 0,ImageLoader.loadImage("/textures/plant.png"));
 		for(int i = 0; i<grid.length; i++){
 			for(int j = 0; j<grid[i].length; j++){
 				int posX = grid[i][j].getPosX();
@@ -155,8 +166,8 @@ public class Game implements Runnable {
 				int w = grid[i][j].getWidth();
 				int h = grid[i][j].getHeight();
 				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY)){
-					grid[i][j].setPlant(new Plant(maximPlant, posX, posY));
-					System.out.println("Added Plant");
+					grid[i][j].setPlant(new Plant(maximPlant, posX+25, posY+25));
+					grid[i][j].empty = false;
 				}
 
 			}

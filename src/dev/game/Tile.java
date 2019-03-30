@@ -6,7 +6,7 @@ public class Tile {
     private int posY;
     private int width;
     private int height;
-    private boolean empty;
+    public boolean empty;
     private Plant plant;
 
     Tile(){
