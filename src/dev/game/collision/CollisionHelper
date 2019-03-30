@@ -26,7 +26,7 @@ public class CollisionHelper {
 		VectorLine perpRay = new VectorLine(region.pos, new Vector2D(ray.dirn().y(), -ray.dirn().x()).unitVector());
 		
 		//using matrix multiplication to solve simultaneous equations to obtain lambdas for collision point of rays
-		Vector2D result = ray.pos().add(perpRay.pos().scale(-1)).transform(new Matrix(ray.dirn(), perpRay.dirn().scale(-1)).inverse());
+		Vector2D result = ray.pos().scale(-1).add(perpRay.pos()).transform(new Matrix(ray.dirn(), perpRay.dirn().scale(-1)).inverse());
 		
 		float minDistance = Math.abs(result.y());
 		float lambda = result.x();
