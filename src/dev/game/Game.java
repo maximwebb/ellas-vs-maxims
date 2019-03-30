@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class Game implements Runnable {
 
@@ -16,43 +19,53 @@ public class Game implements Runnable {
 	public String title;
 	private boolean showFPS = false;
 	private boolean running = false;
+	private Stack<Entity> entitiesToAdd;
+	private Stack<Entity> entitiesToRemove;
 	private Thread thread;
+	private static Game intance = new Game("Ellas vs. Maxim", 1920, 1080);
+
+	private Room room;
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
 	private Graphics g;
 
 	/* Add test properties here */
-	private Zombie ella;
-	private Plant maxim;
 	private BufferedImage background;
-
 
 	private static Tile[][] grid;
 	private static Plant maximPlant;
-	private boolean justPlanted;
 
-
-	public Game(String title, int width, int height) {
+	private Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+
+		entitiesToAdd=new Stack<>();
+		entitiesToRemove=new Stack<>();
 	}
 
 	private void init() {
 		display = new Display(title, width, height);
 		Assets.init();
-		ella = new Zombie(width, 10  , -2, 0, Assets.zombie);
-		maxim = new Plant(225, 15, 0, 0, Assets.plant);
+		setRoom(Rooms.getArenaRoom());
 		background = ImageLoader.loadImage("/backgrounds/lawn.png");
-
 		fillGrid(4, 6, 200);
 
 	}
 
 	/* Updates to various objects happen here */
 	private void tick() {
-		ella.updatePos();
+		for(Entity entity: room.getEntities()){
+			entity.update();
+		}
+		//Performs concurrent changes to the object list
+		while(!entitiesToAdd.empty()){
+			room.getEntities().add(entitiesToAdd.pop());
+		}
+		while(!entitiesToRemove.empty()){
+			room.getEntities().remove(entitiesToRemove.pop());
+		}
 	}
 
 	private void render() {
@@ -65,16 +78,18 @@ public class Game implements Runnable {
 		/* Draw graphics */
 		g.clearRect(0, 0, width, height);
 		g.drawImage(background, 0, 0, null);
-		g.drawImage(ella.sprite, ella.posX, ella.posY, null);
-		g.drawImage(maxim.sprite, maxim.posX, maxim.posY, null);
 		for(int i = 0; i<grid.length; i++) {
 			for (int j = 0; j < grid[i].length; j++) {
 				if(!grid[i][j].empty){
 					Plant p = grid[i][j].getPlant();
-					g.drawImage(p.sprite, p.posX, p.posY, null);
+					g.drawImage(p.getSprite(), p.getPosX(), p.getPosY(), null);
 				}
 
 			}
+		}
+
+		for (Entity entity: room.getEntities()){
+			g.drawImage(entity.getSprite(),entity.getPosX(),entity.getPosY(),null);
 		}
 		bs.show();
 		g.dispose();
@@ -130,6 +145,22 @@ public class Game implements Runnable {
 		thread.start();
 	}
 
+	public static Game getInstance() {
+		return intance;
+	}
+
+	public void addEntity(Entity e){
+		entitiesToAdd.add(e);
+	}
+
+	public void removeEntity(Entity e){
+		entitiesToAdd.remove(e);
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
 	public synchronized void stop() {
 		try {
 			thread.join();
@@ -137,6 +168,7 @@ public class Game implements Runnable {
 			e.printStackTrace();
 		}
 	}
+
 
 	//Vertical and horizontal determine number of tiles in the grid, border the free space on the right
 	public void fillGrid(int vertical, int horizontal, int border){
@@ -158,7 +190,7 @@ public class Game implements Runnable {
 
 	//adds plant to tile which contains clicked coordinates
 	public static void addPlant(int x, int y){
-		maximPlant = new Plant(25, 25, 0, 0,ImageLoader.loadImage("/textures/plant.png"));
+		maximPlant = new Plant(25, 25, 0, 0);
 		for(int i = 0; i<grid.length; i++){
 			for(int j = 0; j<grid[i].length; j++){
 				int posX = grid[i][j].getPosX();
@@ -175,6 +207,8 @@ public class Game implements Runnable {
 	}
 
 
-
+	public Room getRoom() {
+		return room;
+	}
 
 }
