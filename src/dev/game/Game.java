@@ -71,12 +71,10 @@ public class Game implements Runnable {
 		double deltaTime; //time between this update and the last (in seconds).
 		double targetTime = lastTime; //target time for next update (in seconds)
 		
-		while(this.running)
-		{
+		while(this.running) {
 			currentTime = (double)System.nanoTime()/1000000000; //Updates time.
 			
-			if(currentTime >= targetTime)
-			{
+			if(currentTime >= targetTime) {
 				deltaTime = currentTime - lastTime; //Sets deltaTime to equal the time since the last update
 				lastTime = currentTime; //sets lastTime to equal time of this update
 				
