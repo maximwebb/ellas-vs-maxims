@@ -14,14 +14,17 @@ public class Game implements Runnable {
 	public int width, height;
 	public String title;
 	private boolean showFPS = false;
-
 	private boolean running = false;
-
 	private Thread thread;
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
 	private Graphics g;
+
+	/* Add test properties here */
+	private Zombie ella;
+	private Plant maxim;
+	private BufferedImage background;
 
 	public Game(String title, int width, int height) {
 		this.title = title;
@@ -32,11 +35,14 @@ public class Game implements Runnable {
 	private void init() {
 		display = new Display(title, width, height);
 		Assets.init();
+		ella = new Zombie(width, 25, -2, 0, Assets.zombie);
+		maxim = new Plant(25, 25, 0, 0, Assets.plant);
+		background = ImageLoader.loadImage("/backgrounds/lawn.png");
 	}
 
 	/* Updates to various objects happen here */
 	private void tick() {
-
+		ella.updatePos();
 	}
 
 	private void render() {
@@ -48,7 +54,9 @@ public class Game implements Runnable {
 		g = bs.getDrawGraphics();
 		/* Draw graphics */
 		g.clearRect(0, 0, width, height);
-
+		g.drawImage(background, 0, 0, null);
+		g.drawImage(ella.sprite, ella.posX, ella.posY, null);
+		g.drawImage(maxim.sprite, maxim.posX, maxim.posY, null);
 		bs.show();
 		g.dispose();
 	}
