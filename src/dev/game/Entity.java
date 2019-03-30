@@ -22,4 +22,13 @@ public class Entity {
 		posX += velX;
 		posY += velY;
 	}
+
+	public int getVelX(){
+		return velX;
+	}
+
+	public int getVelY(){
+		return velY;
+	}
+
 }

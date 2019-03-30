@@ -7,7 +7,15 @@ public class Plant extends Entity {
 		super(posX, posY, velX, velY, sprite);
 	}
 
+	public Plant(Plant plant, int posX, int posY){
+		super(posX, posY, plant.getVelX(), plant.getVelY(), plant.sprite);
+
+	}
+
 	public void shoot() {
 
 	}
+
+
+
 }

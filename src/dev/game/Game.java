@@ -25,7 +25,10 @@ public class Game implements Runnable {
 	/* Add test properties here */
 	private Zombie ella;
 	private Plant maxim;
+	private static Plant maximPlant;
 	private BufferedImage background;
+
+	private static Tile[][] grid;
 
 
 	public Game(String title, int width, int height) {
@@ -40,6 +43,8 @@ public class Game implements Runnable {
 		ella = new Zombie(width, 25, -2, 0, Assets.zombie);
 		maxim = new Plant(25, 25, 0, 0, Assets.plant);
 		background = ImageLoader.loadImage("/backgrounds/lawn.png");
+
+		fillGrid(6, 8, 200);
 
 	}
 
@@ -121,4 +126,44 @@ public class Game implements Runnable {
 			e.printStackTrace();
 		}
 	}
+
+	//Vertical and horizontal determine number of tiles in the grid, border the free space on the right
+	public void fillGrid(int vertical, int horizontal, int border){
+		grid = new Tile[vertical][horizontal];
+		int w = (width-border)/horizontal;
+		int h = height/vertical;
+		for(int i = 0; i<vertical; i++){
+			for(int j = 0; j<horizontal; j++){
+				grid[i][j] = new Tile();
+				grid[i][j].setPosition((border + i*w), (j*h));
+				grid[i][j].setDimensions(w, h);
+			}
+		}
+	}
+
+	public static Tile[][] getGrid(){
+		return grid;
+	}
+
+	//adds plant to tile which contains clicked coordinates
+	public static void addPlant(int x, int y){
+		maximPlant = new Plant(25, 25, 0, 0,ImageLoader.loadImage("/textures/plantButton.png"));
+		for(int i = 0; i<grid.length; i++){
+			for(int j = 0; j<grid[i].length; j++){
+				int posX = grid[i][j].getPosX();
+				int posY = grid[i][j].getPosY();
+				int w = grid[i][j].getWidth();
+				int h = grid[i][j].getHeight();
+				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY)){
+					grid[i][j].setPlant(new Plant(maximPlant, posX, posY));
+					System.out.println("Added Plant");
+				}
+
+			}
+		}
+	}
+
+
+
+
 }

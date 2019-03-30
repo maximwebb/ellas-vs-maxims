@@ -1,13 +1,13 @@
 package dev.game.display;
 
-import dev.game.gfx.Assets;
+
 import dev.game.gfx.ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+
+
 
 
 public class Display {
@@ -19,6 +19,10 @@ public class Display {
 
 	private JButton plantButton;
 	private JLayeredPane layers;
+	private JButton plantList;
+
+	private boolean plantSelection;
+	private static boolean plantingState;
 
 	public Display(String title, int width, int height) {
 		this.title = title;
@@ -43,6 +47,8 @@ public class Display {
 
 		createPlantMenu(frame);
 
+		canvas.addMouseListener(new PlantingMouseListener());
+
 		frame.add(canvas);
 		frame.pack();
 
@@ -60,6 +66,8 @@ public class Display {
 		plantButton = b;
 	}
 
+
+
 	public void createPlantMenu(JFrame frame){
 		BufferedImage b = ImageLoader.loadImage("/textures/plantButton.png");
 		ImageIcon icon = new ImageIcon(b);
@@ -67,21 +75,58 @@ public class Display {
 		layers = frame.getLayeredPane();
 		layers.add(plantButton, JLayeredPane.PALETTE_LAYER);
 		plantButton.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
-		plantButton.setOpaque(false);
-		plantButton.setContentAreaFilled(false);
-		plantButton.setFocusPainted(false);
+		plantButton.setOpaque(true);
 		plantButton.setBorderPainted(false);
+		plantButton.setBackground(new Color(130, 100, 0));
 
-		JInternalFrame plantList = new JInternalFrame();
+		plantSelection = false;
+		plantingState = false;
+
+		BufferedImage p = ImageLoader.loadImage("/textures/plant.png");
+		plantList = new JButton(new ImageIcon(p));
+		layers.add(plantList, JLayeredPane.PALETTE_LAYER);
+		plantList.setBounds(0, plantButton.getHeight(), plantButton.getWidth(), 200);
+		plantList.setOpaque(true);
+		plantButton.setBorderPainted(false);
+		plantList.setBackground(new Color(130, 100, 0));
+		plantList.setHorizontalAlignment(JLabel.CENTER);
+		plantList.setVerticalAlignment(JLabel.CENTER);
 		plantList.setVisible(false);
+
 		plantButton.addActionListener(e -> {
-			plantList.setLocation(0, plantButton.getHeight());
-			plantList.setSize(plantButton.getWidth(), 200);
-			plantList.setVisible(true);
+			if(!plantSelection){
+				plantSelection = true;
+				plantList.setVisible(true);
+			}else{
+				plantSelection = false;
+				plantingState = false;
+				plantList.setVisible(false);
+
+			}
+
+		});
+
+
+		plantList.addActionListener(e -> {
+			plantingState = true;
 
 		});
 
 
 	}
+
+
+	public JLayeredPane getLayers(){
+		return layers;
+	}
+
+	public JButton getPlantList(){
+		return plantList;
+	}
+
+	public static boolean getState(){
+		return plantingState;
+	}
+
 
 }
