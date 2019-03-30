@@ -7,6 +7,9 @@ import dev.game.gfx.ImageLoader;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class Game implements Runnable {
 
@@ -15,34 +18,48 @@ public class Game implements Runnable {
 	public String title;
 	private boolean showFPS = false;
 	private boolean running = false;
+	private Stack<Entity> entitiesToAdd;
+	private Stack<Entity> entitiesToRemove;
 	private Thread thread;
+	private static Game intance = new Game("Ellas vs. Maxim", 640, 480);
+
+	private Room room;
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
 	private Graphics g;
 
 	/* Add test properties here */
-	private Zombie ella;
-	private Plant maxim;
 	private BufferedImage background;
 
-	public Game(String title, int width, int height) {
+	private Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+
+		entitiesToAdd=new Stack<>();
+		entitiesToRemove=new Stack<>();
 	}
 
 	private void init() {
 		display = new Display(title, width, height);
 		Assets.init();
-		ella = new Zombie(width, 25, -2, 0, Assets.zombie);
-		maxim = new Plant(25, 25, 0, 0, Assets.plant);
+		setRoom(Rooms.getArenaRoom());
 		background = ImageLoader.loadImage("/backgrounds/lawn.png");
 	}
 
 	/* Updates to various objects happen here */
 	private void tick() {
-		ella.updatePos();
+		for(Entity entity: room.getEntities()){
+			entity.update();
+		}
+		//Performs concurrent changes to the object list
+		while(!entitiesToAdd.empty()){
+			room.getEntities().add(entitiesToAdd.pop());
+		}
+		while(!entitiesToRemove.empty()){
+			room.getEntities().remove(entitiesToRemove.pop());
+		}
 	}
 
 	private void render() {
@@ -55,8 +72,11 @@ public class Game implements Runnable {
 		/* Draw graphics */
 		g.clearRect(0, 0, width, height);
 		g.drawImage(background, 0, 0, null);
-		g.drawImage(ella.sprite, ella.posX, ella.posY, null);
-		g.drawImage(maxim.sprite, maxim.posX, maxim.posY, null);
+
+		for (Entity entity: room.getEntities()){
+			g.drawImage(entity.getSprite(),entity.getPosX(),entity.getPosY(),null);
+		}
+
 		bs.show();
 		g.dispose();
 	}
@@ -111,11 +131,31 @@ public class Game implements Runnable {
 		thread.start();
 	}
 
+	public static Game getInstance() {
+		return intance;
+	}
+
+	public void addEntity(Entity e){
+		entitiesToAdd.add(e);
+	}
+
+	public void removeEntity(Entity e){
+		entitiesToAdd.remove(e);
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
 	public synchronized void stop() {
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Room getRoom() {
+		return room;
 	}
 }
