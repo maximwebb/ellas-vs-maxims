@@ -42,8 +42,8 @@ public class Game implements Runnable {
 	private void init() {
 		display = new Display(title, width, height);
 		Assets.init();
-		ella = new Zombie(width, 25, -2, 0, Assets.zombie);
-		maxim = new Plant(225, 25, 0, 0, Assets.plant);
+		ella = new Zombie(width, 10  , -2, 0, Assets.zombie);
+		maxim = new Plant(225, 15, 0, 0, Assets.plant);
 		background = ImageLoader.loadImage("/backgrounds/lawn.png");
 
 		fillGrid(4, 6, 200);
