@@ -1,41 +1,35 @@
-public class Vector
-{
+public class Vector {
+
 	private float x;
 	private float y;
 	
-	public Vector(float x, float y)
-	{
+	public Vector(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
 	
 	//alternative constructor with length and angle (measured from +ve x-axis) as arguments
-	public Vector(float r, double angle)
-	{
+	public Vector(float r, double angle) {
 		this((float)(r * Math.cos(angle)), (float)(r * Math.sin(angle)));
 	}
 	
 	//return length of a vector
-	public float length()
-	{
+	public float length() {
 		return (float)Math.sqrt((double)this.dot(this));
 	}
 	
 	//add two vectors
-	public Vector add(Vector v)
-	{
+	public Vector add(Vector v) {
 		return new Vector(this.x + v.x, this.y + v.y);
 	}
 	
 	//multiply a vector by a scalar
-	public Vector scale(float s)
-	{
+	public Vector scale(float s) {
 		return new Vector(this.x * s, this.y * s);
 	}
 	
 	//dot product two vectors
-	public float dot(Vector v)
-	{
+	public float dot(Vector v) {
 		return this.x * v.x + this.y * v.y;
 	}
 }
