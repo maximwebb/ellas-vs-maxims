@@ -17,7 +17,6 @@ public class Game implements Runnable {
 	private Display display;
 	public int width, height;
 	public String title;
-	private double FPS = 60;
 	private boolean showFPS = false;
 	private boolean running = false;
 	private Stack<Entity> entitiesToAdd;
@@ -135,7 +134,9 @@ public class Game implements Runnable {
 				ticks = 0;
 				timer = 0;
 			}
-		
+
+		}
+
 		stop();
 	}
 
