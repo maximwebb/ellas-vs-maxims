@@ -1,4 +1,4 @@
-package dev.game.collider;
+package dev.game.collision;
 
 import dev.game.maths.*;
 
