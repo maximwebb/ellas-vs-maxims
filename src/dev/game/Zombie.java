@@ -2,9 +2,7 @@ package dev.game;
 
 import dev.game.gfx.Assets;
 
-import java.awt.image.BufferedImage;
-
-public class Zombie extends Entity {
+public class Zombie extends RenderedGameObject {
 
 	int energyLevel;
 

@@ -1,8 +1,10 @@
 package dev.game;
 
 import dev.game.gfx.Assets;
+import dev.game.rooms.GameRoom;
+import dev.game.rooms.Room;
 
-public class Plant extends Entity {
+public class Plant extends RenderedGameObject {
 	private int charge=0;
 	private int eggCost;
 	public Plant(int posX, int posY, int velX, int velY) {
@@ -20,22 +22,22 @@ public class Plant extends Entity {
 	public void update() {
 		super.update();
 
-		//Basic collision checking
-		for(Entity entity: Game.getInstance().getRoom().getEntities()){
-			if (entity instanceof Zombie){
-				//Meme-worthy collision checking, someone plz write something good
-				if (Math.abs(entity.getPosY()-getPosY())<20){
+		/* Basic collision checking */
+		for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList){
+			if (object instanceof Zombie){
+				/* Meme-worthy collision checking, someone plz write something good */
+				if (Math.abs(((RenderedGameObject)object).getPosY()-getPosY())<20){
 					if (charge<100){
 						charge++;
 					}
 					else
 					{
 						charge=0;
-						Game.getInstance().addEntity(new Bullet(getPosX(),getPosY()));
+						((GameRoom)Room.getRoom()).addGameObject(new Bullet(getPosX(),getPosY()));
 					}
 
-					if(Math.abs(entity.getPosX()-getPosX())<20){
-						Game.getInstance().removeEntity(this);
+					if(Math.abs(((RenderedGameObject)object).getPosX()-getPosX())<20){
+						((GameRoom)Room.getRoom()).removeGameObject(this);
 					}
 
 				}
