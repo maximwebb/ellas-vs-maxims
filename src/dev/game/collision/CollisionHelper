@@ -1,6 +1,6 @@
-import maths.Matrix;
-import maths.Vector2D;
-import maths.VectorLine;
+package dev.game.collider;
+
+import dev.game.maths.*;
 
 public class CollisionHelper {
 	
