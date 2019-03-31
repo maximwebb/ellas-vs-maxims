@@ -1,3 +1,5 @@
+package dev.game.maths;
+
 public class VectorLine {
 	
 	private Vector2D pos; //position vector
