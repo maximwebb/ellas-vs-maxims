@@ -36,6 +36,10 @@ public class Game implements Runnable {
 	private static Tile[][] grid;
 	private static Plant maximPlant;
 
+	/* Equivalent of sun in PvZ */
+	public static int eggCount = 0;
+	private static int eggCountTimer = 200;
+
 	private Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -56,6 +60,12 @@ public class Game implements Runnable {
 
 	/* Updates to various objects happen here */
 	private void tick() {
+		eggCountTimer++;
+		if (eggCountTimer > 300) {
+			eggCount += 25;
+			eggCountTimer = 0;
+		}
+
 		for(Entity entity: room.getEntities()){
 			entity.update();
 		}
@@ -91,6 +101,11 @@ public class Game implements Runnable {
 		for (Entity entity: room.getEntities()){
 			g.drawImage(entity.getSprite(),entity.getPosX(),entity.getPosY(),null);
 		}
+
+		g.setColor(Color.white);
+		g.setFont(new Font("consolas", Font.PLAIN, 50));
+		g.drawString("Egg count: " + eggCount, width - 500, 50);
+
 		bs.show();
 		g.dispose();
 	}
@@ -191,6 +206,13 @@ public class Game implements Runnable {
 	//adds plant to tile which contains clicked coordinates
 	public static void addPlant(int x, int y){
 		maximPlant = new Plant(25, 25, 0, 0);
+
+		if (maximPlant.getEggCost() > eggCount) {
+			System.out.println("You can't afford this!");
+			return;
+		}
+		eggCount -= maximPlant.getEggCost();
+
 		for(int i = 0; i<grid.length; i++){
 			for(int j = 0; j<grid[i].length; j++){
 				int posX = grid[i][j].getPosX();

@@ -4,14 +4,15 @@ import dev.game.gfx.Assets;
 
 public class Plant extends Entity {
 	private int charge=0;
-
+	private int eggCost;
 	public Plant(int posX, int posY, int velX, int velY) {
 		super(posX, posY, velX, velY, Assets.plant);
+		/* Will vary for different plants in future */
+		this.eggCost = 100;
 	}
 
 	public Plant(Plant plant, int posX, int posY){
 		super(posX, posY, plant.getVelX(), plant.getVelY(), plant.getSprite());
-
 	}
 
 	public void shoot() {}
@@ -42,6 +43,7 @@ public class Plant extends Entity {
 		}
 	}
 
-
-
+	public int getEggCost() {
+		return this.eggCost;
+	}
 }
