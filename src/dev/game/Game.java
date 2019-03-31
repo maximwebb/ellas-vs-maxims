@@ -16,8 +16,8 @@ public class Game implements Runnable {
 	public String title;
 	private boolean showFPS = false;
 	private boolean running = false;
-	private Stack<RenderedGameObject> entitiesToAdd;
-	private Stack<RenderedGameObject> entitiesToRemove;
+	private Stack<GameObject> gameObjectsToAdd;
+	private Stack<GameObject> gameObjectsToRemove;
 	private Thread thread;
 	private static Game intance = new Game("Ellas vs. Maxim", 1920, 1080);
 
@@ -42,8 +42,8 @@ public class Game implements Runnable {
 		this.width = width;
 		this.height = height;
 
-		entitiesToAdd=new Stack<>();
-		entitiesToRemove=new Stack<>();
+		gameObjectsToAdd=new Stack<>();
+		gameObjectsToRemove=new Stack<>();
 	}
 
 	private void init() {
@@ -63,15 +63,15 @@ public class Game implements Runnable {
 			eggCountTimer = 0;
 		}
 
-		for(RenderedGameObject renderedGameObject : room.getEntities()){
-			renderedGameObject.update();
+		for(GameObject gameObject : room.getGameObjects()){
+			gameObject.update();
 		}
 		//Performs concurrent changes to the object list
-		while(!entitiesToAdd.empty()){
-			room.getEntities().add(entitiesToAdd.pop());
+		while(!gameObjectsToAdd.empty()){
+			room.getGameObjects().add(gameObjectsToAdd.pop());
 		}
-		while(!entitiesToRemove.empty()){
-			room.getEntities().remove(entitiesToRemove.pop());
+		while(!gameObjectsToRemove.empty()){
+			room.getGameObjects().remove(gameObjectsToRemove.pop());
 		}
 	}
 
@@ -86,8 +86,10 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, width, height);
 		g.drawImage(background, 0, 0, null);
 
-		for (RenderedGameObject renderedGameObject : room.getEntities()){
-			g.drawImage(renderedGameObject.getSprite(), renderedGameObject.getPosX(), renderedGameObject.getPosY(),null);
+		for (GameObject object : room.getGameObjects()){
+			if (object instanceof RenderedGameObject) {
+				g.drawImage(((RenderedGameObject)object).getSprite(), ((RenderedGameObject)object).getPosX(), ((RenderedGameObject)object).getPosY(),null);
+			}
 		}
 
 		g.setColor(Color.white);
@@ -153,11 +155,11 @@ public class Game implements Runnable {
 	}
 
 	public void addEntity(RenderedGameObject e){
-		entitiesToAdd.add(e);
+		gameObjectsToAdd.add(e);
 	}
 
 	public void removeEntity(RenderedGameObject e){
-		entitiesToAdd.remove(e);
+		gameObjectsToAdd.remove(e);
 	}
 
 	public void setRoom(Room room) {

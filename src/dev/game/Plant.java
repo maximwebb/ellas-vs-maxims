@@ -21,10 +21,10 @@ public class Plant extends RenderedGameObject {
 		super.update();
 
 		//Basic collision checking
-		for(RenderedGameObject renderedGameObject : Game.getInstance().getRoom().getEntities()){
-			if (renderedGameObject instanceof Zombie){
+		for(GameObject object : Game.getInstance().getRoom().getGameObjects()){
+			if (object instanceof Zombie){
 				//Meme-worthy collision checking, someone plz write something good
-				if (Math.abs(renderedGameObject.getPosY()-getPosY())<20){
+				if (Math.abs(((RenderedGameObject)object).getPosY()-getPosY())<20){
 					if (charge<100){
 						charge++;
 					}
@@ -34,7 +34,7 @@ public class Plant extends RenderedGameObject {
 						Game.getInstance().addEntity(new Bullet(getPosX(),getPosY()));
 					}
 
-					if(Math.abs(renderedGameObject.getPosX()-getPosX())<20){
+					if(Math.abs(((RenderedGameObject)object).getPosX()-getPosX())<20){
 						Game.getInstance().removeEntity(this);
 					}
 
