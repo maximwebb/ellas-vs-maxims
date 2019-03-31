@@ -88,15 +88,6 @@ public class Game implements Runnable {
 		/* Draw graphics */
 		g.clearRect(0, 0, width, height);
 		g.drawImage(background, 0, 0, null);
-		for(int i = 0; i<grid.length; i++) {
-			for (int j = 0; j < grid[i].length; j++) {
-				if(!grid[i][j].empty){
-					Plant p = grid[i][j].getPlant();
-					g.drawImage(p.getSprite(), p.getPosX(), p.getPosY(), null);
-				}
-
-			}
-		}
 
 		for (Entity entity: room.getEntities()){
 			g.drawImage(entity.getSprite(),entity.getPosX(),entity.getPosY(),null);
@@ -219,9 +210,10 @@ public class Game implements Runnable {
 				int posY = grid[i][j].getPosY();
 				int w = grid[i][j].getWidth();
 				int h = grid[i][j].getHeight();
-				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY)){
+				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY) && grid[i][j].empty){
 					grid[i][j].setPlant(new Plant(maximPlant, posX+25, posY+25));
 					grid[i][j].empty = false;
+					Game.getInstance().addEntity(grid[i][j].getPlant());
 				}
 
 			}
