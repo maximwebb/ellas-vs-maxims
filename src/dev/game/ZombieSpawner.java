@@ -3,22 +3,26 @@ package dev.game;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-//To-Do: Limited number of zombie spawns, only spawn in lanes, less frequent zombies
 public class ZombieSpawner extends Entity {
 
     Random random;
-    Boolean spawingEnabled = false;
+    int lanes;
+    int zombies;
 
-    public ZombieSpawner() {
+    public ZombieSpawner(int l, int z) {
         super(0,0,0,0,null);
         random = new Random();
+        lanes = l;
+        zombies = z;
     }
 
+    //game should know number of lanes instead do it isn't hard coded everywhere
     @Override
     public void update() {
         super.update();
-        if (random.nextInt(100)==1 && spawingEnabled){
-            Game.getInstance().addEntity(new Zombie(Game.getInstance().width,random.nextInt(Game.getInstance().height),-1,0));
+        if (random.nextInt(200)==1 && zombies>0){
+            Game.getInstance().addEntity(new Zombie(Game.getInstance().width,(random.nextInt(lanes+1)*Game.getInstance().height/lanes),-1,0));
+            zombies--;
         }
     }
 }
