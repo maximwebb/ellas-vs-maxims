@@ -1,3 +1,5 @@
+package dev.game.maths;
+
 public class Matrix {
 	
 	private Vector2D v1;
