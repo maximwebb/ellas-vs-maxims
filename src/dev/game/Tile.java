@@ -9,7 +9,7 @@ public class Tile {
     public boolean empty;
     private Plant plant;
 
-    Tile(){
+    public Tile(){
         empty = true;
     }
 

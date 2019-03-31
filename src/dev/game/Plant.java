@@ -21,26 +21,26 @@ public class Plant extends RenderedGameObject {
 		super.update();
 
 		//Basic collision checking
-		for(GameObject object : Game.getInstance().getRoom().getGameObjects()){
-			if (object instanceof Zombie){
-				//Meme-worthy collision checking, someone plz write something good
-				if (Math.abs(((RenderedGameObject)object).getPosY()-getPosY())<20){
-					if (charge<100){
-						charge++;
-					}
-					else
-					{
-						charge=0;
-						Game.getInstance().addEntity(new Bullet(getPosX(),getPosY()));
-					}
-
-					if(Math.abs(((RenderedGameObject)object).getPosX()-getPosX())<20){
-						Game.getInstance().removeEntity(this);
-					}
-
-				}
-			}
-		}
+//		for(GameObject object : Game.getInstance().getRoom().getGameObjects()){
+//			if (object instanceof Zombie){
+//				//Meme-worthy collision checking, someone plz write something good
+//				if (Math.abs(((RenderedGameObject)object).getPosY()-getPosY())<20){
+//					if (charge<100){
+//						charge++;
+//					}
+//					else
+//					{
+//						charge=0;
+//						Game.getInstance().addEntity(new Bullet(getPosX(),getPosY()));
+//					}
+//
+//					if(Math.abs(((RenderedGameObject)object).getPosX()-getPosX())<20){
+//						Game.getInstance().removeEntity(this);
+//					}
+//
+//				}
+//			}
+//		}
 	}
 
 	public int getEggCost() {

@@ -1,5 +1,8 @@
 package dev.game;
 
+import dev.game.rooms.GameRoom;
+import dev.game.rooms.Room;
+
 import java.util.Random;
 
 public class ZombieSpawner extends GameObject {
@@ -18,7 +21,7 @@ public class ZombieSpawner extends GameObject {
     @Override
     public void update() {
         if (random.nextInt(200)==1 && zombies>0){
-            Game.getInstance().addEntity(new Zombie(Game.getInstance().width,(random.nextInt(lanes+1)*Game.getInstance().height/lanes),-1,0));
+            ((GameRoom)Room.getRoom()).addGameObject(new Zombie(Game.getInstance().width,(random.nextInt(lanes+1)*Game.getInstance().height/lanes),-1,0));
             zombies--;
         }
     }

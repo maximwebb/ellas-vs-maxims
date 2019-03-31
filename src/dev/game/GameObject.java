@@ -8,7 +8,7 @@ public abstract class GameObject {
 
 	}
 
-	abstract void update();
+	public abstract void update();
 
 
 }

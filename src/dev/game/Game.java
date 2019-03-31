@@ -3,6 +3,9 @@ package dev.game;
 import dev.game.display.Display;
 import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
+import dev.game.rooms.GameRoom;
+import dev.game.rooms.MenuRoom;
+import dev.game.rooms.Room;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -16,12 +19,13 @@ public class Game implements Runnable {
 	public String title;
 	private boolean showFPS = false;
 	private boolean running = false;
-	private Stack<GameObject> gameObjectsToAdd;
-	private Stack<GameObject> gameObjectsToRemove;
-	private Thread thread;
-	private static Game intance = new Game("Ellas vs. Maxim", 1920, 1080);
 
-	private Room room;
+	private Thread thread;
+	private static Game instance = new Game("Ellas vs. Maxims", 1920, 1080);
+
+	/* Rooms */
+	private Room gameRoom;
+	private Room menuRoom; //Currently not implemented
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
@@ -30,49 +34,32 @@ public class Game implements Runnable {
 	/* Add test properties here */
 	private BufferedImage background;
 
-	private static Tile[][] grid;
-	private static Plant maximPlant;
-
 	/* Equivalent of sun in PvZ */
-	public static int eggCount = 0;
-	private static int eggCountTimer = 200;
+
 
 	private Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
-
-		gameObjectsToAdd=new Stack<>();
-		gameObjectsToRemove=new Stack<>();
 	}
 
 	private void init() {
 		display = new Display(title, width, height);
 		Assets.init();
-		setRoom(Rooms.getArenaRoom());
+
+		gameRoom = new GameRoom();
+		menuRoom = new MenuRoom();
+		/* By default sets the room to the game room. Will likely be changed to the Main Menu in the future.  */
+		Room.setRoom(gameRoom);
+
 		background = ImageLoader.loadImage("/backgrounds/lawn.png");
-		fillGrid(4, 6, 200);
+		Room.getRoom().init();
 
 	}
 
 	/* Updates to various objects happen here */
 	private void tick() {
-		eggCountTimer++;
-		if (eggCountTimer > 300) {
-			eggCount += 25;
-			eggCountTimer = 0;
-		}
-
-		for(GameObject gameObject : room.getGameObjects()){
-			gameObject.update();
-		}
-		//Performs concurrent changes to the object list
-		while(!gameObjectsToAdd.empty()){
-			room.getGameObjects().add(gameObjectsToAdd.pop());
-		}
-		while(!gameObjectsToRemove.empty()){
-			room.getGameObjects().remove(gameObjectsToRemove.pop());
-		}
+		Room.getRoom().tick();
 	}
 
 	private void render() {
@@ -82,19 +69,13 @@ public class Game implements Runnable {
 			return;
 		}
 		g = bs.getDrawGraphics();
-		/* Draw graphics */
 		g.clearRect(0, 0, width, height);
+
+		/* Draw graphics */
 		g.drawImage(background, 0, 0, null);
+		Room.getRoom().render(g);
 
-		for (GameObject object : room.getGameObjects()){
-			if (object instanceof RenderedGameObject) {
-				g.drawImage(((RenderedGameObject)object).getSprite(), ((RenderedGameObject)object).getPosX(), ((RenderedGameObject)object).getPosY(),null);
-			}
-		}
 
-		g.setColor(Color.white);
-		g.setFont(new Font("consolas", Font.PLAIN, 50));
-		g.drawString("Egg count: " + eggCount, width - 500, 50);
 
 		bs.show();
 		g.dispose();
@@ -151,19 +132,7 @@ public class Game implements Runnable {
 	}
 
 	public static Game getInstance() {
-		return intance;
-	}
-
-	public void addEntity(RenderedGameObject e){
-		gameObjectsToAdd.add(e);
-	}
-
-	public void removeEntity(RenderedGameObject e){
-		gameObjectsToAdd.remove(e);
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
+		return instance;
 	}
 
 	public synchronized void stop() {
@@ -172,56 +141,6 @@ public class Game implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-
-
-	//Vertical and horizontal determine number of tiles in the grid, border the free space on the right
-	public void fillGrid(int vertical, int horizontal, int border){
-		grid = new Tile[vertical][horizontal];
-		int w = (width-border)/horizontal;
-		int h = height/vertical;
-		for(int i = 0; i<vertical; i++){
-			for(int j = 0; j<horizontal; j++){
-				grid[i][j] = new Tile();
-				grid[i][j].setPosition((border + j*w), (i*h));
-				grid[i][j].setDimensions(w, h);
-			}
-		}
-	}
-
-	public static Tile[][] getGrid(){
-		return grid;
-	}
-
-	//adds plant to tile which contains clicked coordinates
-	public static void addPlant(int x, int y){
-		maximPlant = new Plant(25, 25, 0, 0);
-
-		if (maximPlant.getEggCost() > eggCount) {
-			System.out.println("You can't afford this!");
-			return;
-		}
-		eggCount -= maximPlant.getEggCost();
-
-		for(int i = 0; i<grid.length; i++){
-			for(int j = 0; j<grid[i].length; j++){
-				int posX = grid[i][j].getPosX();
-				int posY = grid[i][j].getPosY();
-				int w = grid[i][j].getWidth();
-				int h = grid[i][j].getHeight();
-				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY) && grid[i][j].empty){
-					grid[i][j].setPlant(new Plant(maximPlant, posX+25, posY+25));
-					grid[i][j].empty = false;
-					Game.getInstance().addEntity(grid[i][j].getPlant());
-				}
-
-			}
-		}
-	}
-
-
-	public Room getRoom() {
-		return room;
 	}
 
 }
