@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
-    List<Entity> entities;
+    List<RenderedGameObject> entities;
 
 
     public Room() {
         entities=new ArrayList<>();
     }
 
-    public List<Entity> getEntities() {
+    public List<RenderedGameObject> getEntities() {
         return entities;
     }
 
-    public void addEntity(Entity entity){
-        entities.add(entity);
+    public void addEntity(RenderedGameObject renderedGameObject){
+        entities.add(renderedGameObject);
     }
 
 

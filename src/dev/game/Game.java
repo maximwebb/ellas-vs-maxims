@@ -4,12 +4,9 @@ import dev.game.display.Display;
 import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class Game implements Runnable {
@@ -19,8 +16,8 @@ public class Game implements Runnable {
 	public String title;
 	private boolean showFPS = false;
 	private boolean running = false;
-	private Stack<Entity> entitiesToAdd;
-	private Stack<Entity> entitiesToRemove;
+	private Stack<RenderedGameObject> entitiesToAdd;
+	private Stack<RenderedGameObject> entitiesToRemove;
 	private Thread thread;
 	private static Game intance = new Game("Ellas vs. Maxim", 1920, 1080);
 
@@ -66,8 +63,8 @@ public class Game implements Runnable {
 			eggCountTimer = 0;
 		}
 
-		for(Entity entity: room.getEntities()){
-			entity.update();
+		for(RenderedGameObject renderedGameObject : room.getEntities()){
+			renderedGameObject.update();
 		}
 		//Performs concurrent changes to the object list
 		while(!entitiesToAdd.empty()){
@@ -89,8 +86,8 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, width, height);
 		g.drawImage(background, 0, 0, null);
 
-		for (Entity entity: room.getEntities()){
-			g.drawImage(entity.getSprite(),entity.getPosX(),entity.getPosY(),null);
+		for (RenderedGameObject renderedGameObject : room.getEntities()){
+			g.drawImage(renderedGameObject.getSprite(), renderedGameObject.getPosX(), renderedGameObject.getPosY(),null);
 		}
 
 		g.setColor(Color.white);
@@ -155,11 +152,11 @@ public class Game implements Runnable {
 		return intance;
 	}
 
-	public void addEntity(Entity e){
+	public void addEntity(RenderedGameObject e){
 		entitiesToAdd.add(e);
 	}
 
-	public void removeEntity(Entity e){
+	public void removeEntity(RenderedGameObject e){
 		entitiesToAdd.remove(e);
 	}
 

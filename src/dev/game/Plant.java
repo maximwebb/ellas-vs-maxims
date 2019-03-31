@@ -2,7 +2,7 @@ package dev.game;
 
 import dev.game.gfx.Assets;
 
-public class Plant extends Entity {
+public class Plant extends RenderedGameObject {
 	private int charge=0;
 	private int eggCost;
 	public Plant(int posX, int posY, int velX, int velY) {
@@ -21,10 +21,10 @@ public class Plant extends Entity {
 		super.update();
 
 		//Basic collision checking
-		for(Entity entity: Game.getInstance().getRoom().getEntities()){
-			if (entity instanceof Zombie){
+		for(RenderedGameObject renderedGameObject : Game.getInstance().getRoom().getEntities()){
+			if (renderedGameObject instanceof Zombie){
 				//Meme-worthy collision checking, someone plz write something good
-				if (Math.abs(entity.getPosY()-getPosY())<20){
+				if (Math.abs(renderedGameObject.getPosY()-getPosY())<20){
 					if (charge<100){
 						charge++;
 					}
@@ -34,7 +34,7 @@ public class Plant extends Entity {
 						Game.getInstance().addEntity(new Bullet(getPosX(),getPosY()));
 					}
 
-					if(Math.abs(entity.getPosX()-getPosX())<20){
+					if(Math.abs(renderedGameObject.getPosX()-getPosX())<20){
 						Game.getInstance().removeEntity(this);
 					}
 
