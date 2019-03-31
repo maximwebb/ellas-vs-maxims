@@ -1,4 +1,6 @@
-import maths.Vector2D;
+package dev.game.maths;
+
+import dev.game.maths.Vector2D;
 
 public class CircleCollider {
 	
