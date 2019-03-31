@@ -6,6 +6,7 @@ import java.util.List;
 public class Room {
     List<Entity> entities;
 
+
     public Room() {
         entities=new ArrayList<>();
     }
@@ -17,4 +18,7 @@ public class Room {
     public void addEntity(Entity entity){
         entities.add(entity);
     }
+
+
+
 }
