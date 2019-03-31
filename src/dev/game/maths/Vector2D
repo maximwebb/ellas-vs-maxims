@@ -1,3 +1,5 @@
+package dev.game.maths;
+
 public class Vector2D
 {
 	public static final Vector2D i = new Vector2D(1f, 0f);
