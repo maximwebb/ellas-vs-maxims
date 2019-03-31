@@ -135,7 +135,8 @@ public class Game implements Runnable {
 				ticks = 0;
 				timer = 0;
 			}
-		
+		}
+			
 		stop();
 	}
 
