@@ -17,7 +17,7 @@ public class ZombieSpawner extends GameObject {
         zombies = z;
     }
 
-    //game should know number of lanes instead do it isn't hard coded everywhere
+    /* game should know number of lanes instead do it isn't hard coded everywhere */
     @Override
     public void update() {
         if (random.nextInt(200)==1 && zombies>0){

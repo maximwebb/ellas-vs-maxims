@@ -49,12 +49,11 @@ public class Game implements Runnable {
 
 		gameRoom = new GameRoom();
 		menuRoom = new MenuRoom();
-		/* By default sets the room to the game room. Will likely be changed to the Main Menu in the future.  */
+		/* By default sets the room to the game room. Will likely be changed to the Main Menu in the future. */
 		Room.setRoom(gameRoom);
 
 		background = ImageLoader.loadImage("/backgrounds/lawn.png");
 		Room.getRoom().init();
-
 	}
 
 	/* Updates to various objects happen here */
@@ -74,8 +73,6 @@ public class Game implements Runnable {
 		/* Draw graphics */
 		g.drawImage(background, 0, 0, null);
 		Room.getRoom().render(g);
-
-
 
 		bs.show();
 		g.dispose();
@@ -116,7 +113,6 @@ public class Game implements Runnable {
 			}
 
 		}
-
 		stop();
 	}
 

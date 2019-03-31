@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class GameRoom extends Room {
 
-	private ArrayList<GameObject> gameObjectsList;
+	public ArrayList<GameObject> gameObjectsList;
 	private Stack<GameObject> gameObjectsToAdd;
 	private Stack<GameObject> gameObjectsToRemove;
 	private static Tile[][] grid;
@@ -18,9 +18,7 @@ public class GameRoom extends Room {
 	private static int eggCount = 0;
 	private static int eggCountTimer = 200;
 
-	/* TODO: Access these from Game instance */
-	//public int width, height;
-
+	/* TODO: Figure out why the constructor isn't calling */
 	public void GameRoom() {
 		gameObjectsList = new ArrayList<>();
 		gameObjectsToAdd=new Stack<>();

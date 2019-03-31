@@ -1,6 +1,8 @@
 package dev.game;
 
 import dev.game.gfx.Assets;
+import dev.game.rooms.GameRoom;
+import dev.game.rooms.Room;
 
 public class Plant extends RenderedGameObject {
 	private int charge=0;
@@ -20,27 +22,27 @@ public class Plant extends RenderedGameObject {
 	public void update() {
 		super.update();
 
-		//Basic collision checking
-//		for(GameObject object : Game.getInstance().getRoom().getGameObjects()){
-//			if (object instanceof Zombie){
-//				//Meme-worthy collision checking, someone plz write something good
-//				if (Math.abs(((RenderedGameObject)object).getPosY()-getPosY())<20){
-//					if (charge<100){
-//						charge++;
-//					}
-//					else
-//					{
-//						charge=0;
-//						Game.getInstance().addEntity(new Bullet(getPosX(),getPosY()));
-//					}
-//
-//					if(Math.abs(((RenderedGameObject)object).getPosX()-getPosX())<20){
-//						Game.getInstance().removeEntity(this);
-//					}
-//
-//				}
-//			}
-//		}
+		/* Basic collision checking */
+		for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList){
+			if (object instanceof Zombie){
+				/* Meme-worthy collision checking, someone plz write something good */
+				if (Math.abs(((RenderedGameObject)object).getPosY()-getPosY())<20){
+					if (charge<100){
+						charge++;
+					}
+					else
+					{
+						charge=0;
+						((GameRoom)Room.getRoom()).addGameObject(new Bullet(getPosX(),getPosY()));
+					}
+
+					if(Math.abs(((RenderedGameObject)object).getPosX()-getPosX())<20){
+						((GameRoom)Room.getRoom()).removeGameObject(this);
+					}
+
+				}
+			}
+		}
 	}
 
 	public int getEggCost() {
