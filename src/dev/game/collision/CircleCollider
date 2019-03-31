@@ -1,4 +1,4 @@
-package dev.game.maths;
+package dev.game.collisions;
 
 import dev.game.maths.Vector2D;
 
