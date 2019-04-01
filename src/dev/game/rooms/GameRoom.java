@@ -18,8 +18,7 @@ public class GameRoom extends Room {
 	private static int eggCount = 0;
 	private static int eggCountTimer = 200;
 
-	/* TODO: Figure out why the constructor isn't calling */
-	public void GameRoom() {
+	public GameRoom() {
 		gameObjectsList = new ArrayList<>();
 		gameObjectsToAdd=new Stack<>();
 		gameObjectsToRemove=new Stack<>();
