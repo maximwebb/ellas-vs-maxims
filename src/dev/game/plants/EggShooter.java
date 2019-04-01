@@ -18,7 +18,7 @@ public class EggShooter extends Plant {
 
 	public void update() {
 		int zombieTargets = 0;
-		if (charge < 100) {
+		if (charge < 180) {
 			charge++;
 		}
 

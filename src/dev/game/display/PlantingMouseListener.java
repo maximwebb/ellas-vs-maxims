@@ -23,7 +23,7 @@ public class PlantingMouseListener implements MouseListener {
 
     public void mouseClicked(MouseEvent e) {
         if(Display.getState()){
-            ((GameRoom)Room.getRoom()).addPlant(e.getX(), e.getY());
+            ((GameRoom)Room.getRoom()).addPlant(e.getX(), e.getY(), Display.getSelectedPlant());
 
         }
 

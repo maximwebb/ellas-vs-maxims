@@ -5,11 +5,11 @@ import java.awt.image.BufferedImage;
 
 /* Superclass for plants and zombies */
 public abstract class RenderedGameObject extends GameObject {
-	private int posX;
-	private int posY;
-	private int velX;
-	private int velY;
-	private BufferedImage sprite;
+	protected int posX;
+	protected int posY;
+	protected int velX;
+	protected int velY;
+	protected BufferedImage sprite;
 
 	public RenderedGameObject(int posX, int posY, int velX, int velY, BufferedImage sprite) {
 		this.posX = posX;

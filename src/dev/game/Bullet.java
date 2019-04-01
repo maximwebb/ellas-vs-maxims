@@ -10,7 +10,7 @@ import dev.game.rooms.Room;
 public class Bullet extends RenderedGameObject {
     
 	public Bullet(int posX, int posY) {
-        super(posX, posY, 10,0, Assets.ella);
+        super(posX, posY, 10,0, Assets.abhiBullet);
     }
     
     @Override

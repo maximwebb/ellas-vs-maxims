@@ -1,13 +1,13 @@
 package dev.game.display;
 
 
+import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
-
+import java.util.ArrayList;
 
 
 public class Display {
@@ -19,15 +19,20 @@ public class Display {
 
 	private JButton plantButton;
 	private JLayeredPane layers;
-	private JButton plantList;
+	private ArrayList<JButton> plantList;
+	private ArrayList<String> plantNameList;
 
 	private boolean plantSelection;
 	private static boolean plantingState;
+	private static String selectedPlant;
 
 	public Display(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+
+		plantList = new ArrayList<>();
+		plantNameList = new ArrayList<>();
 
 		createDisplay();
 	}
@@ -82,35 +87,53 @@ public class Display {
 		plantSelection = false;
 		plantingState = false;
 
-		BufferedImage p = ImageLoader.loadImage("/textures/eggShooter.png");
-		plantList = new JButton(new ImageIcon(p));
-		layers.add(plantList, JLayeredPane.PALETTE_LAYER);
-		plantList.setBounds(0, plantButton.getHeight(), plantButton.getWidth(), 200);
-		plantList.setOpaque(true);
-		plantButton.setBorderPainted(false);
-		plantList.setBackground(new Color(130, 100, 0));
-		plantList.setHorizontalAlignment(JLabel.CENTER);
-		plantList.setVerticalAlignment(JLabel.CENTER);
-		plantList.setVisible(false);
+		plantList.add(new JButton(new ImageIcon(Assets.eggShooter)));
+		plantList.add(new JButton(new ImageIcon(Assets.eggFlower)));
+		plantList.add(new JButton(new ImageIcon(Assets.chenapult)));
+
+		plantNameList.add("eggShooter");
+		plantNameList.add("eggFlower");
+		plantNameList.add("chenapult");
+
+		for (int i = 0; i < plantList.size(); i++) {
+			final int index = i;
+			JButton plant = plantList.get(i);
+			layers.add(plant, JLayeredPane.PALETTE_LAYER);
+			plant.setBounds(0, plantButton.getHeight() + (i * 200), plantButton.getWidth(), 200);
+			plant.setOpaque(true);
+			plantButton.setBorderPainted(false);
+			plant.setBackground(new Color(130, 100, 0));
+			plant.setHorizontalAlignment(JLabel.CENTER);
+			plant.setVerticalAlignment(JLabel.CENTER);
+			plant.setVisible(false);
+
+			plant.addActionListener(e -> {
+				plantingState = true;
+				selectedPlant = plantNameList.get(index);
+				System.out.println(selectedPlant);
+			});
+
+		}
 
 		plantButton.addActionListener(e -> {
-			if(!plantSelection){
+			if (!plantSelection) {
 				plantSelection = true;
-				plantList.setVisible(true);
-			}else{
-				plantSelection = false;
-				plantingState = false;
-				plantList.setVisible(false);
+				for (JButton plant : plantList) {
+					plant.setVisible(true);
+					plant.setVisible(true);
+				}
 
 			}
-
+			else {
+				plantSelection = false;
+				plantingState = false;
+				for (JButton plant : plantList) {
+					plant.setVisible(false);
+					plant.setVisible(false);
+				}
+			}
 		});
 
-
-		plantList.addActionListener(e -> {
-			plantingState = true;
-
-		});
 
 
 	}
@@ -120,13 +143,11 @@ public class Display {
 		return layers;
 	}
 
-	public JButton getPlantList(){
-		return plantList;
-	}
-
 	public static boolean getState(){
 		return plantingState;
 	}
+
+	public static String getSelectedPlant() { return selectedPlant; }
 
 
 }
