@@ -82,7 +82,7 @@ public class Display {
 		plantSelection = false;
 		plantingState = false;
 
-		BufferedImage p = ImageLoader.loadImage("/textures/plant.png");
+		BufferedImage p = ImageLoader.loadImage("/textures/eggShooter.png");
 		plantList = new JButton(new ImageIcon(p));
 		layers.add(plantList, JLayeredPane.PALETTE_LAYER);
 		plantList.setBounds(0, plantButton.getHeight(), plantButton.getWidth(), 200);

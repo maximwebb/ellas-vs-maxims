@@ -1,6 +1,8 @@
 package dev.game.rooms;
 
 import dev.game.*;
+import dev.game.plants.EggShooter;
+import dev.game.plants.Plant;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ public class GameRoom extends Room {
 
 	private static Plant maximPlant;
 
-	private static int eggCount = 0;
+	private static int eggCount = 500;
 	private static int eggCountTimer = 200;
 
 	public GameRoom() {
@@ -90,7 +92,7 @@ public class GameRoom extends Room {
 
 	//adds plant to tile which contains clicked coordinates
 	public void addPlant(int x, int y){
-		maximPlant = new Plant(25, 25, 0, 0);
+		maximPlant = new EggShooter(25, 25, 0, 0);
 
 		if (maximPlant.getEggCost() > eggCount) {
 			System.out.println("You can't afford this!");
@@ -105,7 +107,7 @@ public class GameRoom extends Room {
 				int w = grid[i][j].getWidth();
 				int h = grid[i][j].getHeight();
 				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY) && grid[i][j].empty){
-					grid[i][j].setPlant(new Plant(maximPlant, posX+25, posY+25));
+					grid[i][j].setPlant(new EggShooter(posX+25, posY+25, maximPlant.getVelX(), maximPlant.getVelY()));
 					grid[i][j].empty = false;
 					addGameObject(grid[i][j].getPlant());
 				}
