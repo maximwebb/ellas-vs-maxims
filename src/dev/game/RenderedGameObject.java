@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /* Superclass for plants and zombies */
-public class RenderedGameObject extends GameObject {
+public abstract class RenderedGameObject extends GameObject {
 	private int posX;
 	private int posY;
 	private int velX;
