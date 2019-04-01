@@ -18,8 +18,7 @@ public class GameRoom extends Room {
 	private static int eggCount = 0;
 	private static int eggCountTimer = 200;
 
-	/* TODO: Figure out why the constructor isn't calling */
-	public void GameRoom() {
+	public GameRoom() {
 		gameObjectsList = new ArrayList<>();
 		gameObjectsToAdd=new Stack<>();
 		gameObjectsToRemove=new Stack<>();
@@ -32,7 +31,7 @@ public class GameRoom extends Room {
 
 		fillGrid(4, 6, 200);
 		addGameObject(new ZombieSpawner(4, 10));
-		addGameObject(new Plant(20, 20, 0, 0));
+		//addGameObject(new Plant(20, 20, 0, 0)); <--- Get rid of this
 	}
 
 	@Override
@@ -120,7 +119,7 @@ public class GameRoom extends Room {
 	}
 
 	public void removeGameObject(GameObject e){
-		gameObjectsToAdd.remove(e);
+		gameObjectsToRemove.add(e);
 	}
 
 }

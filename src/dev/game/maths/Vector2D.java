@@ -7,6 +7,7 @@ public class Vector2D
 	
 	private float x;
 	private float y;
+	private float r; //vector length
 	
 	//constructor
 	public Vector2D(float x, float y) {

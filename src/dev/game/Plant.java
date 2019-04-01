@@ -22,26 +22,29 @@ public class Plant extends RenderedGameObject {
 	public void update() {
 		super.update();
 
+		int zombieTargets = 0;
+		if (charge < 100) {
+			charge++;
+		}
+
 		/* Basic collision checking */
 		for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList){
-			if (object instanceof Zombie){
+			if(object instanceof Zombie){
 				/* Meme-worthy collision checking, someone plz write something good */
-				if (Math.abs(((RenderedGameObject)object).getPosY()-getPosY())<20){
-					if (charge<100){
-						charge++;
-					}
-					else
-					{
-						charge=0;
-						((GameRoom)Room.getRoom()).addGameObject(new Bullet(getPosX(),getPosY()));
-					}
+				if(Math.abs(((RenderedGameObject)object).getPosY() - this.getPosY()) < 50 && ((RenderedGameObject)object).getPosX() > this.getPosX()) {
 
-					if(Math.abs(((RenderedGameObject)object).getPosX()-getPosX())<20){
-						((GameRoom)Room.getRoom()).removeGameObject(this);
-					}
+					zombieTargets++;
 
+					if (Math.abs(((RenderedGameObject) object).getPosX() - this.getPosX()) < 20) {
+						((GameRoom) Room.getRoom()).removeGameObject(this);
+					}
 				}
 			}
+		}
+
+		if(zombieTargets > 0 && charge >= 100) {
+			charge = 0;
+			((GameRoom) Room.getRoom()).addGameObject(new Bullet(getPosX(), getPosY()));
 		}
 	}
 

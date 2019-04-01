@@ -11,6 +11,11 @@ public class CollisionHelper {
 		return point.scale(-1).add(region.pos).length() <= region.radius;
 	}
 	
+	//same as previous method except now the point is a circle with a specified radius
+	public static boolean checkCollision(Vector2D point, float radius, CircleCollider region) {
+		return checkCollision(point, new CircleCollider(region.pos, region.radius + radius));
+	}
+	
 	//complex collision detector which checks if a point moving along a vector (defined by a VectorLine) will intersect a circular region.
 	//also modifies the VectorLine object with a lambda value that defines the point of first collision
 	//if two objects have a constant relative velocity, this method can be used to check if and when they will collide
@@ -40,5 +45,10 @@ public class CollisionHelper {
 		}
 		
 		return false;
+	}
+	
+	//same as previous method except now the moving point is a circle with a specified radius
+	public static boolean checkCollision(VectorLine ray, float radius, CircleCollider region) {
+		return checkCollision(ray, new CircleCollider(region.pos, region.radius + radius));
 	}
 }
