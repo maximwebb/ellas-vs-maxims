@@ -90,10 +90,12 @@ public class Display {
 		plantList.add(new JButton(new ImageIcon(Assets.eggShooter)));
 		plantList.add(new JButton(new ImageIcon(Assets.eggFlower)));
 		plantList.add(new JButton(new ImageIcon(Assets.chenapult)));
+		plantList.add(new JButton(new ImageIcon(Assets.walbert)));
 
 		plantNameList.add("eggShooter");
 		plantNameList.add("eggFlower");
 		plantNameList.add("chenapult");
+		plantNameList.add("walbert");
 
 		for (int i = 0; i < plantList.size(); i++) {
 			final int index = i;

@@ -4,6 +4,7 @@ import dev.game.*;
 import dev.game.plants.EggShooter;
 import dev.game.plants.EggFlower;
 import dev.game.plants.Plant;
+import dev.game.plants.Walbert;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -99,6 +100,9 @@ public class GameRoom extends Room {
 		}
 		else if (plantType.equals("eggFlower")) {
 			maximPlant = new EggFlower(25, 25, 0, 0);
+		}
+		else if (plantType.equals("walbert")) {
+			maximPlant = new Walbert(25, 25, 0, 0);
 		}
 //		else if (plantType == "chenapult") {
 //			maximPlant = new EggShooter(25, 25, 0, 0);
