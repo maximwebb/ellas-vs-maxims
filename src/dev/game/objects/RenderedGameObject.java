@@ -1,19 +1,22 @@
-package dev.game;
+package dev.game.objects;
 //TODO: load image in Game.java, using Assets.java
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /* Superclass for plants and zombies */
 public abstract class RenderedGameObject extends GameObject {
-	private int posX;
-	private int posY;
-	private int velX;
-	private int velY;
+	private float posX;
+	private float posY;
+	private int width;
+	private int height;
+	private float velX;
+	private float velY;
 	private BufferedImage sprite;
 
-	public RenderedGameObject(int posX, int posY, int velX, int velY, BufferedImage sprite) {
+	public RenderedGameObject(float posX, float posY, int width, int height, float velX, float velY, BufferedImage sprite) {
 		this.posX = posX;
 		this.posY = posY;
+		this.width = width;
+		this.height = height;
 		this.velX = velX;
 		this.velY = velY;
 		this.sprite = sprite;
@@ -24,19 +27,27 @@ public abstract class RenderedGameObject extends GameObject {
 		posY += velY;
 	}
 
-	public int getVelX(){
+	public float getVelX(){
 		return velX;
 	}
 
-	public int getVelY(){
+	public float getVelY(){
 		return velY;
 	}
 
-	public int getPosX() {
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public float getPosX() {
 		return posX;
 	}
 
-	public int getPosY() {
+	public float getPosY() {
 		return posY;
 	}
 

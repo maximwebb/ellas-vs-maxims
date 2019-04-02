@@ -1,4 +1,4 @@
-package dev.game;
+package dev.game.objects;
 
 import dev.game.collision.CollisionHelper;
 import dev.game.gfx.Assets;
@@ -9,8 +9,8 @@ import dev.game.rooms.Room;
 //To-do: Abhi sprite instead of Ella
 public class Bullet extends RenderedGameObject {
     
-	public Bullet(int posX, int posY) {
-        super(posX, posY, 10,0, Assets.ella);
+	public Bullet(float posX, float posY) {
+        super(posX, posY, 10, 10, 10,0, Assets.ella);
     }
     
     @Override

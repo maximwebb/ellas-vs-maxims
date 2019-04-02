@@ -1,6 +1,7 @@
 package dev.game.rooms;
 
-import java.awt.*;
+import dev.game.rendering.RenderCall;
+
 
 public class MenuRoom extends Room {
 	@Override
@@ -14,7 +15,7 @@ public class MenuRoom extends Room {
 	}
 
 	@Override
-	public void render(Graphics g) {
-
+	public Iterable<RenderCall> render() {
+		return null;
 	}
 }

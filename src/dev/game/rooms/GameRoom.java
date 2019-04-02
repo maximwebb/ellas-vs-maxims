@@ -1,9 +1,14 @@
 package dev.game.rooms;
 
 import dev.game.*;
+import dev.game.objects.GameObject;
+import dev.game.objects.Plant;
+import dev.game.objects.ZombieSpawner;
+import dev.game.rendering.RenderCall;
+import dev.game.rendering.RenderText;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class GameRoom extends Room {
@@ -58,16 +63,17 @@ public class GameRoom extends Room {
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public Iterable<RenderCall> render() {
+		List<RenderCall> renderCalls = new ArrayList<>();
+
 		for (GameObject object : gameObjectsList){
-			if (object instanceof RenderedGameObject) {
-				g.drawImage(((RenderedGameObject)object).getSprite(), ((RenderedGameObject)object).getPosX(), ((RenderedGameObject)object).getPosY(),null);
-			}
+			//Maybe this shouldnt access camera...
+			renderCalls.add(Game.getInstance().getCamera().translate(object));
 		}
 
-		g.setColor(Color.white);
-		g.setFont(new Font("consolas", Font.PLAIN, 50));
-		g.drawString("Egg count: " + eggCount, Game.getInstance().width - 500, 50);
+		renderCalls.add(new RenderText("Egg count: " + eggCount, Game.getInstance().width - 500, 50));
+
+		return renderCalls;
 	}
 
 	/* Vertical and horizontal determine number of tiles in the grid, border the free space on the right */

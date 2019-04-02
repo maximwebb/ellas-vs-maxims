@@ -36,7 +36,7 @@ public class Display {
 		frame = new JFrame(title);
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
@@ -49,7 +49,13 @@ public class Display {
 
 		canvas.addMouseListener(new PlantingMouseListener());
 
-		frame.add(canvas);
+		JPanel panel = (JPanel) frame.getContentPane();
+		panel.setPreferredSize(new Dimension(width, height));
+		panel.setLayout(new GridLayout());
+		panel.add(canvas);
+
+
+
 		frame.pack();
 
 	}

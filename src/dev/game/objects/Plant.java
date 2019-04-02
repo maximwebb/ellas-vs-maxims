@@ -1,4 +1,4 @@
-package dev.game;
+package dev.game.objects;
 
 import dev.game.gfx.Assets;
 import dev.game.rooms.GameRoom;
@@ -7,14 +7,14 @@ import dev.game.rooms.Room;
 public class Plant extends RenderedGameObject {
 	private int charge=0;
 	private int eggCost;
-	public Plant(int posX, int posY, int velX, int velY) {
-		super(posX, posY, velX, velY, Assets.plant);
+	public Plant(float posX, float posY, float velX, float velY) {
+		super(posX, posY, 30, 40,velX, velY, Assets.plant);
 		/* Will vary for different plants in future */
 		this.eggCost = 100;
 	}
 
-	public Plant(Plant plant, int posX, int posY){
-		super(posX, posY, plant.getVelX(), plant.getVelY(), plant.getSprite());
+	public Plant(Plant plant, float posX, int posY){
+		super(posX, posY, 30, 40, plant.getVelX(), plant.getVelY(), plant.getSprite());
 	}
 
 	public void shoot() {}
