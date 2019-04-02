@@ -20,7 +20,9 @@ public class Assets {
 		ella = ImageLoader.loadImage("/textures/ella.png");
 		zombie = ImageLoader.loadImage("/textures/zombie.png");
 		eggShooter = ImageLoader.loadImage("/textures/eggShooter.png");
+
 		eggFlower = ImageLoader.loadImage("/textures/eggFlower.png");
+
 		chenapult = ImageLoader.loadImage("/textures/chenapult.png");
 		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
 		lawn = ImageLoader.loadImage("/backgrounds/lawn.png");

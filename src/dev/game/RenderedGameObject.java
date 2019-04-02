@@ -2,46 +2,33 @@ package dev.game;
 //TODO: load image in Game.java, using Assets.java
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import dev.game.maths.Vector2D;
 
 /* Superclass for plants and zombies */
 public abstract class RenderedGameObject extends GameObject {
-	protected int posX;
-	protected int posY;
-	protected int velX;
-	protected int velY;
-	protected BufferedImage sprite;
+	protected Vector2D pos;
+	protected Vector2D velocity;
+	private BufferedImage sprite;
 
-	public RenderedGameObject(int posX, int posY, int velX, int velY, BufferedImage sprite) {
-		this.posX = posX;
-		this.posY = posY;
-		this.velX = velX;
-		this.velY = velY;
+	public RenderedGameObject(Vector2D pos, Vector2D velocity, BufferedImage sprite) {
+		this.pos = pos;
+		this.velocity = velocity;
 		this.sprite = sprite;
 	}
 
 	public void update() {
-		posX += velX;
-		posY += velY;
+		pos = pos.add(velocity);
 	}
 
-	public int getVelX(){
-		return velX;
+	public Vector2D getPos() {
+		return pos;
 	}
 
-	public int getVelY(){
-		return velY;
-	}
-
-	public int getPosX() {
-		return posX;
-	}
-
-	public int getPosY() {
-		return posY;
+	public Vector2D getVelocity() {
+		return velocity;
 	}
 
 	public BufferedImage getSprite() {
 		return sprite;
 	}
-
 }

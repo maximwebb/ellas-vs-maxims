@@ -28,13 +28,13 @@ public class CollisionHelper {
 		}
 		
 		//perpendicular ray with position vector at centre of circle collider
-		VectorLine perpRay = new VectorLine(region.pos, new Vector2D(ray.dirn().y(), -ray.dirn().x()).unitVector());
+		VectorLine perpRay = new VectorLine(region.pos, ray.dirn().unitVector().perp());
 		
 		//using matrix multiplication to solve simultaneous equations to obtain lambdas for collision point of rays
-		Vector2D result = ray.pos().scale(-1).add(perpRay.pos()).transform(new Matrix(ray.dirn(), perpRay.dirn().scale(-1)).inverse());
+		Vector2D result = ray.pos().towards(perpRay.pos()).transform(new Matrix(ray.dirn(), perpRay.dirn()).inverse());
 		
-		float minDistance = Math.abs(result.y());
-		float lambda = result.x();
+		float minDistance = Math.abs(result.y);
+		float lambda = result.x;
 		
 		//return true if the shortest distance between region.pos and the VectorLine is less than region.radius
 		if(minDistance <= region.radius && lambda > 0) {

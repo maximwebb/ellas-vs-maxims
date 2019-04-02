@@ -1,10 +1,8 @@
 package dev.game.rooms;
 
 import dev.game.*;
-import dev.game.plants.EggShooter;
-import dev.game.plants.EggFlower;
-import dev.game.plants.Plant;
-import dev.game.plants.Walbert;
+import dev.game.plants.*;
+import dev.game.maths.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -52,7 +50,7 @@ public class GameRoom extends Room {
 			gameObjectsList.remove(gameObjectsToRemove.pop());
 		}
 
-		if (eggCountTimer > 300) {
+		if (eggCountTimer > 150) {
 			eggCount += 25;
 			eggCountTimer = 0;
 		}
@@ -65,7 +63,7 @@ public class GameRoom extends Room {
 	public void render(Graphics g) {
 		for (GameObject object : gameObjectsList){
 			if (object instanceof RenderedGameObject) {
-				g.drawImage(((RenderedGameObject)object).getSprite(), ((RenderedGameObject)object).getPosX(), ((RenderedGameObject)object).getPosY(),null);
+				g.drawImage(((RenderedGameObject)object).getSprite(), Math.round(((RenderedGameObject)object).getPos().x), Math.round(((RenderedGameObject)object).getPos().y), null);
 			}
 		}
 
@@ -96,18 +94,18 @@ public class GameRoom extends Room {
 	public void addPlant(int x, int y, String plantType){
 		/* Sort out this slightly cursed code */
 		if (plantType.equals("eggShooter")) {
-			maximPlant = new EggShooter(25, 25, 0, 0);
+			maximPlant = new EggShooter(Vector2D.zero, Vector2D.zero);
 		}
 		else if (plantType.equals("eggFlower")) {
-			maximPlant = new EggFlower(25, 25, 0, 0);
+			maximPlant = new EggFlower(Vector2D.zero, Vector2D.zero);
 		}
 		else if (plantType.equals("walbert")) {
-			maximPlant = new Walbert(25, 25, 0, 0);
+			maximPlant = new Walbert(Vector2D.zero, Vector2D.zero);
 		}
 //		else if (plantType == "chenapult") {
 //			maximPlant = new EggShooter(25, 25, 0, 0);
 //		}
-
+    
 		if (maximPlant.getEggCost() > eggCount) {
 			System.out.println("You can't afford this!");
 			return;
@@ -121,9 +119,7 @@ public class GameRoom extends Room {
 				int w = grid[i][j].getWidth();
 				int h = grid[i][j].getHeight();
 				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY) && grid[i][j].empty){
-					maximPlant.setPosX(posX + 25);
-					maximPlant.setPosY(posY + 25);
-					grid[i][j].setPlant(maximPlant);
+					grid[i][j].setPlant(new EggShooter(new Vector2D(posX + 25, posY + 25), Vector2D.zero));
 					grid[i][j].empty = false;
 					addGameObject(grid[i][j].getPlant());
 				}
