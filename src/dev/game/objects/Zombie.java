@@ -13,7 +13,7 @@ public class Zombie extends RenderedGameObject {
 	public CircleCollider collider;
 
 	public Zombie(Vector2D pos, Vector2D velocity) {
-		super(pos, velocity, Assets.zombie);
+		super(pos, velocity, 30, 40, Assets.zombie);
 		energyLevel = 100;
 		setClickAction(() ->  ((GameRoom) Room.getRoom()).removeGameObject(this) );
 		collider = new CircleCollider(this.pos, 50);
@@ -28,7 +28,7 @@ public class Zombie extends RenderedGameObject {
 		
 		super.update();
 		
-		collider.pos = new Vector2D(this.getPosX(), this.getPosY());
+		collider.pos = new Vector2D(this.getPos().x, this.getPos().y);
 		if(energyLevel <= 0) {
 			((GameRoom) Room.getRoom()).removeGameObject(this);
 		}

@@ -20,8 +20,8 @@ public class Camera {
             RenderedGameObject renderedObject = (RenderedGameObject) gameObject;
 
             //Maybe someone less lazy than me can make this be done using floating point arithmetic
-            float x = (renderedObject.getPosX()*canvas.getWidth())/renderSpace.getWidth();
-            float y = (renderedObject.getPosY()*canvas.getHeight())/renderSpace.getHeight();
+            float x = (renderedObject.getPos().x*canvas.getWidth())/renderSpace.getWidth();
+            float y = (renderedObject.getPos().y*canvas.getHeight())/renderSpace.getHeight();
 
             int w = (renderedObject.getWidth() * canvas.getWidth()) / renderSpace.getWidth();
             int h = (renderedObject.getHeight() * canvas.getHeight()) / renderSpace.getHeight();

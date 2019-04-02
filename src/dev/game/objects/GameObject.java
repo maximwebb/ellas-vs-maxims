@@ -1,10 +1,7 @@
 package dev.game.objects;
 
 public abstract class GameObject {
-
-
-
-	GameObject() {
+	public GameObject() {
 
 	}
 

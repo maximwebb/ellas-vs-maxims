@@ -2,7 +2,7 @@ package dev.game.rooms;
 
 import dev.game.*;
 import dev.game.objects.GameObject;
-import dev.game.objects.Plant;
+import dev.game.plants.Plant;
 import dev.game.objects.ZombieSpawner;
 import dev.game.rendering.RenderCall;
 import dev.game.rendering.RenderText;

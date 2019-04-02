@@ -1,6 +1,7 @@
 package dev.game.objects;
 
 import dev.game.Game;
+import dev.game.maths.Vector2D;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
 
@@ -22,7 +23,9 @@ public class ZombieSpawner extends GameObject {
     @Override
     public void update() {
         if (random.nextInt(200)==1 && zombies>0){
-            ((GameRoom)Room.getRoom()).addGameObject(new Zombie(Game.getInstance().getRenderSpace().getWidth(),(random.nextInt(lanes+1)*Game.getInstance().getRenderSpace().getHeight()/lanes),-1,0));
+            Vector2D pos = new Vector2D(Game.getInstance().getRenderSpace().getWidth(),(random.nextInt(lanes+1)*Game.getInstance().getRenderSpace().getHeight()/lanes));
+            Vector2D vel = new Vector2D(-1,0);
+            ((GameRoom)Room.getRoom()).addGameObject(new Zombie(pos,vel));
             zombies--;
         }
     }

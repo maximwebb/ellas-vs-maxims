@@ -33,7 +33,7 @@ public class Game implements Runnable {
 
 
 	private Thread thread;
-	private static Game instance = new Game("Ellas vs. Maxims", 1920, 1080);
+	private static Game instance = new Game("Ellas vs. Maxims", 640,480, RenderSpace.getStandard());
 
 	/* Rooms */
 	private Room gameRoom;

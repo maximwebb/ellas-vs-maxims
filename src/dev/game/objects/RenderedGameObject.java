@@ -1,48 +1,45 @@
 package dev.game.objects;
 //TODO: load image in Game.java, using Assets.java
+import dev.game.maths.Vector2D;
+
 import java.awt.image.BufferedImage;
 
 /* Superclass for plants and zombies */
 public abstract class RenderedGameObject extends GameObject {
-	private float posX;
-	private float posY;
+	protected Vector2D pos;
+	protected Vector2D velocity;
+	private BufferedImage sprite;
 	private int width;
 	private int height;
-	private float velX;
-	private float velY;
 	private ClickAction clickAction;
-	private BufferedImage sprite;
 
-	public RenderedGameObject(float posX, float posY, int width, int height, float velX, float velY, BufferedImage sprite) {
-		this.posX = posX;
-		this.posY = posY;
+	public RenderedGameObject(Vector2D pos, Vector2D velocity, int width, int height, BufferedImage sprite) {
+		this.pos = pos;
+		this.velocity = velocity;
 		this.width = width;
 		this.height = height;
-		this.velX = velX;
-		this.velY = velY;
 		this.sprite = sprite;
 		this.clickAction = null;
 	}
 
-	public ClickAction getClickAction() {
-		return clickAction;
-	}
-
-	public void setClickAction(ClickAction clickAction) {
-		this.clickAction = clickAction;
-	}
-
 	public void update() {
-		posX += velX;
-		posY += velY;
+		pos = pos.add(velocity);
 	}
 
-	public float getVelX(){
-		return velX;
+	public Vector2D getPos() {
+		return pos;
 	}
 
-	public float getVelY(){
-		return velY;
+	public void setPos(Vector2D pos) {
+		this.pos = pos;
+	}
+
+	public Vector2D getVelocity() {
+		return velocity;
+	}
+
+	public BufferedImage getSprite() {
+		return sprite;
 	}
 
 	public int getWidth() {
@@ -53,16 +50,12 @@ public abstract class RenderedGameObject extends GameObject {
 		return height;
 	}
 
-	public float getPosX() {
-		return posX;
+	public ClickAction getClickAction() {
+		return clickAction;
 	}
 
-	public float getPosY() {
-		return posY;
-	}
-
-	public BufferedImage getSprite() {
-		return sprite;
+	public void setClickAction(ClickAction clickAction) {
+		this.clickAction = clickAction;
 	}
 
 }
