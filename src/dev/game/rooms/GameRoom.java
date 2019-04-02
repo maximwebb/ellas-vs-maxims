@@ -18,7 +18,7 @@ public class GameRoom extends Room {
 	private static Plant maximPlant;
 	public static ArrayList<Plant> plantInventory;
 
-	public static int eggCount = 100;
+	public static int eggCount = 1000;
 	private static int eggCountTimer = 0;
 
 	public GameRoom() {
@@ -119,7 +119,8 @@ public class GameRoom extends Room {
 				int w = grid[i][j].getWidth();
 				int h = grid[i][j].getHeight();
 				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY) && grid[i][j].empty){
-					grid[i][j].setPlant(new EggShooter(new Vector2D(posX + 25, posY + 25), Vector2D.zero));
+					maximPlant.setPos(new Vector2D(posX + 25, posY + 25));
+					grid[i][j].setPlant(maximPlant);
 					grid[i][j].empty = false;
 					addGameObject(grid[i][j].getPlant());
 				}

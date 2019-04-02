@@ -1,6 +1,5 @@
 package dev.game.gfx;
 
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 public class Assets {
@@ -11,6 +10,7 @@ public class Assets {
 	public static BufferedImage eggShooter;
 	public static BufferedImage eggFlower;
 	public static BufferedImage chenapult;
+	public static BufferedImage walbert;
 	public static BufferedImage abhiBullet;
 	public static BufferedImage lawn;
 	public static BufferedImage plantButton;
@@ -20,10 +20,9 @@ public class Assets {
 		ella = ImageLoader.loadImage("/textures/ella.png");
 		zombie = ImageLoader.loadImage("/textures/zombie.png");
 		eggShooter = ImageLoader.loadImage("/textures/eggShooter.png");
-
 		eggFlower = ImageLoader.loadImage("/textures/eggFlower.png");
-
 		chenapult = ImageLoader.loadImage("/textures/chenapult.png");
+		walbert = ImageLoader.loadImage("/textures/walbert.png");
 		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
 		lawn = ImageLoader.loadImage("/backgrounds/lawn.png");
 		plantButton = ImageLoader.loadImage("/textures/plantButton.png");
