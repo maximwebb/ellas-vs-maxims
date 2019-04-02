@@ -20,8 +20,6 @@ public class EggShooter extends Plant {
 	}
 
 	public void update() {
-		super.update();
-    
 		int zombieTargets = 0;
 		
 		/* Basic collision checking */
