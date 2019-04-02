@@ -1,8 +1,8 @@
-package dev.game;
+package dev.game.objects;
 
+import dev.game.Game;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
-import dev.game.maths.Vector2D;
 
 import java.util.Random;
 
@@ -21,8 +21,8 @@ public class ZombieSpawner extends GameObject {
     /* game should know number of lanes instead do it isn't hard coded everywhere */
     @Override
     public void update() {
-        if (random.nextInt(200)==1 && zombies>0) {
-            ((GameRoom) Room.getRoom()).addGameObject(new Zombie(new Vector2D(Game.getInstance().width, (random.nextInt(lanes + 1) * Game.getInstance().height / lanes)), Vector2D.i.scale(-1)));
+        if (random.nextInt(200)==1 && zombies>0){
+            ((GameRoom)Room.getRoom()).addGameObject(new Zombie(Game.getInstance().getRenderSpace().getWidth(),(random.nextInt(lanes+1)*Game.getInstance().getRenderSpace().getHeight()/lanes),-1,0));
             zombies--;
         }
     }

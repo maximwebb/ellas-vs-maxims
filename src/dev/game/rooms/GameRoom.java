@@ -1,11 +1,16 @@
 package dev.game.rooms;
 
 import dev.game.*;
+import dev.game.objects.GameObject;
+import dev.game.objects.Plant;
+import dev.game.objects.ZombieSpawner;
+import dev.game.rendering.RenderCall;
+import dev.game.rendering.RenderText;
 import dev.game.plants.*;
 import dev.game.maths.Vector2D;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class GameRoom extends Room {
@@ -60,16 +65,17 @@ public class GameRoom extends Room {
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public Iterable<RenderCall> render() {
+		List<RenderCall> renderCalls = new ArrayList<>();
+
 		for (GameObject object : gameObjectsList){
-			if (object instanceof RenderedGameObject) {
-				g.drawImage(((RenderedGameObject)object).getSprite(), Math.round(((RenderedGameObject)object).getPos().x), Math.round(((RenderedGameObject)object).getPos().y), null);
-			}
+			//Maybe this shouldnt access camera...
+			renderCalls.add(Game.getInstance().getCamera().translate(object));
 		}
 
-		g.setColor(Color.white);
-		g.setFont(new Font("consolas", Font.PLAIN, 50));
-		g.drawString("Egg count: " + eggCount, Game.getInstance().width - 500, 50);
+		renderCalls.add(new RenderText("Egg count: " + eggCount, Game.getInstance().width - 500, 50));
+
+		return renderCalls;
 	}
 
 	/* Vertical and horizontal determine number of tiles in the grid, border the free space on the right */
@@ -105,7 +111,7 @@ public class GameRoom extends Room {
 //		else if (plantType == "chenapult") {
 //			maximPlant = new EggShooter(25, 25, 0, 0);
 //		}
-    
+
 		if (maximPlant.getEggCost() > eggCount) {
 			System.out.println("You can't afford this!");
 			return;

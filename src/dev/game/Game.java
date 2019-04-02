@@ -3,23 +3,34 @@ package dev.game;
 import dev.game.display.Display;
 import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
+import dev.game.objects.ClickAction;
+import dev.game.rendering.*;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.MenuRoom;
 import dev.game.rooms.Room;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class Game implements Runnable {
 
-	private Display display;
-	public int width, height;
-	public String title;
-	private double fps = 60;
-	private boolean showFPS = false;
-	private boolean running = false;
+    private Display display;
+    public int width, height;
+    public String title;
+    private boolean showFPS = false;
+    private boolean running = false;
+    private double fps = 60;
+    private GameMouseListener mouseListener = new GameMouseListener();
+
+    private Camera camera;
+    private RenderSpace renderSpace;
+
 
 	private Thread thread;
 	private static Game instance = new Game("Ellas vs. Maxims", 1920, 1080);
@@ -38,50 +49,76 @@ public class Game implements Runnable {
 	/* Equivalent of sun in PvZ */
 
 
-	private Game(String title, int width, int height) {
-		this.title = title;
-		this.width = width;
-		this.height = height;
-	}
+    private Game(String title, int width, int height, RenderSpace renderSpace) {
+        this.title = title;
+        this.width = width;
+        this.height = height;
+        this.renderSpace = renderSpace;
+        this.mouseListener = new GameMouseListener();
+    }
 
-	private void init() {
-		Assets.init();
-		display = new Display(title, width, height);
+    private void init() {
+        Assets.init();
+        display = new Display(title, width, height);
+        camera = new Camera(RenderSpace.getStandard(), display.getCanvas());
 
-		gameRoom = new GameRoom();
-		menuRoom = new MenuRoom();
-		/* By default sets the room to the game room. Will likely be changed to the Main Menu in the future. */
-		Room.setRoom(gameRoom);
+        gameRoom = new GameRoom();
+        menuRoom = new MenuRoom();
+        /* By default sets the room to the game room. Will likely be changed to the Main Menu in the future. */
+        Room.setRoom(gameRoom);
 
-		background = ImageLoader.loadImage("/backgrounds/lawn.png");
-		Room.getRoom().init();
-	}
+        background = ImageLoader.loadImage("/backgrounds/lawn.png");
+        display.getCanvas().addMouseListener(mouseListener);
+        Room.getRoom().init();
+    }
 
 	/* Updates to various objects happen here */
 	private void tick(double deltaTime) {
 		Room.getRoom().tick();
 	}
 
-	private void render() {
-		bs = display.getCanvas().getBufferStrategy();
-		if (bs == null) {
-			display.getCanvas().createBufferStrategy(3);
-			return;
-		}
-		g = bs.getDrawGraphics();
-		g.clearRect(0, 0, width, height);
+    private void render() {
+        bs = display.getCanvas().getBufferStrategy();
+        if (bs == null) {
+            display.getCanvas().createBufferStrategy(3);
+            return;
+        }
+        g = bs.getDrawGraphics();
+        g.clearRect(0, 0, width, height);
 
-		/* Draw graphics */
-		g.drawImage(background, 0, 0, null);
-		Room.getRoom().render(g);
+        /* Draw graphics */
+        g.drawImage(background, 0, 0, display.getCanvas().getWidth(),display.getCanvas().getHeight(), null);
 
-		bs.show();
-		g.dispose();
-	}
+        Iterable<RenderCall> renderCalls = Room.getRoom().render();
+
+        for (RenderCall renderCall : renderCalls) {
+            if (renderCall instanceof RenderSprite) {
+                RenderSprite renderSprite = (RenderSprite) renderCall;
+                g.drawImage(renderSprite.getImg(), renderSprite.getX(), renderSprite.getY(), renderSprite.getWidth(), renderSprite.getHeight(), null);
+            }
+            if (renderCall instanceof RenderObject){
+                RenderObject renderObject = (RenderObject) renderCall;
+                if (renderObject.hasMouseAction()){
+                    mouseListener.addClickArea(renderObject.getClickArea());
+                }
+            }
+            if (renderCall instanceof RenderText) {
+                RenderText renderText = (RenderText) renderCall;
+                g.setColor(Color.white);
+                g.setFont(new Font("consolas", Font.PLAIN, 50));
+                g.drawString(renderText.getText(), renderText.getX(), renderText.getY());
+            }
+        }
+
+        mouseListener.update();
+
+        bs.show();
+        g.dispose();
+    }
 
 	/* Required for Runnable */
 	public void run() {
-		
+
 		init();
 
 		double currentTime; //current time (in seconds)
@@ -102,37 +139,94 @@ public class Game implements Runnable {
 				//Important to pass in deltaTime so objects know how much time has passed since their last update.
 				tick(deltaTime);
 
-				render(); //Calls some method to update rendering 
+				render(); //Calls some method to update rendering
 
 				System.out.println((double)System.nanoTime()/1000000000); //Debugging purposes
 			}
 
 		}
-		
+
 		stop();
 	}
 
-	public synchronized void start() {
-		/* Ensures evm is not restarted */
-		if (running) {
-			return;
-		}
-		running = true;
-		thread = new Thread(this);
-		/* Calls this.run() */
-		thread.start();
-	}
+    public synchronized void start() {
+        /* Ensures evm is not restarted */
+        if (running) {
+            return;
+        }
+        running = true;
+        thread = new Thread(this);
+        /* Calls this.run() */
+        thread.start();
+    }
 
-	public static Game getInstance() {
-		return instance;
-	}
+    public static Game getInstance() {
+        return instance;
+    }
 
-	public synchronized void stop() {
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+    public synchronized void stop() {
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public RenderSpace getRenderSpace() {
+        return renderSpace;
+    }
+
+    public Camera getCamera() {
+        return camera;
+    }
+
+    private class GameMouseListener implements MouseListener{
+        List<ClickArea> clickAreas;
+        Stack<ClickArea> clickAreasToAdd;
+
+        public GameMouseListener() {
+            this.clickAreas = new ArrayList<>();
+            this.clickAreasToAdd = new Stack<>();
+        }
+
+        public void addClickArea(ClickArea clickArea){
+            clickAreasToAdd.add(clickArea);
+        }
+
+        public void update(){
+            clickAreas = new ArrayList<>();
+            while(!clickAreasToAdd.empty()){
+                clickAreas.add(clickAreasToAdd.pop());
+            }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent mouseEvent) {
+            for(ClickArea clickArea: clickAreas){
+                if (clickArea.contains(mouseEvent.getX(),mouseEvent.getY())){
+                    clickArea.click();
+                }
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent mouseEvent) {
+
+        }
+    }
 }

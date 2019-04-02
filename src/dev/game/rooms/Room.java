@@ -1,10 +1,6 @@
 package dev.game.rooms;
 
-import dev.game.GameObject;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import dev.game.rendering.RenderCall;
 
 public abstract class Room {
 
@@ -20,6 +16,6 @@ public abstract class Room {
 
 	public abstract void init();
     public abstract void tick();
-    public abstract void render(Graphics g);
 
+    public abstract Iterable<RenderCall> render();
 }
