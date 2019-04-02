@@ -90,7 +90,7 @@ public class Display {
 		plantList.add(new JButton(new ImageIcon(Assets.eggShooter)));
 		plantList.add(new JButton(new ImageIcon(Assets.eggFlower)));
 		plantList.add(new JButton(new ImageIcon(Assets.chenapult)));
-		plantList.add(new JButton(new ImageIcon(Assets.walbert)));
+		plantList.add(new JButton(new ImageIcon(Assets.ella))); //temporarily changed to ella
 
 		plantNameList.add("eggShooter");
 		plantNameList.add("eggFlower");
