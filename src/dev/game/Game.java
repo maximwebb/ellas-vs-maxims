@@ -45,8 +45,8 @@ public class Game implements Runnable {
 	}
 
 	private void init() {
-		display = new Display(title, width, height);
 		Assets.init();
+		display = new Display(title, width, height);
 
 		gameRoom = new GameRoom();
 		menuRoom = new MenuRoom();

@@ -24,8 +24,13 @@ public abstract class Plant extends RenderedGameObject {
 	public Plant(Plant plant, int posX, int posY){
 		super(posX, posY, plant.getVelX(), plant.getVelY(), plant.getSprite());
 	} */
+  
+	@Override
+	public abstract void update();
 
-	public void shoot() {}
+	public void setPosX(int posX) { this.posX = posX; }
+
+	public void setPosY(int posY) { this.posY = posY; }
 
 	public int getEggCost() {
 		return this.eggCost;
