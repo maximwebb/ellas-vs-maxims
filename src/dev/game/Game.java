@@ -17,6 +17,7 @@ public class Game implements Runnable {
 	private Display display;
 	public int width, height;
 	public String title;
+	private double fps = 60;
 	private boolean showFPS = false;
 	private boolean running = false;
 
@@ -44,8 +45,8 @@ public class Game implements Runnable {
 	}
 
 	private void init() {
-		display = new Display(title, width, height);
 		Assets.init();
+		display = new Display(title, width, height);
 
 		gameRoom = new GameRoom();
 		menuRoom = new MenuRoom();
@@ -57,7 +58,7 @@ public class Game implements Runnable {
 	}
 
 	/* Updates to various objects happen here */
-	private void tick() {
+	private void tick(double deltaTime) {
 		Room.getRoom().tick();
 	}
 
@@ -80,39 +81,34 @@ public class Game implements Runnable {
 
 	/* Required for Runnable */
 	public void run() {
+		
 		init();
 
-		int FPS = 60;
-		double timePerTick = 1000000000 / FPS;
-		double delta = 0;
-		long currentTime;
-		long lastTime = System.nanoTime();
-		long timer = 0;
-		int ticks = 0;
+		double currentTime; //current time (in seconds)
+		double lastTime = (double)System.nanoTime()/1000000000; //time of last update (in seconds)
+		double deltaTime; //time between this update and the last (in seconds).
+		double targetTime = lastTime; //target time for next update (in seconds)
 
-		/* Game loop */
-		while (running) {
-			currentTime = System.nanoTime();
-			delta += (currentTime - lastTime) / timePerTick;
-			timer += currentTime - lastTime;
-			lastTime = currentTime;
+		while(this.running) {
+			currentTime = (double)System.nanoTime()/1000000000; //Updates time.
 
-			if (delta >= 1) {
-				tick();
-				render();
-				ticks++;
-				delta--;
-			}
+			if(currentTime >= targetTime) {
+				deltaTime = currentTime - lastTime; //Sets deltaTime to equal the time since the last update
+				lastTime = currentTime; //sets lastTime to equal time of this update
 
-			if (timer >= 1000000000) {
-				if (showFPS) {
-					System.out.println("Frames: " + ticks);
-				}
-				ticks = 0;
-				timer = 0;
+				targetTime += (1/this.fps) * Math.ceil((currentTime - targetTime) * this.fps); //sets target time for next update
+
+				//Calls some method to update game logic.
+				//Important to pass in deltaTime so objects know how much time has passed since their last update.
+				tick(deltaTime);
+
+				render(); //Calls some method to update rendering 
+
+				System.out.println((double)System.nanoTime()/1000000000); //Debugging purposes
 			}
 
 		}
+		
 		stop();
 	}
 

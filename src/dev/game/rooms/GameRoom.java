@@ -1,6 +1,8 @@
 package dev.game.rooms;
 
 import dev.game.*;
+import dev.game.plants.*;
+import dev.game.maths.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,9 +16,10 @@ public class GameRoom extends Room {
 	private static Tile[][] grid;
 
 	private static Plant maximPlant;
+	public static ArrayList<Plant> plantInventory;
 
-	private static int eggCount = 0;
-	private static int eggCountTimer = 200;
+	public static int eggCount = 1000;
+	private static int eggCountTimer = 0;
 
 	public GameRoom() {
 		gameObjectsList = new ArrayList<>();
@@ -30,8 +33,7 @@ public class GameRoom extends Room {
 		gameObjectsToRemove=new Stack<>();
 
 		fillGrid(4, 6, 200);
-		addGameObject(new ZombieSpawner(4, 10));
-		//addGameObject(new Plant(20, 20, 0, 0)); <--- Get rid of this
+		addGameObject(new ZombieSpawner(4, 20));
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class GameRoom extends Room {
 			gameObjectsList.remove(gameObjectsToRemove.pop());
 		}
 
-		if (eggCountTimer > 300) {
+		if (eggCountTimer > 150) {
 			eggCount += 25;
 			eggCountTimer = 0;
 		}
@@ -61,7 +63,7 @@ public class GameRoom extends Room {
 	public void render(Graphics g) {
 		for (GameObject object : gameObjectsList){
 			if (object instanceof RenderedGameObject) {
-				g.drawImage(((RenderedGameObject)object).getSprite(), ((RenderedGameObject)object).getPosX(), ((RenderedGameObject)object).getPosY(),null);
+				g.drawImage(((RenderedGameObject)object).getSprite(), Math.round(((RenderedGameObject)object).getPos().x), Math.round(((RenderedGameObject)object).getPos().y), null);
 			}
 		}
 
@@ -89,9 +91,21 @@ public class GameRoom extends Room {
 	}
 
 	//adds plant to tile which contains clicked coordinates
-	public void addPlant(int x, int y){
-		maximPlant = new Plant(25, 25, 0, 0);
-
+	public void addPlant(int x, int y, String plantType){
+		/* Sort out this slightly cursed code */
+		if (plantType.equals("eggShooter")) {
+			maximPlant = new EggShooter(Vector2D.zero, Vector2D.zero);
+		}
+		else if (plantType.equals("eggFlower")) {
+			maximPlant = new EggFlower(Vector2D.zero, Vector2D.zero);
+		}
+		else if (plantType.equals("walbert")) {
+			maximPlant = new Walbert(Vector2D.zero, Vector2D.zero);
+		}
+//		else if (plantType == "chenapult") {
+//			maximPlant = new EggShooter(25, 25, 0, 0);
+//		}
+    
 		if (maximPlant.getEggCost() > eggCount) {
 			System.out.println("You can't afford this!");
 			return;
@@ -105,7 +119,8 @@ public class GameRoom extends Room {
 				int w = grid[i][j].getWidth();
 				int h = grid[i][j].getHeight();
 				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY) && grid[i][j].empty){
-					grid[i][j].setPlant(new Plant(maximPlant, posX+25, posY+25));
+					maximPlant.setPos(new Vector2D(posX + 25, posY + 25));
+					grid[i][j].setPlant(maximPlant);
 					grid[i][j].empty = false;
 					addGameObject(grid[i][j].getPlant());
 				}
@@ -121,5 +136,7 @@ public class GameRoom extends Room {
 	public void removeGameObject(GameObject e){
 		gameObjectsToRemove.add(e);
 	}
+
+	public void setEggCount(int count) { eggCount = count; }
 
 }

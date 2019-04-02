@@ -7,7 +7,11 @@ public class Assets {
 	public static BufferedImage maxim;
 	public static BufferedImage ella;
 	public static BufferedImage zombie;
-	public static BufferedImage plant;
+	public static BufferedImage eggShooter;
+	public static BufferedImage eggFlower;
+	public static BufferedImage chenapult;
+	public static BufferedImage walbert;
+	public static BufferedImage abhiBullet;
 	public static BufferedImage lawn;
 	public static BufferedImage plantButton;
 	/* Loads in all assets once */
@@ -15,7 +19,11 @@ public class Assets {
 		maxim = ImageLoader.loadImage("/textures/maxim.png");
 		ella = ImageLoader.loadImage("/textures/ella.png");
 		zombie = ImageLoader.loadImage("/textures/zombie.png");
-		plant = ImageLoader.loadImage("/textures/plant.png");
+		eggShooter = ImageLoader.loadImage("/textures/eggShooter.png");
+		eggFlower = ImageLoader.loadImage("/textures/eggFlower.png");
+		chenapult = ImageLoader.loadImage("/textures/chenapult.png");
+		walbert = ImageLoader.loadImage("/textures/walbert.png");
+		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
 		lawn = ImageLoader.loadImage("/backgrounds/lawn.png");
 		plantButton = ImageLoader.loadImage("/textures/plantButton.png");
 	}

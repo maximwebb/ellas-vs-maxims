@@ -1,5 +1,7 @@
 package dev.game;
 
+import dev.game.plants.Plant;
+
 public class Tile {
 
     private int posX;
