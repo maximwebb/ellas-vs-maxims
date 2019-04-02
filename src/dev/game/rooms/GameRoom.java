@@ -1,8 +1,8 @@
 package dev.game.rooms;
 
 import dev.game.*;
-import dev.game.plants.EggShooter;
-import dev.game.plants.Plant;
+import dev.game.plants.*;
+import dev.game.maths.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class GameRoom extends Room {
 			gameObjectsList.remove(gameObjectsToRemove.pop());
 		}
 
-		if (eggCountTimer > 300) {
+		if (eggCountTimer > 150) {
 			eggCount += 25;
 			eggCountTimer = 0;
 		}
@@ -63,7 +63,7 @@ public class GameRoom extends Room {
 	public void render(Graphics g) {
 		for (GameObject object : gameObjectsList){
 			if (object instanceof RenderedGameObject) {
-				g.drawImage(((RenderedGameObject)object).getSprite(), ((RenderedGameObject)object).getPosX(), ((RenderedGameObject)object).getPosY(),null);
+				g.drawImage(((RenderedGameObject)object).getSprite(), Math.round(((RenderedGameObject)object).getPos().x), Math.round(((RenderedGameObject)object).getPos().y), null);
 			}
 		}
 
@@ -92,7 +92,7 @@ public class GameRoom extends Room {
 
 	//adds plant to tile which contains clicked coordinates
 	public void addPlant(int x, int y){
-		maximPlant = new EggShooter(25, 25, 0, 0);
+		maximPlant = new EggShooter(Vector2D.zero, Vector2D.zero);
 
 		if (maximPlant.getEggCost() > eggCount) {
 			System.out.println("You can't afford this!");
@@ -107,7 +107,7 @@ public class GameRoom extends Room {
 				int w = grid[i][j].getWidth();
 				int h = grid[i][j].getHeight();
 				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY) && grid[i][j].empty){
-					grid[i][j].setPlant(new EggShooter(posX+25, posY+25, maximPlant.getVelX(), maximPlant.getVelY()));
+					grid[i][j].setPlant(new EggShooter(new Vector2D(posX + 25, posY + 25), Vector2D.zero));
 					grid[i][j].empty = false;
 					addGameObject(grid[i][j].getPlant());
 				}
