@@ -16,14 +16,19 @@ public class Matrix {
 		this(new Vector2D(a, c), new Vector2D(b, d));
 	}
 	
+	//alternative constructor for a rotation matrix for a given angle
+	public Matrix(double angle) {
+		this((float)Math.cos(angle), -(float)Math.sin(angle), (float)Math.sin(angle), (float)Math.cos(angle));
+	}
+	
 	//calculate determinant of a matrix
 	public float determinant() {
-		return this.v1.x() * this.v2.y() - this.v1.y() * this.v2.x();
+		return this.v1.perp().dot(this.v2);
 	}
 	
 	//return inverse of a matrix
 	public Matrix inverse() {
-		return new Matrix(this.v2.y(), -this.v2.x(), -this.v1.y(), this.v1.x()).scale(1/this.determinant());
+		return new Matrix(this.v2.y, -this.v2.x, -this.v1.y, this.v1.x).scale(1/this.determinant());
 	}
 	
 	//multiply matrix by a scalar
@@ -33,7 +38,7 @@ public class Matrix {
 	
 	//transform vector with a matrix
 	public Vector2D mult(Vector2D v) {
-		return this.v1.scale(v.x()).add(this.v2.scale(v.y()));
+		return this.v1.scale(v.x).add(this.v2.scale(v.y));
 	}
 	
 	//multiply two matrices together
