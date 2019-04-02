@@ -26,7 +26,7 @@ public class Camera {
             int w = (renderedObject.getWidth() * canvas.getWidth()) / renderSpace.getWidth();
             int h = (renderedObject.getHeight() * canvas.getHeight()) / renderSpace.getHeight();
 
-            return new RenderSprite(renderedObject.getSprite(),(int)x,(int)y,w,h);
+            return new RenderObject(renderedObject,(int)x,(int)y,w,h);
         }
 
         return null;

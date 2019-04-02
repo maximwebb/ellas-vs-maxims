@@ -10,6 +10,7 @@ public abstract class RenderedGameObject extends GameObject {
 	private int height;
 	private float velX;
 	private float velY;
+	private ClickAction clickAction;
 	private BufferedImage sprite;
 
 	public RenderedGameObject(float posX, float posY, int width, int height, float velX, float velY, BufferedImage sprite) {
@@ -20,6 +21,15 @@ public abstract class RenderedGameObject extends GameObject {
 		this.velX = velX;
 		this.velY = velY;
 		this.sprite = sprite;
+		this.clickAction = null;
+	}
+
+	public ClickAction getClickAction() {
+		return clickAction;
+	}
+
+	public void setClickAction(ClickAction clickAction) {
+		this.clickAction = clickAction;
 	}
 
 	public void update() {

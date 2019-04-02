@@ -1,7 +1,6 @@
 package dev.game.rendering;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 
 public class RenderSprite extends RenderCall {
     private BufferedImage img;

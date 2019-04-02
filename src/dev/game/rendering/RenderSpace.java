@@ -1,5 +1,6 @@
 package dev.game.rendering;
 
+//Poorly named
 public class RenderSpace {
     private int width;
     private int height;

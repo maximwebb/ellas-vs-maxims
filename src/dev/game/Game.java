@@ -3,14 +3,18 @@ package dev.game;
 import dev.game.display.Display;
 import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
+import dev.game.objects.ClickAction;
 import dev.game.rendering.*;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.MenuRoom;
 import dev.game.rooms.Room;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -21,6 +25,7 @@ public class Game implements Runnable {
     public String title;
     private boolean showFPS = false;
     private boolean running = false;
+    private GameMouseListener mouseListener = new GameMouseListener();
 
     private Camera camera;
     private RenderSpace renderSpace;
@@ -48,6 +53,7 @@ public class Game implements Runnable {
         this.width = width;
         this.height = height;
         this.renderSpace = renderSpace;
+        this.mouseListener = new GameMouseListener();
     }
 
     private void init() {
@@ -61,6 +67,7 @@ public class Game implements Runnable {
         Room.setRoom(gameRoom);
 
         background = ImageLoader.loadImage("/backgrounds/lawn.png");
+        display.getCanvas().addMouseListener(mouseListener);
         Room.getRoom().init();
     }
 
@@ -86,10 +93,14 @@ public class Game implements Runnable {
         for (RenderCall renderCall : renderCalls) {
             if (renderCall instanceof RenderSprite) {
                 RenderSprite renderSprite = (RenderSprite) renderCall;
-
                 g.drawImage(renderSprite.getImg(), renderSprite.getX(), renderSprite.getY(), renderSprite.getWidth(), renderSprite.getHeight(), null);
             }
-
+            if (renderCall instanceof RenderObject){
+                RenderObject renderObject = (RenderObject) renderCall;
+                if (renderObject.hasMouseAction()){
+                    mouseListener.addClickArea(renderObject.getClickArea());
+                }
+            }
             if (renderCall instanceof RenderText) {
                 RenderText renderText = (RenderText) renderCall;
                 g.setColor(Color.white);
@@ -97,6 +108,8 @@ public class Game implements Runnable {
                 g.drawString(renderText.getText(), renderText.getX(), renderText.getY());
             }
         }
+
+        mouseListener.update();
 
         bs.show();
         g.dispose();
@@ -169,5 +182,55 @@ public class Game implements Runnable {
 
     public Camera getCamera() {
         return camera;
+    }
+
+    private class GameMouseListener implements MouseListener{
+        List<ClickArea> clickAreas;
+        Stack<ClickArea> clickAreasToAdd;
+
+        public GameMouseListener() {
+            this.clickAreas = new ArrayList<>();
+            this.clickAreasToAdd = new Stack<>();
+        }
+
+        public void addClickArea(ClickArea clickArea){
+            clickAreasToAdd.add(clickArea);
+        }
+
+        public void update(){
+            clickAreas = new ArrayList<>();
+            while(!clickAreasToAdd.empty()){
+                clickAreas.add(clickAreasToAdd.pop());
+            }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent mouseEvent) {
+            for(ClickArea clickArea: clickAreas){
+                if (clickArea.contains(mouseEvent.getX(),mouseEvent.getY())){
+                    clickArea.click();
+                }
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent mouseEvent) {
+
+        }
     }
 }

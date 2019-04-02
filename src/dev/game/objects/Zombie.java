@@ -16,6 +16,8 @@ public class Zombie extends RenderedGameObject {
 		super(posX, posY, 30,40, velX, velY, Assets.zombie);
 		energyLevel = 100;
 		collider = new CircleCollider(new Vector2D(posX, posY), 50);
+
+		setClickAction(() ->  ((GameRoom) Room.getRoom()).removeGameObject(this) );
 	}
 	
 	public void damage(int damage) {
