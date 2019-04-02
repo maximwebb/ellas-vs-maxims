@@ -28,9 +28,7 @@ public abstract class Plant extends RenderedGameObject {
 	@Override
 	public abstract void update();
 
-	public void setPosX(int posX) { this.posX = posX; }
-
-	public void setPosY(int posY) { this.posY = posY; }
+	public void setPos(Vector2D pos) { this.pos = pos; }
 
 	public int getEggCost() {
 		return this.eggCost;
