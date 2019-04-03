@@ -52,7 +52,7 @@ public class Display {
 
 		createPlantMenu(frame);
 
-		//canvas.addMouseListener(new PlantingMouseListener());
+		canvas.addMouseListener(new PlantingMouseListener());
 
 		JPanel panel = (JPanel) frame.getContentPane();
 		panel.setPreferredSize(new Dimension(width, height));

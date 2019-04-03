@@ -2,6 +2,7 @@ package dev.game.rooms;
 
 import dev.game.*;
 import dev.game.objects.GameObject;
+import dev.game.objects.Tile;
 import dev.game.plants.Plant;
 import dev.game.objects.ZombieSpawner;
 import dev.game.rendering.RenderCall;
@@ -85,9 +86,7 @@ public class GameRoom extends Room {
 		int h = Game.getInstance().height/vertical;
 		for(int i = 0; i<vertical; i++){
 			for(int j = 0; j<horizontal; j++){
-				grid[i][j] = new Tile();
-				grid[i][j].setPosition((border + j*w), (i*h));
-				grid[i][j].setDimensions(w, h);
+				grid[i][j] = new Tile(new Vector2D((border + j*w), (i*h)), w, h);
 			}
 		}
 	}
@@ -120,19 +119,20 @@ public class GameRoom extends Room {
 
 		for(int i = 0; i<grid.length; i++){
 			for(int j = 0; j<grid[i].length; j++){
-				int posX = grid[i][j].getPosX();
-				int posY = grid[i][j].getPosY();
+				float posX = grid[i][j].getPos().x;
+				float posY = grid[i][j].getPos().y;
 				int w = grid[i][j].getWidth();
 				int h = grid[i][j].getHeight();
-				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY) && grid[i][j].empty){
+				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY) && grid[i][j].isEmpty()){
 					maximPlant.setPos(new Vector2D(posX + 25, posY + 25));
 					grid[i][j].setPlant(maximPlant);
-					grid[i][j].empty = false;
+					grid[i][j].setEmpty(false);
 					addGameObject(grid[i][j].getPlant());
 				}
 
 			}
 		}
+
 	}
 
 	public void addGameObject(GameObject e){
