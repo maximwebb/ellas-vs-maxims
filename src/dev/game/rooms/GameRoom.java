@@ -7,6 +7,7 @@ import dev.game.objects.Tile;
 import dev.game.plants.Plant;
 import dev.game.objects.ZombieSpawner;
 import dev.game.rendering.RenderCall;
+import dev.game.rendering.RenderSpace;
 import dev.game.rendering.RenderText;
 import dev.game.plants.*;
 import dev.game.maths.Vector2D;
@@ -40,7 +41,7 @@ public class GameRoom extends Room {
 		gameObjectsToRemove=new Stack<>();
 
 		this.plantBuilder = new PlantBuilder();
-		fillGrid(4, 6, 200);
+		fillGrid(4, 6, 25);
 		addGameObject(new ZombieSpawner(4, 20));
 	}
 
@@ -84,8 +85,9 @@ public class GameRoom extends Room {
 	/* Vertical and horizontal determine number of tiles in the grid, border the free space on the right */
 	public void fillGrid(int vertical, int horizontal, int border){
 		grid = new Tile[vertical][horizontal];
-		int w = (Game.getInstance().width-border)/horizontal;
-		int h = Game.getInstance().height/vertical;
+		int w = RenderSpace.getStandard().getWidth()/horizontal;
+		int h = RenderSpace.getStandard().getHeight()/vertical;
+
 		for(int i = 0; i<vertical; i++){
 			for(int j = 0; j < horizontal; j++){
 				grid[i][j] = new Tile(new Vector2D((border + j * w), (i * h)), w, h);

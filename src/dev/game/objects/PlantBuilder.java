@@ -5,6 +5,8 @@ import dev.game.plants.EggFlower;
 import dev.game.plants.EggShooter;
 import dev.game.plants.Plant;
 import dev.game.plants.Walbert;
+import dev.game.rooms.GameRoom;
+import dev.game.rooms.Room;
 
 public class PlantBuilder {
 	enum PlantType {
@@ -17,7 +19,7 @@ public class PlantBuilder {
 	public  PlantType currentPlant;
 
 	public PlantBuilder() {
-		currentPlant = PlantType.NONE;
+		currentPlant = PlantType.EGGSHOOTER;
 	}
 
 	public PlantType getCurrentPlantType() {
@@ -29,15 +31,18 @@ public class PlantBuilder {
 	}
 
 	public Plant buildPlant(Vector2D pos) {
+		Plant plant = null;
 		switch(currentPlant) {
 			case EGGSHOOTER:
-				return new EggShooter(pos, Vector2D.zero);
+				plant = new EggShooter(pos, Vector2D.zero);
 			case EGGFLOWER:
-				return new EggFlower(pos, Vector2D.zero);
+				plant = new EggFlower(pos, Vector2D.zero);
 			case WALBERT:
-				return new Walbert(pos, Vector2D.zero);
-			default:
-				return null;
+				plant = new Walbert(pos, Vector2D.zero);
 		}
+		if (plant != null) {
+			((GameRoom) Room.getRoom()).addGameObject(plant);
+		}
+		return plant;
 	}
 }

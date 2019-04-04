@@ -14,8 +14,10 @@ public class Tile extends RenderedGameObject {
 		super(pos, new Vector2D(0f, 0f), width, height, null);
 		empty = true;
 
-		//setClickAction(() -> setPlant(((GameRoom)Room.getRoom()).plantBuilder.buildPlant(pos)));
-		setClickAction(() -> System.out.println("nice one"));
+		setClickAction(() -> {
+			setPlant(((GameRoom)Room.getRoom()).plantBuilder.buildPlant(pos));
+			setEmpty(false);
+		});
 	}
 
 	public void setPlant(Plant p) {
