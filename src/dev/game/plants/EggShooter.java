@@ -24,16 +24,6 @@ public class EggShooter extends Plant {
 		/* Basic collision checking */
 		for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList){
 			if(object instanceof Zombie){
-				/* Meme-worthy collision checking, someone plz write something good
-				if(Math.abs(((RenderedGameObject)object).pos.y() - this.pos.y()) < 50 && ((RenderedGameObject)object).pos.x() > this.pos.x()) {
-
-					zombieTargets++;
-
-					if (Math.abs(((RenderedGameObject) object).getPosX() - this.getPosX()) < 20) {
-						((GameRoom) Room.getRoom()).removeGameObject(this);
-					}
-				}*/
-
 				// temporary collision detection - it's a bit overkill but it does the job
 				VectorLine rayCast = new VectorLine(this.pos, Vector2D.i);
 
@@ -47,11 +37,11 @@ public class EggShooter extends Plant {
 			}
 		}
 		
-		if (charge < 100) {
+		if (charge < 25) {
 			charge++;
 		}
 		
-		if(zombieTargets > 0 && charge >= 100) {
+		if(zombieTargets > 0 && charge >= 25) {
 			charge = 0;
 			((GameRoom) Room.getRoom()).addGameObject(new Bullet(this.pos, Vector2D.i.scale(10)));
 		}

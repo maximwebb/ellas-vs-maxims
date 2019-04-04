@@ -24,7 +24,7 @@ public class ZombieSpawner extends GameObject {
     public void update() {
         if (random.nextInt(200)==1 && zombies>0){
             Vector2D pos = new Vector2D(Game.getInstance().getRenderSpace().getWidth(), (random.nextInt(lanes+1)*Game.getInstance().getRenderSpace().getHeight()/lanes));
-            Vector2D velocity = new Vector2D(-1,0);
+            Vector2D velocity = new Vector2D(10,0);
             ((GameRoom)Room.getRoom()).addGameObject(new Zombie(pos, velocity));
             zombies--;
         }

@@ -11,16 +11,11 @@ public class Plant extends RenderedGameObject {
 	private int eggCost;
 	
 	public Plant(Vector2D pos, Vector2D velocity, int cost, BufferedImage sprite) {
-		super(pos, velocity, 30, 40, sprite);
+		super(pos, velocity, 18, 32, sprite);
 		/* Will vary for different plants in future */
 		this.eggCost = cost;
 	}
 
-	public Plant(Plant plant, float posX, int posY){
-		super(plant.getPos(), plant.getVelocity(),30, 40, plant.getSprite());
-	}
-
-	public void shoot() {}
 	@Override
 	public void update() {
 		super.update();
