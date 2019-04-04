@@ -15,7 +15,7 @@ public class Tile extends RenderedGameObject {
 		empty = true;
 
 		setClickAction(() -> {
-			setPlant(((GameRoom)Room.getRoom()).plantBuilder.buildPlant(pos));
+			setPlant(((GameRoom)Room.getRoom()).getPlantBuilder().buildPlant(pos));
 			setEmpty(false);
 		});
 	}

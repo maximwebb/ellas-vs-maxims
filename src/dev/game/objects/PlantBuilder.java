@@ -9,7 +9,7 @@ import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
 
 public class PlantBuilder {
-	enum PlantType {
+	public enum PlantType {
 		EGGSHOOTER,
 		EGGFLOWER,
 		WALBERT,
@@ -35,10 +35,13 @@ public class PlantBuilder {
 		switch(currentPlant) {
 			case EGGSHOOTER:
 				plant = new EggShooter(pos, Vector2D.zero);
+				break;
 			case EGGFLOWER:
 				plant = new EggFlower(pos, Vector2D.zero);
+				break;
 			case WALBERT:
 				plant = new Walbert(pos, Vector2D.zero);
+				break;
 		}
 		if (plant != null) {
 			((GameRoom) Room.getRoom()).addGameObject(plant);

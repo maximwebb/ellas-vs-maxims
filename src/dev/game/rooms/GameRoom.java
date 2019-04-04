@@ -24,7 +24,7 @@ public class GameRoom extends Room {
 	private static Tile[][] grid;
 
 	private static Plant maximPlant;
-	public PlantBuilder plantBuilder;
+	private PlantBuilder plantBuilder;
 
 	public static int eggCount = 1000;
 	private static int eggCountTimer = 0;
@@ -135,6 +135,10 @@ public class GameRoom extends Room {
 			}
 		}
 
+	}
+
+	public PlantBuilder getPlantBuilder() {
+		return plantBuilder;
 	}
 
 	public void addGameObject(GameObject e){
