@@ -9,18 +9,18 @@ import dev.game.rooms.Room;
 
 public class Zombie extends RenderedGameObject {
 
-	private int energyLevel;
+	private int health;
 	public CircleCollider collider;
 
 	public Zombie(Vector2D pos, Vector2D velocity) {
-		super(pos, velocity, 30, 40, Assets.zombie);
-		energyLevel = 100;
+		super(pos, velocity, 18, 32, Assets.zombie);
+		health = 100;
 		setClickAction(() ->  ((GameRoom) Room.getRoom()).removeGameObject(this) );
-		collider = new CircleCollider(this.pos, 50);
+		collider = new CircleCollider(this.pos, 25);
 	}
 	
 	public void damage(int damage) {
-		energyLevel -= damage;
+		health -= damage;
 	}
 	
 	@Override
@@ -28,8 +28,9 @@ public class Zombie extends RenderedGameObject {
 		
 		super.update();
 		
-		collider.pos = new Vector2D(this.getPos().x, this.getPos().y);
-		if(energyLevel <= 0) {
+		collider.pos = this.pos;
+		
+		if(health <= 0) {
 			((GameRoom) Room.getRoom()).removeGameObject(this);
 		}
 	}

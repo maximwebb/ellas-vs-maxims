@@ -25,13 +25,13 @@ public class Game implements Runnable {
     public String title;
     private boolean showFPS = false;
     private boolean running = false;
-    private double fps = 60;
+    private double fps = 30;
     private GameMouseListener mouseListener = new GameMouseListener();
-
+    
     private Camera camera;
     private RenderSpace renderSpace;
-
-
+    
+    
 	private Thread thread;
 	private static Game instance = new Game("Ellas vs. Maxims", 640,480, RenderSpace.getStandard());
 
@@ -135,13 +135,11 @@ public class Game implements Runnable {
 
 				targetTime += (1/this.fps) * Math.ceil((currentTime - targetTime) * this.fps); //sets target time for next update
 
-				//Calls some method to update game logic.
+				//Calls method to update game logic.
 				//Important to pass in deltaTime so objects know how much time has passed since their last update.
 				tick(deltaTime);
-
+        
 				render(); //Calls some method to update rendering
-
-				System.out.println((double)System.nanoTime()/1000000000); //Debugging purposes
 			}
 
 		}

@@ -7,11 +7,10 @@ import dev.game.objects.Zombie;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
 
-//To-do: Abhi sprite instead of Ella
 public class Bullet extends RenderedGameObject {
 
     public Bullet(Vector2D pos, Vector2D velocity) {
-        super(pos, velocity, 40,40,Assets.abhiBullet);
+        super(pos, velocity, 20,20,Assets.abhiBullet);
     }
 
     @Override
@@ -22,7 +21,6 @@ public class Bullet extends RenderedGameObject {
         for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList) {
             if(object instanceof Zombie) {
                 if(CollisionHelper.checkCollision(this.pos, ((Zombie)object).collider)) {
-                    System.out.println("hit registered: " + this.pos.y);
                     ((Zombie) object).damage(25);
                     ((GameRoom)Room.getRoom()).removeGameObject(this);
                 }

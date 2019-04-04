@@ -1,11 +1,17 @@
 package dev.game.display;
 
 
+import dev.game.Game;
 import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
+import dev.game.objects.PlantBuilder;
+import dev.game.rooms.GameRoom;
+import dev.game.rooms.Room;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -93,8 +99,50 @@ public class Display {
 		plantSelection = false;
 		plantingState = false;
 
-		plantList.add(new JButton(new ImageIcon(Assets.eggShooter)));
-		plantList.add(new JButton(new ImageIcon(Assets.eggFlower)));
+
+
+		JButton jButton = new JButton(new ImageIcon(Assets.eggShooter));
+		//I deserve to be hanged for this code...
+		jButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				((GameRoom) Room.getRoom()).getPlantBuilder().setCurrentPlantType(PlantBuilder.PlantType.EGGSHOOTER);
+			}
+		});
+		plantList.add(jButton);
+
+		jButton = new JButton(new ImageIcon(Assets.eggFlower));
+		//I deserve to be hanged for this code...
+		jButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				((GameRoom) Room.getRoom()).getPlantBuilder().setCurrentPlantType(PlantBuilder.PlantType.EGGFLOWER);
+			}
+		});
+		plantList.add(jButton);
+
+		jButton = new JButton(new ImageIcon(Assets.chenapult));
+		//I deserve to be hanged for this code...
+		jButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				//((GameRoom) Room.getRoom()).getPlantBuilder().setCurrentPlantType(PlantBuilder.PlantType...);
+			}
+		});
+		plantList.add(jButton);
+
+		jButton = new JButton(new ImageIcon(Assets.walbert));
+		//I deserve to be hanged for this code...
+		jButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				((GameRoom) Room.getRoom()).getPlantBuilder().setCurrentPlantType(PlantBuilder.PlantType.WALBERT);
+			}
+		});
+		plantList.add(jButton);
+
+
+
 		plantList.add(new JButton(new ImageIcon(Assets.chenapult)));
 		plantList.add(new JButton(new ImageIcon(Assets.walbert)));
 
@@ -118,7 +166,6 @@ public class Display {
 			plant.addActionListener(e -> {
 				plantingState = true;
 				selectedPlant = plantNameList.get(index);
-				System.out.println(selectedPlant);
 			});
 
 		}

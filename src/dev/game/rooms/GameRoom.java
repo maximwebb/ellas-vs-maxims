@@ -1,12 +1,12 @@
 package dev.game.rooms;
 
 import dev.game.*;
-import dev.game.objects.GameObject;
-import dev.game.objects.Tile;
+import dev.game.objects.*;
 import dev.game.plants.Plant;
-import dev.game.objects.ZombieSpawner;
 import dev.game.rendering.RenderCall;
+import dev.game.rendering.RenderSpace;
 import dev.game.rendering.RenderText;
+import dev.game.waves.*;
 import dev.game.plants.*;
 import dev.game.maths.Vector2D;
 
@@ -22,7 +22,7 @@ public class GameRoom extends Room {
 	private static Tile[][] grid;
 
 	private static Plant maximPlant;
-	public static ArrayList<Plant> plantInventory;
+	private PlantBuilder plantBuilder;
 
 	public static int eggCount = 1000;
 	private static int eggCountTimer = 0;
@@ -37,9 +37,13 @@ public class GameRoom extends Room {
 		gameObjectsList = new ArrayList<>();
 		gameObjectsToAdd=new Stack<>();
 		gameObjectsToRemove=new Stack<>();
-
-		fillGrid(4, 6, 200);
-		addGameObject(new ZombieSpawner(4, 20));
+    
+    this.plantBuilder = new PlantBuilder();
+		fillGrid(4, 6, 25);
+		//addGameObject(new ZombieSpawner(4, 20));
+		Wave wave1 = CyclicWave.getDemoWave(10);
+		this.addGameObject(wave1);
+		wave1.play();
 	}
 
 	@Override
@@ -82,11 +86,13 @@ public class GameRoom extends Room {
 	/* Vertical and horizontal determine number of tiles in the grid, border the free space on the right */
 	public void fillGrid(int vertical, int horizontal, int border){
 		grid = new Tile[vertical][horizontal];
-		int w = (Game.getInstance().width-border)/horizontal;
-		int h = Game.getInstance().height/vertical;
+		int w = RenderSpace.getStandard().getWidth()/horizontal;
+		int h = RenderSpace.getStandard().getHeight()/vertical;
+
 		for(int i = 0; i<vertical; i++){
-			for(int j = 0; j<horizontal; j++){
-				grid[i][j] = new Tile(new Vector2D((border + j*w), (i*h)), w, h);
+			for(int j = 0; j < horizontal; j++){
+				grid[i][j] = new Tile(new Vector2D((border + j * w), (i * h)), w, h);
+				addGameObject(grid[i][j]);
 			}
 		}
 	}
@@ -107,9 +113,6 @@ public class GameRoom extends Room {
 		else if (plantType.equals("walbert")) {
 			maximPlant = new Walbert(Vector2D.zero, Vector2D.zero);
 		}
-//		else if (plantType == "chenapult") {
-//			maximPlant = new EggShooter(25, 25, 0, 0);
-//		}
 
 		if (maximPlant.getEggCost() > eggCount) {
 			System.out.println("You can't afford this!");
@@ -120,6 +123,7 @@ public class GameRoom extends Room {
 		for(int i = 0; i<grid.length; i++){
 			for(int j = 0; j<grid[i].length; j++){
 				float posX = grid[i][j].getPos().x;
+
 				float posY = grid[i][j].getPos().y;
 				int w = grid[i][j].getWidth();
 				int h = grid[i][j].getHeight();
@@ -132,7 +136,10 @@ public class GameRoom extends Room {
 
 			}
 		}
+	}
 
+	public PlantBuilder getPlantBuilder() {
+		return plantBuilder;
 	}
 
 	public void addGameObject(GameObject e){
