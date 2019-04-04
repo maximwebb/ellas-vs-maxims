@@ -28,7 +28,8 @@ public class Zombie extends RenderedGameObject {
 		
 		super.update();
 		
-		collider.pos = new Vector2D(this.getPos().x, this.getPos().y);
+		collider.pos = this.pos;
+		
 		if(energyLevel <= 0) {
 			((GameRoom) Room.getRoom()).removeGameObject(this);
 		}

@@ -1,14 +1,12 @@
 package dev.game.rooms;
 
 import dev.game.*;
-import dev.game.objects.GameObject;
-import dev.game.objects.PlantBuilder;
-import dev.game.objects.Tile;
+import dev.game.objects.*;
 import dev.game.plants.Plant;
-import dev.game.objects.ZombieSpawner;
 import dev.game.rendering.RenderCall;
 import dev.game.rendering.RenderSpace;
 import dev.game.rendering.RenderText;
+import dev.game.waves.*;
 import dev.game.plants.*;
 import dev.game.maths.Vector2D;
 
@@ -39,10 +37,13 @@ public class GameRoom extends Room {
 		gameObjectsList = new ArrayList<>();
 		gameObjectsToAdd=new Stack<>();
 		gameObjectsToRemove=new Stack<>();
-
-		this.plantBuilder = new PlantBuilder();
+    
+    this.plantBuilder = new PlantBuilder();
 		fillGrid(4, 6, 25);
-		addGameObject(new ZombieSpawner(4, 20));
+		//addGameObject(new ZombieSpawner(4, 20));
+		Wave wave1 = CyclicWave.getDemoWave(10);
+		this.addGameObject(wave1);
+		wave1.play();
 	}
 
 	@Override
@@ -122,6 +123,7 @@ public class GameRoom extends Room {
 		for(int i = 0; i<grid.length; i++){
 			for(int j = 0; j<grid[i].length; j++){
 				float posX = grid[i][j].getPos().x;
+
 				float posY = grid[i][j].getPos().y;
 				int w = grid[i][j].getWidth();
 				int h = grid[i][j].getHeight();
@@ -134,7 +136,6 @@ public class GameRoom extends Room {
 
 			}
 		}
-
 	}
 
 	public PlantBuilder getPlantBuilder() {
