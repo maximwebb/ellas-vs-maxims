@@ -138,10 +138,8 @@ public class Game implements Runnable {
 				//Calls method to update game logic.
 				//Important to pass in deltaTime so objects know how much time has passed since their last update.
 				tick(deltaTime);
-
-				render(); //Calls method to update rendering
-
-				System.out.println((double)System.nanoTime()/1000000000); //Debugging purposes
+        
+				render(); //Calls some method to update rendering
 			}
 
 		}
