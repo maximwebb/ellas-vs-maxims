@@ -140,8 +140,6 @@ public class Game implements Runnable {
 				tick(deltaTime);
 
 				render(); //Calls some method to update rendering
-
-				System.out.println((double)System.nanoTime()/1000000000); //Debugging purposes
 			}
 
 		}

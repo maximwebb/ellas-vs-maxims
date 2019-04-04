@@ -118,7 +118,6 @@ public class Display {
 			plant.addActionListener(e -> {
 				plantingState = true;
 				selectedPlant = plantNameList.get(index);
-				System.out.println(selectedPlant);
 			});
 
 		}

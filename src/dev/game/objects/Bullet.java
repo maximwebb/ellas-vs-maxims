@@ -22,7 +22,6 @@ public class Bullet extends RenderedGameObject {
         for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList) {
             if(object instanceof Zombie) {
                 if(CollisionHelper.checkCollision(this.pos, ((Zombie)object).collider)) {
-                    System.out.println("hit registered: " + this.pos.y);
                     ((Zombie) object).damage(25);
                     ((GameRoom)Room.getRoom()).removeGameObject(this);
                 }
