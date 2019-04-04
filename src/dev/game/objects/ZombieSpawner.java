@@ -19,13 +19,13 @@ public class ZombieSpawner extends GameObject {
         zombies = z;
     }
 
-    /* game should know number of lanes instead do it isn't hard coded everywhere */
+    /* game should know number of lanes instead so it isn't hard coded everywhere */
     @Override
     public void update() {
         if (random.nextInt(200)==1 && zombies>0){
-            Vector2D pos = new Vector2D(Game.getInstance().getRenderSpace().getWidth(),(random.nextInt(lanes+1)*Game.getInstance().getRenderSpace().getHeight()/lanes));
-            Vector2D vel = new Vector2D(-1,0);
-            ((GameRoom)Room.getRoom()).addGameObject(new Zombie(pos,vel));
+            Vector2D pos = new Vector2D(Game.getInstance().getRenderSpace().getWidth(), (random.nextInt(lanes+1)*Game.getInstance().getRenderSpace().getHeight()/lanes));
+            Vector2D velocity = new Vector2D(-1,0);
+            ((GameRoom)Room.getRoom()).addGameObject(new Zombie(pos, velocity));
             zombies--;
         }
     }

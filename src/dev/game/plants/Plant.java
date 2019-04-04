@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 public class Plant extends RenderedGameObject {
 	private int charge=0;
 	private int eggCost;
+	
 	public Plant(Vector2D pos, Vector2D velocity, int cost, BufferedImage sprite) {
 		super(pos, velocity, 30, 40, sprite);
 		/* Will vary for different plants in future */
@@ -23,8 +24,7 @@ public class Plant extends RenderedGameObject {
 	@Override
 	public void update() {
 		super.update();
-
-		int zombieTargets = 0;
+		
 		if (charge < 100) {
 			charge++;
 		}
