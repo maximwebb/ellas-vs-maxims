@@ -14,30 +14,29 @@ public class EggShooter extends Plant {
 
 	private double charge = 0;
 
-	public EggShooter(Vector2D pos, Vector2D velocity) {
-		super(pos, velocity, 100, Assets.eggShooter);
-	}
-
+	public EggShooter(Vector2D pos, Vector2D velocity, int laneNum) {
+		super(pos, velocity, laneNum, 100, 100, Assets.eggShooter);
+  }
+  
 	public void update() {
-		
-		int zombieTargets = 0;
+    
+		int zombieTargets = this.lane.getZombiesList().size();
 		
 		/* Basic collision checking */
-		for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList){
-			if(object instanceof Zombie){
-				// temporary collision detection - it's a bit overkill but it does the job
-				VectorLine rayCast = new VectorLine(this.pos, Vector2D.i);
-
-				if(CollisionHelper.checkCollision(rayCast, ((Zombie)object).collider)) {
-					zombieTargets++;
-
-					if(rayCast.lambda == 0) {
-						((GameRoom) Room.getRoom()).removeGameObject(this);
-					}
-				}
-			}
-		}
-		
+//		for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList){
+//			if(object instanceof Zombie){
+//				// temporary collision detection - it's a bit overkill but it does the job
+//				VectorLine rayCast = new VectorLine(this.pos, Vector2D.i);
+//
+//				if(CollisionHelper.checkCollision(rayCast, ((Zombie)object).collider)) {
+//					zombieTargets++;
+//					if(rayCast.lambda == 0) {
+//						((GameRoom) Room.getRoom()).removeGameObject(this);
+//					}
+//				}
+//			}
+//		}
+    
 		if (charge < 2) {
 			charge += Room.getRoom().getDeltaTime();
 		}
@@ -47,5 +46,4 @@ public class EggShooter extends Plant {
 			((GameRoom) Room.getRoom()).addGameObject(new Bullet(this.pos, Vector2D.i.scale(50)));
 		}
 	}
-
 }

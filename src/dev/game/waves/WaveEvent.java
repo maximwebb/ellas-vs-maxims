@@ -10,6 +10,6 @@ public abstract class WaveEvent implements Comparable<WaveEvent>{
 
 	@Override
 	public int compareTo(WaveEvent event) {
-		return this.time > event.time ? 1 : (this.time < event.time ? -1 : 0);
+		return Double.compare(this.time, event.time);
 	}
 }
