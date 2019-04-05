@@ -47,7 +47,7 @@ public class Zombie extends RenderedGameObject {
 		collider.pos = this.pos;
 
 		if(health <= 0) {
-			((GameRoom) Room.getRoom()).removeGameObject(this);
+			((GameRoom) Room.getRoom()).removeZombie(this);
 		}
 	}
 

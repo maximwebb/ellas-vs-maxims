@@ -39,7 +39,7 @@ public class Lane {
 	}
 
 	public void removeObjects() {
-		while(!plantsToRemove.empty()) {
+		while (!plantsToRemove.empty()) {
 			plantsList.remove(plantsToRemove.pop());
 		}
 
