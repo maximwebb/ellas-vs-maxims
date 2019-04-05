@@ -9,8 +9,8 @@ public class Walbert extends Plant {
 
 	private static int charge = 0;
 
-	public Walbert(Vector2D pos, Vector2D velocity, int lane) {
-		super(pos, velocity, lane, 50, Assets.walbert); //temporarily ella instead of walbert
+	public Walbert(Vector2D pos, Vector2D velocity, int laneNum) {
+		super(pos, velocity, laneNum, 50, 500, Assets.walbert); //temporarily ella instead of walbert
 	}
 
 	public void update() {

@@ -63,6 +63,10 @@ public class GameRoom extends Room {
 		for(GameObject gameObject : gameObjectsList) {
 			gameObject.update();
 		}
+
+		for(int i = 0; i < totalLanes; i++) {
+			lanesList[i].removeObjects();
+		}
 		//Performs concurrent changes to the object list
 		while(!gameObjectsToAdd.empty()){
 			gameObjectsList.add(gameObjectsToAdd.pop());
@@ -124,11 +128,22 @@ public class GameRoom extends Room {
 		return plant;
 	}
 
+	public void removePlant(Plant plant) {
+		gameObjectsToRemove.add(plant);
+		lanesList[plant.getLaneNumber()].removePlant(plant);
+	}
+
 	/* Will need to be updated in the future, when adding multiple zombie types */
 	public void addZombie(int lane) {
-		Zombie zombie = new Zombie(new Vector2D(gameWidth, ((float)lane*gameHeight)/4), new Vector2D(-0.5f, 0));
+		Zombie zombie = new Zombie(new Vector2D(gameWidth, ((float) lane * gameHeight) / 4), new Vector2D(-0.5f, 0), lane, 40);
 		addGameObject(zombie);
 		lanesList[lane].addZombie(zombie);
+	}
+
+	/* TODO: finish this */
+	public void removeZombie(Zombie zombie) {
+		gameObjectsToRemove.add(zombie);
+		lanesList[zombie.getLaneNumber()].removeZombie(zombie);
 	}
 
 	public PlantBuilder getPlantBuilder() {
