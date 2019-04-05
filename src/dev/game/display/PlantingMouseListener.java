@@ -1,6 +1,7 @@
 package dev.game.display;
 
 import dev.game.Game;
+import dev.game.maths.Vector2D;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
 
@@ -22,10 +23,6 @@ public class PlantingMouseListener implements MouseListener {
     }
 
     public void mouseClicked(MouseEvent e) {
-        if(Display.getState()){
-            ((GameRoom)Room.getRoom()).addPlant(e.getX(), e.getY(), Display.getSelectedPlant());
-
-        }
 
     }
 }

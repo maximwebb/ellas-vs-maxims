@@ -14,8 +14,8 @@ public class EggShooter extends Plant {
 
 	private int charge = 0;
 
-	public EggShooter(Vector2D pos, Vector2D velocity) {
-		super(pos, velocity, 100, Assets.eggShooter);
+	public EggShooter(Vector2D pos, Vector2D velocity, int lane) {
+		super(pos, velocity, lane, 100, Assets.eggShooter);
 	}
 
 	public void update() {
@@ -29,7 +29,6 @@ public class EggShooter extends Plant {
 
 				if(CollisionHelper.checkCollision(rayCast, ((Zombie)object).collider)) {
 					zombieTargets++;
-
 					if(rayCast.lambda == 0) {
 						((GameRoom) Room.getRoom()).removeGameObject(this);
 					}

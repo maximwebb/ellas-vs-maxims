@@ -9,11 +9,13 @@ import java.awt.image.BufferedImage;
 public class Plant extends RenderedGameObject {
 	private int charge=0;
 	private int eggCost;
+	private int laneNumber;
 	
-	public Plant(Vector2D pos, Vector2D velocity, int cost, BufferedImage sprite) {
+	public Plant(Vector2D pos, Vector2D velocity, int lane, int cost, BufferedImage sprite) {
 		super(pos, velocity, 18, 32, sprite);
 		/* Will vary for different plants in future */
 		this.eggCost = cost;
+		this.laneNumber = lane;
 	}
 
 	@Override

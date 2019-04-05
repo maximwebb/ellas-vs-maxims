@@ -9,8 +9,8 @@ public class EggFlower extends Plant {
 
 	private static int charge = 0;
 
-	public EggFlower(Vector2D pos, Vector2D velocity) {
-		super(pos, velocity, 50, Assets.eggFlower);
+	public EggFlower(Vector2D pos, Vector2D velocity, int lane) {
+		super(pos, velocity, lane, 50, Assets.eggFlower);
 	}
 
 	public void update() {

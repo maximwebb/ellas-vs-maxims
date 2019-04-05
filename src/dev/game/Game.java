@@ -25,7 +25,7 @@ public class Game implements Runnable {
     public String title;
     private boolean showFPS = false;
     private boolean running = false;
-    private double fps = 30;
+    private double fps = 60;
     private GameMouseListener mouseListener = new GameMouseListener();
     
     private Camera camera;
