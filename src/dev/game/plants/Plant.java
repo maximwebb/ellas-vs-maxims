@@ -9,9 +9,8 @@ import dev.game.rooms.Room;
 
 import java.awt.image.BufferedImage;
 
-public class Plant extends RenderedGameObject {
-	private int charge=0;
-	private int laneNumber;
+public abstract class Plant extends RenderedGameObject {
+  private int laneNumber
 	private int eggCost;
 	protected int health;
 	protected Lane lane;
@@ -24,44 +23,14 @@ public class Plant extends RenderedGameObject {
 		this.health = health;
 		this.lane = ((GameRoom)Room.getRoom()).getLanesList()[this.laneNumber];
 	}
-
-	@Override
-	public void update() {
-		super.update();
-		
-		if (charge < 100) {
-			charge++;
-		}
-
-		/* Basic collision checking */
-		/*for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList){
-			if(object instanceof Zombie){
-				/* Meme-worthy collision checking, someone plz write something good *//*
-				if(Math.abs(((RenderedGameObject)object).getPos().y - this.getPosY()) < 50 && ((RenderedGameObject)object).getPosX() > this.getPosX()) {
-
-					zombieTargets++;
-
-					if (Math.abs(((RenderedGameObject) object).getPosX() - this.getPosX()) < 20) {
-						((GameRoom) Room.getRoom()).removeGameObject(this);
-					}
-				}
-			}
-		}
-
-		if(zombieTargets > 0 && charge >= 100) {
-			charge = 0;
-			((GameRoom) Room.getRoom()).addGameObject(new Bullet(getPosX(), getPosY()));
-		}*/
-	}
-
+  
 	public void damage(int attackAmount) {
 		this.health -= attackAmount;
 		if (this.health < 0) {
 			((GameRoom) Room.getRoom()).removePlant(this);
-
 		}
 	}
-
+  
 	public int getEggCost() {
 		return this.eggCost;
 	}

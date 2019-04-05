@@ -74,7 +74,7 @@ public class Game implements Runnable {
 
 	/* Updates to various objects happen here */
 	private void tick(double deltaTime) {
-		Room.getRoom().tick();
+		Room.getRoom().tick(deltaTime);
 	}
 
     private void render() {

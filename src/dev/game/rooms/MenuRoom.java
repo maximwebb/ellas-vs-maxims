@@ -10,11 +10,6 @@ public class MenuRoom extends Room {
 	}
 
 	@Override
-	public void tick() {
-
-	}
-
-	@Override
 	public Iterable<RenderCall> render() {
 		return null;
 	}

@@ -3,7 +3,9 @@ package dev.game.rooms;
 import dev.game.rendering.RenderCall;
 
 public abstract class Room {
-
+	
+	private double deltaTime;
+	
 	private static Room currentRoom = null;
 
 	public static void setRoom(Room room) {
@@ -15,7 +17,14 @@ public abstract class Room {
 	}
 
 	public abstract void init();
-    public abstract void tick();
+	
+    public void tick(double deltaTime) {
+    	this.deltaTime = deltaTime;
+    }
+    
+    public double getDeltaTime() {
+    	return this.deltaTime;
+    }
 
     public abstract Iterable<RenderCall> render();
 }

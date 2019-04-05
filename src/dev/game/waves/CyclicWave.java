@@ -1,5 +1,7 @@
 package dev.game.waves;
 
+import dev.game.rooms.Room;
+
 public class CyclicWave extends Wave {
 	
 	@Override
@@ -8,7 +10,7 @@ public class CyclicWave extends Wave {
 			if(this.waveEvents.isEmpty()) {
 				this.reset();
 			} else {
-				activeTime++;
+				activeTime += Room.getRoom().getDeltaTime();
 				if(this.activeTime > this.waveEvents.peek().time) {
 					this.processEvent(this.waveEvents.poll());
 				}
@@ -20,7 +22,7 @@ public class CyclicWave extends Wave {
 		CyclicWave demo = new CyclicWave();
 		
 		for(int i = 0; i < length; i++) {
-			demo.waveEvents.add(new ZombieSpawnEvent(60 * i + 60));
+			demo.waveEvents.add(new ZombieSpawnEvent(2 * i + 2));
 		}
 		
 		return demo;

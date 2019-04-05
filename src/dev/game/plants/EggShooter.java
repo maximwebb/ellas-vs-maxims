@@ -12,14 +12,14 @@ import dev.game.rooms.Room;
 
 public class EggShooter extends Plant {
 
-	private int charge = 0;
-	private int damageCharge = 0;
+	private double charge = 0;
 
 	public EggShooter(Vector2D pos, Vector2D velocity, int laneNum) {
 		super(pos, velocity, laneNum, 100, 100, Assets.eggShooter);
-	}
-
+  }
+  
 	public void update() {
+    
 		int zombieTargets = this.lane.getZombiesList().size();
 		
 		/* Basic collision checking */
@@ -36,13 +36,14 @@ public class EggShooter extends Plant {
 //				}
 //			}
 //		}
-
-		charge++;
-
+    
+		if (charge < 2) {
+			charge += Room.getRoom().getDeltaTime();
+		}
 		
-		if(zombieTargets > 0 && charge >= 30) {
+		if(zombieTargets > 0 && charge >= 2) {
 			charge = 0;
-			((GameRoom) Room.getRoom()).addGameObject(new Bullet(this.pos, Vector2D.i.scale(10)));
+			((GameRoom) Room.getRoom()).addGameObject(new Bullet(this.pos, Vector2D.i.scale(50)));
 		}
 	}
 }
