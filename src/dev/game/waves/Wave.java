@@ -22,7 +22,7 @@ public class Wave extends GameObject {
 				this.stop();
 				this.reset();
 			} else {
-				activeTime++;
+				activeTime += Room.getRoom().getDeltaTime();
 				if(this.activeTime > this.waveEvents.peek().time) {
 					this.processEvent(this.waveEvents.poll());
 				}
@@ -58,7 +58,7 @@ public class Wave extends GameObject {
 		Wave demo = new Wave();
 		
 		for(int i = 0; i < length; i++) {
-			demo.waveEvents.add(new ZombieSpawnEvent(60 * i + 60));
+			demo.waveEvents.add(new ZombieSpawnEvent(2 * i + 2));
 		}
 		
 		return demo;

@@ -10,7 +10,7 @@ import dev.game.rooms.Room;
 public class Bullet extends RenderedGameObject {
 
     public Bullet(Vector2D pos, Vector2D velocity) {
-        super(pos, velocity, 20,20,Assets.abhiBullet);
+        super(pos, velocity, 20, 20, Assets.abhiBullet);
     }
 
     @Override

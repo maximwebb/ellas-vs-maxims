@@ -16,7 +16,7 @@ public class Zombie extends RenderedGameObject {
 		super(pos, velocity, 18, 32, Assets.zombie);
 		health = 100;
 		setClickAction(() ->  ((GameRoom) Room.getRoom()).removeGameObject(this) );
-		collider = new CircleCollider(this.pos, 25);
+		collider = new CircleCollider(this.pos, 10);
 	}
 	
 	public void damage(int damage) {

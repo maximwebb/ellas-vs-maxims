@@ -47,7 +47,8 @@ public class GameRoom extends Room {
 	}
 
 	@Override
-	public void tick() {
+	public void tick(double deltaTime) {
+		super.tick(deltaTime);
 
 		for(GameObject gameObject : gameObjectsList) {
 			gameObject.update();
