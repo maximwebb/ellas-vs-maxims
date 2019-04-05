@@ -25,7 +25,7 @@ public class Game implements Runnable {
     public String title;
     private boolean showFPS = false;
     private boolean running = false;
-    private double fps = 30;
+    private double fps = 60;
     private GameMouseListener mouseListener = new GameMouseListener();
     
     private Camera camera;
@@ -74,7 +74,7 @@ public class Game implements Runnable {
 
 	/* Updates to various objects happen here */
 	private void tick(double deltaTime) {
-		Room.getRoom().tick();
+		Room.getRoom().tick(deltaTime);
 	}
 
     private void render() {

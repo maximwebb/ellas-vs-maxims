@@ -1,6 +1,7 @@
 package dev.game.objects;
 //TODO: load image in Game.java, using Assets.java
 import dev.game.maths.Vector2D;
+import dev.game.rooms.Room;
 
 import java.awt.image.BufferedImage;
 
@@ -23,7 +24,7 @@ public abstract class RenderedGameObject extends GameObject {
 	}
 
 	public void update() {
-		pos = pos.add(velocity);
+		pos = pos.add(velocity.scale((float)Room.getRoom().getDeltaTime()));
 	}
 
 	public Vector2D getPos() {
@@ -57,5 +58,4 @@ public abstract class RenderedGameObject extends GameObject {
 	public void setClickAction(ClickAction clickAction) {
 		this.clickAction = clickAction;
 	}
-
 }
