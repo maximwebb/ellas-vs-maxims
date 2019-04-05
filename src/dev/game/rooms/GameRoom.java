@@ -136,7 +136,7 @@ public class GameRoom extends Room {
 
 	/* Will need to be updated in the future, when adding multiple zombie types */
 	public void addZombie(int lane) {
-		Zombie zombie = new Zombie(new Vector2D(gameWidth, ((float) lane * gameHeight) / 4), new Vector2D(-0.5f, 0), lane, 40);
+		Zombie zombie = new Zombie(new Vector2D(gameWidth, ((float) lane * gameHeight) / 4), new Vector2D(-10f, 0), lane, 40);
 		addGameObject(zombie);
 		lanesList[lane].addZombie(zombie);
 	}
