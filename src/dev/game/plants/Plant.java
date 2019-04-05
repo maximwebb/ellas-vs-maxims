@@ -10,7 +10,7 @@ import dev.game.rooms.Room;
 import java.awt.image.BufferedImage;
 
 public abstract class Plant extends RenderedGameObject {
-  private int laneNumber
+  	private int laneNumber;
 	private int eggCost;
 	protected int health;
 	protected Lane lane;
