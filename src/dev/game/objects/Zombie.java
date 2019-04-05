@@ -39,7 +39,7 @@ public class Zombie extends RenderedGameObject {
 			this.velocity = Vector2D.zero;
 		}
 		else {
-			this.velocity = new Vector2D(-0.5f, 0);
+			this.velocity = new Vector2D(-10f, 0);
 		}
 
 		super.update();
