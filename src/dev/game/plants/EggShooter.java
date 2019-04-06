@@ -4,7 +4,7 @@ import dev.game.collision.CollisionHelper;
 import dev.game.gfx.Assets;
 import dev.game.maths.Vector2D;
 import dev.game.maths.VectorLine;
-import dev.game.objects.Bullet;
+import dev.game.projectiles.Bullet;
 import dev.game.objects.GameObject;
 import dev.game.objects.Zombie;
 import dev.game.rooms.GameRoom;

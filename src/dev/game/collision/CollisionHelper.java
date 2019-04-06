@@ -12,43 +12,41 @@ public class CollisionHelper {
 	}
 	
 	//same as previous method except now the point is a circle with a specified radius
-	public static boolean checkCollision(Vector2D point, float radius, CircleCollider region) {
-		return checkCollision(point, new CircleCollider(region.pos, region.radius + radius));
-	}
+	//public static boolean checkCollision(Vector2D point, float radius, CircleCollider region) {
+	//	return checkCollision(point, new CircleCollider(region.pos, region.radius + radius));
+	//}
 	
 	//complex collision detector which checks if a point moving along a vector (defined by a VectorLine) will intersect a circular region.
-	//also modifies the VectorLine object with a lambda value that defines the point of first collision
+	//returns information about the collision in a CollisionInfo object
 	//if two objects have a constant relative velocity, this method can be used to check if and when they will collide
-	public static boolean checkCollision(VectorLine ray, CircleCollider region) {
-		
-		//first checks if the ray starts inside the circle collider
-		if(checkCollision(ray.pos(), region)) {
-			ray.lambda = 0;
-			return true;
-		}
+	//has uses for solving other simultaneous equations involving vectors and their magnitudes
+	public static CollisionInfo findIntersection(VectorLine ray, CircleCollider region) {
 		
 		//perpendicular ray with position vector at centre of circle collider
-		VectorLine perpRay = new VectorLine(region.pos, ray.dirn().unitVector().perp());
+		VectorLine perpRay = new VectorLine(region.pos, ray.dirn.unitVector().perp());
 		
 		//using matrix multiplication to solve simultaneous equations to obtain lambdas for collision point of rays
-		Vector2D result = ray.pos().towards(perpRay.pos()).transform(new Matrix(ray.dirn(), perpRay.dirn()).inverse());
+		Vector2D result = ray.pos.towards(perpRay.pos).transform(new Matrix(ray.dirn, perpRay.dirn).inverse());
 		
 		float minDistance = Math.abs(result.y);
 		float lambda = result.x;
 		
-		//return true if the shortest distance between region.pos and the VectorLine is less than region.radius
-		if(minDistance <= region.radius && lambda > 0) {
+		//sets lambda value at both collision points if they exist - if ray.dirn() is a velocity, this is equal to time until collision
+		if(minDistance == region.radius) {
 			
-			//sets lambda value at first collision point - if ray.dirn() is a velocity, this is equal to time until collision
-			ray.lambda = lambda - (float)Math.sqrt(Math.pow(region.radius, 2) - Math.pow(minDistance, 2))/ray.dirn().length();
-			return true;
+			return new CollisionInfo(lambda, lambda);
+			
+		} else if(minDistance < region.radius) {
+			
+			float lambdaOffset = (float)Math.sqrt(Math.pow(region.radius, 2) - Math.pow(minDistance, 2))/ray.dirn.length();
+			return new CollisionInfo(lambda - lambdaOffset, lambda + lambdaOffset);
 		}
 		
-		return false;
+		return null;
 	}
 	
 	//same as previous method except now the moving point is a circle with a specified radius
-	public static boolean checkCollision(VectorLine ray, float radius, CircleCollider region) {
-		return checkCollision(ray, new CircleCollider(region.pos, region.radius + radius));
-	}
+	//public static boolean checkCollision(VectorLine ray, float radius, CircleCollider region) {
+	//	return checkCollision(ray, new CircleCollider(region.pos, region.radius + radius));
+	//}
 }
