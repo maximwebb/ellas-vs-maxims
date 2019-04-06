@@ -10,7 +10,7 @@ public class Walbert extends Plant {
 	private static int charge = 0;
 
 	public Walbert(Vector2D pos, Vector2D velocity) {
-		super(pos, velocity, 50, Assets.walbert); //temporarily ella instead of walbert
+		super(pos, velocity, 50, 25, Assets.walbert); //temporarily ella instead of walbert
 	}
 
 	public void update() {

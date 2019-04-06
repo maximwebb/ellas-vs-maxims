@@ -16,7 +16,7 @@ public class PlantBuilder {
 		NONE
 	}
 
-	public  PlantType currentPlant;
+	public PlantType currentPlant;
 
 	public PlantBuilder() {
 		currentPlant = PlantType.EGGSHOOTER;
