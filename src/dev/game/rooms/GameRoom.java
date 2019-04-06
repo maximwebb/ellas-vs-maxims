@@ -20,6 +20,11 @@ public class GameRoom extends Room {
 	private Stack<GameObject> gameObjectsToAdd;
 	private Stack<GameObject> gameObjectsToRemove;
 	private static Tile[][] grid;
+	private int totalLanes;
+	private Lane[] lanesList;
+	/* For convenience */
+	private int gameWidth = RenderSpace.getStandard().getWidth();
+	private int gameHeight = RenderSpace.getStandard().getHeight();
 
 	private static Plant maximPlant;
 	private PlantBuilder plantBuilder;
@@ -28,22 +33,28 @@ public class GameRoom extends Room {
 	private static int eggCountTimer = 0;
 
 	public GameRoom() {
+		totalLanes = 4;
 		gameObjectsList = new ArrayList<>();
-		gameObjectsToAdd = new Stack<>();
-		gameObjectsToRemove = new Stack<>();
+		gameObjectsToAdd=new Stack<>();
+		gameObjectsToRemove=new Stack<>();
 	}
 
 	public void init() {
 		gameObjectsList = new ArrayList<>();
-		gameObjectsToAdd = new Stack<>();
-		gameObjectsToRemove = new Stack<>();
+		gameObjectsToAdd=new Stack<>();
+		gameObjectsToRemove=new Stack<>();
 
 		this.plantBuilder = new PlantBuilder();
-			fillGrid(4, 6, 25);
-			//addGameObject(new ZombieSpawner(4, 20));
-			Wave wave1 = CyclicWave.getDemoWave(10);
-			this.addGameObject(wave1);
-			wave1.play();
+		fillGrid(totalLanes, 6, 25);
+
+		lanesList = new Lane[totalLanes];
+		for (int i = 0; i < totalLanes; i++) {
+			lanesList[i] = new Lane(i);
+		}
+
+		Wave wave1 = CyclicWave.getDemoWave(10);
+		this.addGameObject(wave1);
+		wave1.play();
 	}
 
 	@Override
@@ -52,6 +63,10 @@ public class GameRoom extends Room {
 
 		for(GameObject gameObject : gameObjectsList) {
 			gameObject.update();
+		}
+
+		for(int i = 0; i < totalLanes; i++) {
+			lanesList[i].removeObjects();
 		}
 		//Performs concurrent changes to the object list
 		while(!gameObjectsToAdd.empty()){
@@ -75,7 +90,7 @@ public class GameRoom extends Room {
 		List<RenderCall> renderCalls = new ArrayList<>();
 
 		for (GameObject object : gameObjectsList){
-			//Maybe this shouldn't access camera...
+			//Maybe this shouldnt access camera...
 			renderCalls.add(Game.getInstance().getCamera().translate(object));
 		}
 
@@ -87,12 +102,12 @@ public class GameRoom extends Room {
 	/* Vertical and horizontal determine number of tiles in the grid, border the free space on the right */
 	public void fillGrid(int vertical, int horizontal, int border){
 		grid = new Tile[vertical][horizontal];
-		int w = RenderSpace.getStandard().getWidth()/horizontal;
-		int h = RenderSpace.getStandard().getHeight()/vertical;
+		int w = gameWidth/horizontal;
+		int h = gameHeight/vertical;
 
 		for(int i = 0; i<vertical; i++){
 			for(int j = 0; j < horizontal; j++){
-				grid[i][j] = new Tile(new Vector2D((border + j * w), (i * h)), w, h);
+				grid[i][j] = new Tile(new Vector2D((border + j * w), (i * h)), w, h, i);
 				addGameObject(grid[i][j]);
 			}
 		}
@@ -102,41 +117,34 @@ public class GameRoom extends Room {
 		return grid;
 	}
 
-	//adds plant to tile which contains clicked coordinates
-	public void addPlant(int x, int y, String plantType){
-		/* Sort out this slightly cursed code */
-		if (plantType.equals("eggShooter")) {
-			maximPlant = new EggShooter(Vector2D.zero, Vector2D.zero);
-		}
-		else if (plantType.equals("eggFlower")) {
-			maximPlant = new EggFlower(Vector2D.zero, Vector2D.zero);
-		}
-		else if (plantType.equals("walbert")) {
-			maximPlant = new Walbert(Vector2D.zero, Vector2D.zero);
-		}
+	public Lane[] getLanesList() { return lanesList; }
 
-		if (maximPlant.getEggCost() > eggCount) {
-			System.out.println("You can't afford this!");
-			return;
+
+	public Plant addPlant(Vector2D pos, int lane) {
+		Plant plant = plantBuilder.buildPlant(pos, lane);
+		if (plant != null && plant.getEggCost() < eggCount) {
+			addGameObject(plant);
+			lanesList[lane].addPlant(plant);
 		}
-		eggCount -= maximPlant.getEggCost();
+		return plant;
+	}
 
-		for(int i = 0; i<grid.length; i++){
-			for(int j = 0; j<grid[i].length; j++){
-				float posX = grid[i][j].getPos().x;
+	public void removePlant(Plant plant) {
+		gameObjectsToRemove.add(plant);
+		lanesList[plant.getLaneNumber()].removePlant(plant);
+	}
 
-				float posY = grid[i][j].getPos().y;
-				int w = grid[i][j].getWidth();
-				int h = grid[i][j].getHeight();
-				if(x<(posX+w) && x>(posX) && y<(posY+h) && y>(posY) && grid[i][j].isEmpty()){
-					maximPlant.setPos(new Vector2D(posX + 25, posY + 25));
-					grid[i][j].setPlant(maximPlant);
-					grid[i][j].setEmpty(false);
-					addGameObject(grid[i][j].getPlant());
-				}
+	/* Will need to be updated in the future, when adding multiple zombie types */
+	public void addZombie(int lane) {
+		Zombie zombie = new Zombie(new Vector2D(gameWidth, ((float) lane * gameHeight) / 4), new Vector2D(-10f, 0), lane, 40);
+		addGameObject(zombie);
+		lanesList[lane].addZombie(zombie);
+	}
 
-			}
-		}
+	/* TODO: finish this */
+	public void removeZombie(Zombie zombie) {
+		gameObjectsToRemove.add(zombie);
+		lanesList[zombie.getLaneNumber()].removeZombie(zombie);
 	}
 
 	public PlantBuilder getPlantBuilder() {
