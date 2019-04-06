@@ -30,18 +30,21 @@ public class PlantBuilder {
 		currentPlant = type;
 	}
 
-	public Plant buildPlant(Vector2D pos, int lane) {
+	public Plant buildPlant(Vector2D pos) {
 		Plant plant = null;
 		switch(currentPlant) {
 			case EGGSHOOTER:
-				plant = new EggShooter(pos, Vector2D.zero, lane);
+				plant = new EggShooter(pos, Vector2D.zero);
 				break;
 			case EGGFLOWER:
-				plant = new EggFlower(pos, Vector2D.zero, lane);
+				plant = new EggFlower(pos, Vector2D.zero);
 				break;
 			case WALBERT:
-				plant = new Walbert(pos, Vector2D.zero, lane);
+				plant = new Walbert(pos, Vector2D.zero);
 				break;
+		}
+		if (plant != null) {
+			((GameRoom) Room.getRoom()).addGameObject(plant);
 		}
 		return plant;
 	}

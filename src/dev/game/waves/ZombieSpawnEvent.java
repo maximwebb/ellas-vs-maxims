@@ -11,10 +11,8 @@ public class ZombieSpawnEvent extends WaveEvent{
 	
 	public final Vector2D pos;
 	public final Vector2D velocity;
-	public int lane = 0;
 	
 	//main constructor
-	//Is this needed? We will only ever be spawning zombies into lanes, so I'd suggest making the alt constructor the main one...
 	public ZombieSpawnEvent(double time, Vector2D pos, Vector2D velocity) {
 		super(time);
 		this.pos = pos;
@@ -26,7 +24,6 @@ public class ZombieSpawnEvent extends WaveEvent{
 		super(time);
 		this.pos = new Vector2D(Game.getInstance().getRenderSpace().getWidth(), ((float)lane*Game.getInstance().getRenderSpace().getHeight())/4);
 		this.velocity = new Vector2D(-10f, 0);
-		this.lane = lane;
 	}
 	
 	//alternative constructor for spawning into random lane

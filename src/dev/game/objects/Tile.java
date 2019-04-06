@@ -9,14 +9,13 @@ public class Tile extends RenderedGameObject {
 
 	private boolean empty;
 	private Plant plant;
-	private int laneNumber;
 
-	public Tile(Vector2D pos, int width, int height, int lane) {
+	public Tile(Vector2D pos, int width, int height) {
 		super(pos, new Vector2D(0f, 0f), width, height, null);
 		empty = true;
-		this.laneNumber = lane;
+
 		setClickAction(() -> {
-			setPlant(((GameRoom)Room.getRoom()).addPlant(pos, lane));
+			setPlant(((GameRoom)Room.getRoom()).getPlantBuilder().buildPlant(pos));
 			setEmpty(false);
 		});
 	}

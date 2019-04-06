@@ -48,7 +48,7 @@ public class Wave extends GameObject {
 		
 		if(event instanceof ZombieSpawnEvent) {
 			ZombieSpawnEvent zombieEvent = (ZombieSpawnEvent)event;
-			((GameRoom)Room.getRoom()).addZombie(zombieEvent.lane);
+            ((GameRoom)Room.getRoom()).addGameObject(new Zombie(zombieEvent.pos, zombieEvent.velocity));
 		}
 		
 		this.usedEvents.add(event);

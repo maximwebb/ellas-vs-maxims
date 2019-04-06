@@ -20,7 +20,7 @@ public class EggShooter extends Plant {
 
 	public void update() {
 		int zombieTargets = 0;
-
+		
 		/* Basic collision checking */
 		for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList){
 			if(object instanceof Zombie){
@@ -36,11 +36,11 @@ public class EggShooter extends Plant {
 				}
 			}
 		}
-
+		
 		if (charge < 2) {
 			charge += Room.getRoom().getDeltaTime();
 		}
-
+		
 		if(zombieTargets > 0 && charge >= 2) {
 			charge = 0;
 			((GameRoom) Room.getRoom()).addGameObject(new Bullet(this.pos, Vector2D.i.scale(50), 25));

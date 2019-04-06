@@ -37,7 +37,7 @@ public class GameRoom extends Room {
 		gameObjectsList = new ArrayList<>();
 		gameObjectsToAdd = new Stack<>();
 		gameObjectsToRemove = new Stack<>();
-
+    
 		this.plantBuilder = new PlantBuilder();
 			fillGrid(4, 6, 25);
 			//addGameObject(new ZombieSpawner(4, 20));
