@@ -9,11 +9,8 @@ import dev.game.rooms.Room;
 
 public class Bullet extends RenderedGameObject {
 
-    int damage;
-
-    public Bullet(Vector2D pos, Vector2D velocity, int damage) {
+    public Bullet(Vector2D pos, Vector2D velocity) {
         super(pos, velocity, 20, 20, Assets.abhiBullet);
-        this.damage = damage;
     }
 
     @Override
@@ -24,14 +21,10 @@ public class Bullet extends RenderedGameObject {
         for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList) {
             if(object instanceof Zombie) {
                 if(CollisionHelper.checkCollision(this.pos, ((Zombie)object).collider)) {
-                    ((Zombie) object).damage(this.damage);
+                    ((Zombie) object).damage(25);
                     ((GameRoom)Room.getRoom()).removeGameObject(this);
                 }
             }
         }
-    }
-
-    public int getDamage() {
-        return this.damage;
     }
 }

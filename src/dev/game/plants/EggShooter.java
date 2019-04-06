@@ -15,10 +15,11 @@ public class EggShooter extends Plant {
 	private double charge = 0;
 
 	public EggShooter(Vector2D pos, Vector2D velocity) {
-		super(pos, velocity, 100, 25, Assets.eggShooter);
+		super(pos, velocity, 100, Assets.eggShooter);
 	}
 
 	public void update() {
+		
 		int zombieTargets = 0;
 		
 		/* Basic collision checking */
@@ -43,7 +44,7 @@ public class EggShooter extends Plant {
 		
 		if(zombieTargets > 0 && charge >= 2) {
 			charge = 0;
-			((GameRoom) Room.getRoom()).addGameObject(new Bullet(this.pos, Vector2D.i.scale(50), 25));
+			((GameRoom) Room.getRoom()).addGameObject(new Bullet(this.pos, Vector2D.i.scale(50)));
 		}
 	}
 

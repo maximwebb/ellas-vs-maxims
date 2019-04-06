@@ -18,7 +18,7 @@ public class RenderSpace {
         return height;
     }
 
-    static public RenderSpace getStandard() {
+    static public RenderSpace getStandard(){
         RenderSpace renderSpace = new RenderSpace(240,160);
         return renderSpace;
     }

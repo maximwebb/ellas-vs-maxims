@@ -6,7 +6,7 @@ import dev.game.gfx.ImageLoader;
 import dev.game.objects.ClickAction;
 import dev.game.rendering.*;
 import dev.game.rooms.GameRoom;
-import dev.game.rooms.MainMenuRoom;
+import dev.game.rooms.MenuRoom;
 import dev.game.rooms.Room;
 
 import java.awt.*;
@@ -30,7 +30,8 @@ public class Game implements Runnable {
     
     private Camera camera;
     private RenderSpace renderSpace;
-
+    
+    
 	private Thread thread;
 	private static Game instance = new Game("Ellas vs. Maxims", 640,480, RenderSpace.getStandard());
 
@@ -56,14 +57,13 @@ public class Game implements Runnable {
         this.mouseListener = new GameMouseListener();
     }
 
-
     private void init() {
         Assets.init();
         display = new Display(title, width, height);
         camera = new Camera(RenderSpace.getStandard(), display.getCanvas());
 
         gameRoom = new GameRoom();
-        menuRoom = new MainMenuRoom();
+        menuRoom = new MenuRoom();
         /* By default sets the room to the game room. Will likely be changed to the Main Menu in the future. */
         Room.setRoom(gameRoom);
 
@@ -71,6 +71,7 @@ public class Game implements Runnable {
         display.getCanvas().addMouseListener(mouseListener);
         Room.getRoom().init();
     }
+
 	/* Updates to various objects happen here */
 	private void tick(double deltaTime) {
 		Room.getRoom().tick(deltaTime);

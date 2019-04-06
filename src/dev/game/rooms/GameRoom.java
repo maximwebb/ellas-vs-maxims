@@ -29,21 +29,21 @@ public class GameRoom extends Room {
 
 	public GameRoom() {
 		gameObjectsList = new ArrayList<>();
-		gameObjectsToAdd = new Stack<>();
-		gameObjectsToRemove = new Stack<>();
+		gameObjectsToAdd=new Stack<>();
+		gameObjectsToRemove=new Stack<>();
 	}
 
 	public void init() {
 		gameObjectsList = new ArrayList<>();
-		gameObjectsToAdd = new Stack<>();
-		gameObjectsToRemove = new Stack<>();
+		gameObjectsToAdd=new Stack<>();
+		gameObjectsToRemove=new Stack<>();
     
-		this.plantBuilder = new PlantBuilder();
-			fillGrid(4, 6, 25);
-			//addGameObject(new ZombieSpawner(4, 20));
-			Wave wave1 = CyclicWave.getDemoWave(10);
-			this.addGameObject(wave1);
-			wave1.play();
+    this.plantBuilder = new PlantBuilder();
+		fillGrid(4, 6, 25);
+		//addGameObject(new ZombieSpawner(4, 20));
+		Wave wave1 = CyclicWave.getDemoWave(10);
+		this.addGameObject(wave1);
+		wave1.play();
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class GameRoom extends Room {
 		List<RenderCall> renderCalls = new ArrayList<>();
 
 		for (GameObject object : gameObjectsList){
-			//Maybe this shouldn't access camera...
+			//Maybe this shouldnt access camera...
 			renderCalls.add(Game.getInstance().getCamera().translate(object));
 		}
 
