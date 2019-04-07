@@ -1,4 +1,4 @@
-package dev.game.navigation;
+package dev.game.ui;
 
 import dev.game.gfx.Assets;
 import dev.game.maths.Vector2D;
@@ -8,14 +8,14 @@ import dev.game.rooms.Room;
 
 import java.awt.image.BufferedImage;
 
-public class Button {
+public class UIButton {
     protected Vector2D pos;
     private BufferedImage sprite;
     private int width;
     private int height;
     private ClickAction clickAction;
 
-    public Button(Vector2D pos, BufferedImage sprite, int width, int height) {
+    public UIButton(Vector2D pos, BufferedImage sprite, int width, int height) {
         this.pos = pos;
         this.width = width;
         this.height = height;

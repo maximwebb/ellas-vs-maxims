@@ -30,7 +30,5 @@ public abstract class UIObject {
 		return height;
 	}
 
-	public void update() {
-		
-	}
+	public abstract void update();
 }
