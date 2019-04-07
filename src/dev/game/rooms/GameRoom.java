@@ -3,12 +3,14 @@ package dev.game.rooms;
 import dev.game.*;
 import dev.game.objects.*;
 import dev.game.plants.Plant;
+import dev.game.plants.PlantBuilder;
 import dev.game.rendering.RenderCall;
 import dev.game.rendering.RenderSpace;
 import dev.game.rendering.RenderText;
 import dev.game.waves.*;
-import dev.game.plants.*;
 import dev.game.maths.Vector2D;
+import dev.game.zombies.Zombie;
+import dev.game.zombies.ZombieBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class GameRoom extends Room {
 
 	private static Plant maximPlant;
 	private PlantBuilder plantBuilder;
+	private ZombieBuilder zombieBuilder;
 
 	public static int eggCount = 1000;
 	private static int eggCountTimer = 0;
@@ -45,6 +48,7 @@ public class GameRoom extends Room {
 		gameObjectsToRemove=new Stack<>();
 
 		this.plantBuilder = new PlantBuilder();
+		this.zombieBuilder = new ZombieBuilder();
 		fillGrid(totalLanes, 6, 25);
 
 		lanesList = new Lane[totalLanes];
@@ -134,14 +138,12 @@ public class GameRoom extends Room {
 		lanesList[plant.getLaneNumber()].removePlant(plant);
 	}
 
-	/* Will need to be updated in the future, when adding multiple zombie types */
 	public void addZombie(int lane) {
-		Zombie zombie = new Zombie(new Vector2D(gameWidth, ((float) lane * gameHeight) / 4), new Vector2D(-10f, 0), lane, 40);
+		Zombie zombie = zombieBuilder.buildZombie(new Vector2D(gameWidth, ((float) lane * gameHeight) / 4), lane);
 		addGameObject(zombie);
 		lanesList[lane].addZombie(zombie);
 	}
 
-	/* TODO: finish this */
 	public void removeZombie(Zombie zombie) {
 		gameObjectsToRemove.add(zombie);
 		lanesList[zombie.getLaneNumber()].removeZombie(zombie);
@@ -149,6 +151,10 @@ public class GameRoom extends Room {
 
 	public PlantBuilder getPlantBuilder() {
 		return plantBuilder;
+	}
+
+	public ZombieBuilder getZombieBuilder() {
+		return zombieBuilder;
 	}
 
 	public void addGameObject(GameObject e){

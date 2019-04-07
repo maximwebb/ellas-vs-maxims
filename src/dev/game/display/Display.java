@@ -1,10 +1,9 @@
 package dev.game.display;
 
 
-import dev.game.Game;
 import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
-import dev.game.objects.PlantBuilder;
+import dev.game.plants.PlantBuilder;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
 

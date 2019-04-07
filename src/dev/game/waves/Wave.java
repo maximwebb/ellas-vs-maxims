@@ -4,9 +4,10 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import dev.game.Game;
 import dev.game.objects.GameObject;
-import dev.game.objects.Zombie;
 import dev.game.rooms.*;
+import dev.game.zombies.ZombieBuilder;
 
 public class Wave extends GameObject {
 	
@@ -48,6 +49,20 @@ public class Wave extends GameObject {
 		
 		if(event instanceof ZombieSpawnEvent) {
 			ZombieSpawnEvent zombieEvent = (ZombieSpawnEvent)event;
+			int randNum = (int)Math.floor(Math.random() * 10) + 1;
+			System.out.println(randNum);
+			if (randNum < 3) {
+				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.ENGINEER);
+			}
+			else if (randNum >= 3 && randNum < 6 ) {
+				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.POLITICS);
+			}
+			else if (randNum >= 6 && randNum < 8) {
+				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.ASNAC);
+			}
+			else {
+				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.NORMAL);
+			}
 			((GameRoom)Room.getRoom()).addZombie(zombieEvent.lane);
 		}
 		

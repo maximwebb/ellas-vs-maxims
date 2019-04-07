@@ -2,8 +2,7 @@ package dev.game.objects;
 import dev.game.collision.CollisionHelper;
 import dev.game.gfx.Assets;
 import dev.game.maths.Vector2D;
-import dev.game.objects.GameObject;
-import dev.game.objects.Zombie;
+import dev.game.zombies.Zombie;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
 
