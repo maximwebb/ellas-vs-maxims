@@ -82,8 +82,6 @@ public class Display {
 		plantButton = b;
 	}
 
-
-
 	public void createPlantMenu(JFrame frame){
 		BufferedImage b = ImageLoader.loadImage("/textures/plantButton.png");
 		ImageIcon icon = new ImageIcon(b);
@@ -97,8 +95,6 @@ public class Display {
 
 		plantSelection = false;
 		plantingState = false;
-
-
 
 		JButton jButton = new JButton(new ImageIcon(Assets.eggShooter));
 		//I deserve to be hanged for this code...
