@@ -1,8 +1,11 @@
 package dev.game.rooms;
 
+import dev.game.gfx.Assets;
 import dev.game.gfx.ImageLoader;
+import dev.game.maths.Vector2D;
 import dev.game.rendering.RenderCall;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -14,11 +17,10 @@ public class MainMenuRoom extends Room {
 	private int levelSelected;
 	Button playButton, settingsButton, exitButton;
 
-
 	public MainMenuRoom() {
 		/* Keep the constructor in comments until we've created the objects we need. All objects are in src/game/navigation. */
 		background = ImageLoader.loadImage("/backgrounds/title.png");
-		//playButton = new Button(pos,sprite,width,height);
+		playButton = new Button(new Vector2D(23,48),Assets.startButton[0],250,500);
 		//settingsButton = new Button(pos,sprite,width,height);
 		//exitButton = new Button(pos,sprite,width,height);
 
