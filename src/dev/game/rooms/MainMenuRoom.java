@@ -20,7 +20,7 @@ public class MainMenuRoom extends Room {
 	public MainMenuRoom() {
 		/* Keep the constructor in comments until we've created the objects we need. All objects are in src/game/navigation. */
 		background = ImageLoader.loadImage("/backgrounds/title.png");
-		playButton = new UIButton(new Vector2D(23,48), Assets.startButton[0], 250, 500);
+		playButton = new UIButton(new Vector2D(23,48), Assets.startButton[0], Assets.startButton[1], 250, 500);
 		//settingsButton = new UIButton(pos,sprite,width,height);
 		//exitButton = new UIButton(pos,sprite,width,height);
 
