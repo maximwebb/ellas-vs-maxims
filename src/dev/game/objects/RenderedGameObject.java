@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 public abstract class RenderedGameObject extends GameObject {
 	protected Vector2D pos;
 	protected Vector2D velocity;
-	private BufferedImage sprite;
+	protected BufferedImage sprite;
 	private int width;
 	private int height;
 	private ClickAction clickAction;

@@ -1,6 +1,6 @@
 package dev.game.rooms;
 
-import dev.game.objects.Zombie;
+import dev.game.zombies.Zombie;
 import dev.game.plants.Plant;
 
 import java.util.ArrayList;

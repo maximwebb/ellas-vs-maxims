@@ -1,4 +1,4 @@
-package dev.game.objects;
+package dev.game.plants;
 
 import dev.game.maths.Vector2D;
 import dev.game.plants.EggFlower;
