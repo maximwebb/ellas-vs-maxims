@@ -23,3 +23,8 @@
 hs_err_pid*
 .idea/
 out/
+
+ellas-vs-maxims.iml
+.DS_Store
+out/
+production/
