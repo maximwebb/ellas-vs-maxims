@@ -13,7 +13,7 @@ public class UIManager {
 	public ArrayList<UIObject> uiObjectsList;
 
     public UIManager() {
-		uiObjectsList = new ArrayList<>();
+    	uiObjectsList = new ArrayList<>();
     }
 
     public void addButton(Vector2D pos, int width, int height, ClickAction clickAction, BufferedImage sprite) {

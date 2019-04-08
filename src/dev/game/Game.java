@@ -35,18 +35,12 @@ public class Game implements Runnable {
 	private static Game instance = new Game("Ellas vs. Maxims", 640,480, RenderSpace.getStandard());
 
 	/* Rooms */
-	private Room gameRoom;
-	private Room menuRoom; //Currently not implemented
+	public Room gameRoom;
+	public Room menuRoom; //Currently not implemented
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
 	private Graphics g;
-
-	/* Add test properties here */
-	private BufferedImage background;
-
-	/* Equivalent of sun in PvZ */
-
 
     private Game(String title, int width, int height, RenderSpace renderSpace) {
         this.title = title;
@@ -63,11 +57,11 @@ public class Game implements Runnable {
         camera = new Camera(RenderSpace.getStandard(), display.getCanvas());
 
         gameRoom = new GameRoom();
+        gameRoom.init();
         menuRoom = new MainMenuRoom();
         /* By default sets the room to the game room. Will likely be changed to the Main Menu in the future. */
-        Room.setRoom(gameRoom);
+        Room.setRoom(menuRoom);
 
-        background = ImageLoader.loadImage("/backgrounds/lawn.png");
         display.getCanvas().addMouseListener(mouseListener);
         Room.getRoom().init();
     }
@@ -86,7 +80,7 @@ public class Game implements Runnable {
         g.clearRect(0, 0, width, height);
 
         /* Draw graphics */
-        g.drawImage(background, 0, 0, display.getCanvas().getWidth(),display.getCanvas().getHeight(), null);
+		g.drawImage(Room.getRoom().getBackground(), 0, 0, display.getCanvas().getWidth(),display.getCanvas().getHeight(), null);
 
         Iterable<RenderCall> renderCalls = Room.getRoom().render();
 

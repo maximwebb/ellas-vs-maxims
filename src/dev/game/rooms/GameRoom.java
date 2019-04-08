@@ -1,6 +1,7 @@
 package dev.game.rooms;
 
 import dev.game.*;
+import dev.game.gfx.Assets;
 import dev.game.objects.*;
 import dev.game.plants.Plant;
 import dev.game.plants.PlantBuilder;
@@ -36,6 +37,7 @@ public class GameRoom extends Room {
 	private static int eggCountTimer = 0;
 
 	public GameRoom() {
+		super(Assets.lawn);
 		totalLanes = 4;
 		gameObjectsList = new ArrayList<>();
 		gameObjectsToAdd=new Stack<>();

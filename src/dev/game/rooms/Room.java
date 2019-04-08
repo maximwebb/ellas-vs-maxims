@@ -2,11 +2,23 @@ package dev.game.rooms;
 
 import dev.game.rendering.RenderCall;
 
+import java.awt.image.BufferedImage;
+
 public abstract class Room {
 	
 	private double deltaTime;
 	
 	private static Room currentRoom = null;
+
+	private BufferedImage background;
+
+	public Room(BufferedImage background) {
+		this.background = background;
+	}
+
+	public BufferedImage getBackground() {
+		return background;
+	}
 
 	public static void setRoom(Room room) {
 		currentRoom = room;
