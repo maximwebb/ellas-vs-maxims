@@ -1,14 +1,13 @@
 <project name="ellas-vs-maxims" default="jar">
 
     <target name="compile">
-        <mkdir dir="out"/>
         <copy todir="out/production/ellas-vs-maxims" >
             <fileset dir="resources" includes="**"/>
         </copy>
         <javac srcdir="src" destdir="out/production/ellas-vs-maxims/"/>
     </target>
 
-    <target name="jar">
+    <target name="jar" depends="compile">
         <jar destfile="out/ellas-vs-maxims.jar" basedir="out/production/ellas-vs-maxims/">
             <manifest>
                 <attribute name="Main-Class" value="dev.game.Launcher"/>
