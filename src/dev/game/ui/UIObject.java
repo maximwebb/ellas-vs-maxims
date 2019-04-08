@@ -1,34 +1,16 @@
 package dev.game.ui;
 
 import dev.game.maths.Vector2D;
+import dev.game.objects.RenderedGameObject;
 import dev.game.rooms.Room;
 
-public abstract class UIObject {
-	protected Vector2D pos;
-	protected int width, height;
+import java.awt.image.BufferedImage;
+
+public abstract class UIObject extends RenderedGameObject {
 	protected boolean hovering = false;
 
-	public UIObject(Vector2D pos, int width, int height) {
-		this.pos = pos;
-		this.width = width;
-		this.height = height;
+	public UIObject(Vector2D pos, int width, int height, BufferedImage sprite) {
+		super(pos, Vector2D.zero, width, height, sprite);
 	}
 
-	public void setPos(Vector2D newPos) {
-		pos = newPos;
-	}
-
-	public Vector2D getPos() {
-		return pos;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public abstract void update();
 }

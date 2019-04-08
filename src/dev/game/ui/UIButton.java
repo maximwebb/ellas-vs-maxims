@@ -10,36 +10,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class UIButton {
-    protected Vector2D pos;
-    private BufferedImage sprite, sprite_mouseover;
-    private int width, height;
+public class UIButton extends UIObject {
     private ClickAction clickAction;
 
-    public UIButton(Vector2D pos, BufferedImage sprite, BufferedImage sprite_mouseover, int width, int height) {
-        this.pos = pos;
-        this.width = width;
-        this.height = height;
-        this.sprite = sprite;
-        this.sprite_mouseover = sprite_mouseover;
-        this.clickAction = null;
+    public UIButton(Vector2D pos, int width, int height, ClickAction clickAction, BufferedImage sprite) {
+        super(pos, width, height, sprite);
+        this.clickAction = clickAction;
     }
 
-    public Vector2D getPos() {
-        return pos;
-    }
-
-    public BufferedImage getSprite() {
-        return sprite;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
 
     public ClickAction getClickAction() {
         return clickAction;
