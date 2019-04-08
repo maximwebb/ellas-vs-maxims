@@ -54,10 +54,10 @@ public class Wave extends GameObject {
 			if (randNum < 3) {
 				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.ENGINEER);
 			}
-			else if (randNum >= 3 && randNum < 6 ) {
+			else if (randNum < 6 ) {
 				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.POLITICS);
 			}
-			else if (randNum >= 6 && randNum < 8) {
+			else if (randNum < 8) {
 				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.ASNAC);
 			}
 			else {
