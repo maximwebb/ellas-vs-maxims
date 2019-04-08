@@ -2,8 +2,6 @@ package dev.game;
 
 import dev.game.display.Display;
 import dev.game.gfx.Assets;
-import dev.game.gfx.ImageLoader;
-import dev.game.objects.ClickAction;
 import dev.game.rendering.*;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.MainMenuRoom;
@@ -13,7 +11,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -36,7 +33,7 @@ public class Game implements Runnable {
 
 	/* Rooms */
 	public Room gameRoom;
-	public Room menuRoom; //Currently not implemented
+	public Room mainMenuRoom; //Currently not implemented
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
@@ -58,9 +55,9 @@ public class Game implements Runnable {
 
         gameRoom = new GameRoom();
         gameRoom.init();
-        menuRoom = new MainMenuRoom();
+        mainMenuRoom = new MainMenuRoom();
         /* By default sets the room to the game room. Will likely be changed to the Main Menu in the future. */
-        Room.setRoom(menuRoom);
+        Room.setRoom(mainMenuRoom);
 
         display.getCanvas().addMouseListener(mouseListener);
         Room.getRoom().init();

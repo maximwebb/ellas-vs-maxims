@@ -1,10 +1,12 @@
 package dev.game.rooms;
 
 import dev.game.rendering.RenderCall;
+import dev.game.ui.UIManager;
 
 import java.awt.image.BufferedImage;
 
 public abstract class Room {
+	private UIManager uiManager = new UIManager();
 	
 	private double deltaTime;
 	
@@ -39,4 +41,8 @@ public abstract class Room {
     }
 
     public abstract Iterable<RenderCall> render();
+
+    public UIManager getUiManager() {
+    	return uiManager;
+	}
 }

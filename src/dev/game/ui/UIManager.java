@@ -16,7 +16,7 @@ public class UIManager {
     	uiObjectsList = new ArrayList<>();
     }
 
-    public void addButton(Vector2D pos, int width, int height, ClickAction clickAction, BufferedImage sprite) {
-		uiObjectsList.add(new UIButton(pos, width, height, clickAction, sprite));
+    public void addButton(Vector2D pos, int width, int height, ClickAction clickAction, BufferedImage sprite, BufferedImage sprite_mouseover) {
+		uiObjectsList.add(new UIButton(pos, width, height, clickAction, sprite, sprite_mouseover));
     }
 }
