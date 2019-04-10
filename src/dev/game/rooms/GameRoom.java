@@ -8,9 +8,11 @@ import dev.game.rendering.RenderCall;
 import dev.game.rendering.RenderSpace;
 import dev.game.rendering.RenderText;
 import dev.game.waves.*;
+import dev.game.waves.Wave.SpawnDistribution;
 import dev.game.maths.Vector2D;
 import dev.game.zombies.Zombie;
 import dev.game.zombies.ZombieBuilder;
+import dev.game.zombies.ZombieBuilder.ZombieType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +30,9 @@ public class GameRoom extends Room {
 	private int gameWidth = RenderSpace.getStandard().getWidth();
 	private int gameHeight = RenderSpace.getStandard().getHeight();
 
-	private static Plant maximPlant;
+	private static Plant maximPlant; //what's this for?
 	private PlantBuilder plantBuilder;
-	private ZombieBuilder zombieBuilder;
+	//private ZombieBuilder zombieBuilder; - not needed
 
 	public static int eggCount = 1000;
 	private static int eggCountTimer = 0;
@@ -48,7 +50,7 @@ public class GameRoom extends Room {
 		gameObjectsToRemove=new Stack<>();
 
 		this.plantBuilder = new PlantBuilder();
-		this.zombieBuilder = new ZombieBuilder();
+		//this.zombieBuilder = new ZombieBuilder(); - not needed
 		fillGrid(totalLanes, 6, 25);
 
 		lanesList = new Lane[totalLanes];
@@ -56,7 +58,7 @@ public class GameRoom extends Room {
 			lanesList[i] = new Lane(i);
 		}
 
-		Wave wave1 = CyclicWave.getDemoWave(10);
+		Wave wave1 = new CyclicWave(100, 20, null, SpawnDistribution.PEAK_END);
 		this.addGameObject(wave1);
 		wave1.play();
 	}
@@ -138,8 +140,8 @@ public class GameRoom extends Room {
 		lanesList[plant.getLaneNumber()].removePlant(plant);
 	}
 
-	public void addZombie(int lane) {
-		Zombie zombie = zombieBuilder.buildZombie(new Vector2D(gameWidth, ((float) lane * gameHeight) / 4), lane);
+	public void addZombie(int lane, ZombieType zombieType) {
+		Zombie zombie = ZombieBuilder.buildZombie(lane, zombieType);
 		addGameObject(zombie);
 		lanesList[lane].addZombie(zombie);
 	}
@@ -152,10 +154,12 @@ public class GameRoom extends Room {
 	public PlantBuilder getPlantBuilder() {
 		return plantBuilder;
 	}
-
+	
+	/*
 	public ZombieBuilder getZombieBuilder() {
 		return zombieBuilder;
 	}
+	*/
 
 	public void addGameObject(GameObject e){
 		gameObjectsToAdd.add(e);
@@ -166,5 +170,4 @@ public class GameRoom extends Room {
 	}
 
 	public void setEggCount(int count) { eggCount = count; }
-
 }

@@ -87,9 +87,9 @@ public class Game implements Runnable {
 
         /* Draw graphics */
         g.drawImage(background, 0, 0, display.getCanvas().getWidth(),display.getCanvas().getHeight(), null);
-
+        
         Iterable<RenderCall> renderCalls = Room.getRoom().render();
-
+        
         for (RenderCall renderCall : renderCalls) {
             if (renderCall instanceof RenderSprite) {
                 RenderSprite renderSprite = (RenderSprite) renderCall;
@@ -108,9 +108,9 @@ public class Game implements Runnable {
                 g.drawString(renderText.getText(), renderText.getX(), renderText.getY());
             }
         }
-
+        
         mouseListener.update();
-
+        
         bs.show();
         g.dispose();
     }
