@@ -1,12 +1,14 @@
 package dev.game.rooms;
 
 import dev.game.*;
+import dev.game.gfx.Assets;
 import dev.game.objects.*;
 import dev.game.plants.Plant;
 import dev.game.plants.PlantBuilder;
 import dev.game.rendering.RenderCall;
 import dev.game.rendering.RenderSpace;
 import dev.game.rendering.RenderText;
+import dev.game.ui.UIManager;
 import dev.game.waves.*;
 import dev.game.waves.Wave.SpawnDistribution;
 import dev.game.maths.Vector2D;
@@ -37,7 +39,10 @@ public class GameRoom extends Room {
 	public static int eggCount = 1000;
 	private static int eggCountTimer = 0;
 
+	UIManager uiManager = new UIManager();
+
 	public GameRoom() {
+		super(Assets.lawn);
 		totalLanes = 4;
 		gameObjectsList = new ArrayList<>();
 		gameObjectsToAdd=new Stack<>();
@@ -96,7 +101,7 @@ public class GameRoom extends Room {
 		List<RenderCall> renderCalls = new ArrayList<>();
 
 		for (GameObject object : gameObjectsList){
-			//Maybe this shouldnt access camera...
+			//Maybe this shouldn't access camera...
 			renderCalls.add(Game.getInstance().getCamera().translate(object));
 		}
 

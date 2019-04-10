@@ -1,12 +1,26 @@
 package dev.game.rooms;
 
 import dev.game.rendering.RenderCall;
+import dev.game.ui.UIManager;
+
+import java.awt.image.BufferedImage;
 
 public abstract class Room {
+	private UIManager uiManager = new UIManager();
 	
 	private double deltaTime;
 	
 	private static Room currentRoom = null;
+
+	private BufferedImage background;
+
+	public Room(BufferedImage background) {
+		this.background = background;
+	}
+
+	public BufferedImage getBackground() {
+		return background;
+	}
 
 	public static void setRoom(Room room) {
 		currentRoom = room;
@@ -27,4 +41,8 @@ public abstract class Room {
     }
 
     public abstract Iterable<RenderCall> render();
+
+    public UIManager getUiManager() {
+    	return uiManager;
+	}
 }

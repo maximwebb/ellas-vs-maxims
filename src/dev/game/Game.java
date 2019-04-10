@@ -2,10 +2,9 @@ package dev.game;
 
 import dev.game.display.Display;
 import dev.game.gfx.Assets;
-import dev.game.gfx.ImageLoader;
-import dev.game.objects.ClickAction;
 import dev.game.rendering.*;
 import dev.game.rooms.GameRoom;
+import dev.game.rooms.LevelsRoom;
 import dev.game.rooms.MainMenuRoom;
 import dev.game.rooms.Room;
 
@@ -13,7 +12,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -35,18 +33,13 @@ public class Game implements Runnable {
 	private static Game instance = new Game("Ellas vs. Maxims", 640,480, RenderSpace.getStandard());
 
 	/* Rooms */
-	private Room gameRoom;
-	private Room menuRoom; //Currently not implemented
+	public Room gameRoom;
+	public Room mainMenuRoom;
+	public Room levelsRoom;
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
 	private Graphics g;
-
-	/* Add test properties here */
-	private BufferedImage background;
-
-	/* Equivalent of sun in PvZ */
-
 
     private Game(String title, int width, int height, RenderSpace renderSpace) {
         this.title = title;
@@ -63,11 +56,12 @@ public class Game implements Runnable {
         camera = new Camera(RenderSpace.getStandard(), display.getCanvas());
 
         gameRoom = new GameRoom();
-        menuRoom = new MainMenuRoom();
+        gameRoom.init();
+        mainMenuRoom = new MainMenuRoom();
+        levelsRoom = new LevelsRoom();
         /* By default sets the room to the game room. Will likely be changed to the Main Menu in the future. */
-        Room.setRoom(gameRoom);
+        Room.setRoom(mainMenuRoom);
 
-        background = ImageLoader.loadImage("/backgrounds/lawn.png");
         display.getCanvas().addMouseListener(mouseListener);
         Room.getRoom().init();
     }
@@ -86,8 +80,7 @@ public class Game implements Runnable {
         g.clearRect(0, 0, width, height);
 
         /* Draw graphics */
-        g.drawImage(background, 0, 0, display.getCanvas().getWidth(),display.getCanvas().getHeight(), null);
-        
+		    g.drawImage(Room.getRoom().getBackground(), 0, 0, display.getCanvas().getWidth(),display.getCanvas().getHeight(), null);
         Iterable<RenderCall> renderCalls = Room.getRoom().render();
         
         for (RenderCall renderCall : renderCalls) {
