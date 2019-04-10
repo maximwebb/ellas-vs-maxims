@@ -25,6 +25,6 @@ public class ZombieSpawnEvent extends WaveEvent{
 	
 	//alternative constructor for spawning random zombies into random lanes
 	public ZombieSpawnEvent(double time) {
-		this(time, random.nextInt(4), ZombieType.NORMAL);
+		this(time, random.nextInt(4), ZombieBuilder.getRandomZombieType());
 	}
 }
