@@ -1,5 +1,6 @@
 package dev.game.waves;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -8,8 +9,16 @@ import dev.game.Game;
 import dev.game.objects.GameObject;
 import dev.game.rooms.*;
 import dev.game.zombies.ZombieBuilder;
+import dev.game.zombies.ZombieBuilder.ZombieType;
 
 public class Wave extends GameObject {
+	
+	public enum SpawnDistribution {
+		EVEN,
+		PEAK_START,
+		PEAK_MIDDLE,
+		PEAK_END
+	}
 	
 	protected boolean isActive = false;
 	protected double activeTime = 0;
@@ -23,7 +32,7 @@ public class Wave extends GameObject {
 				this.stop();
 				this.reset();
 			} else {
-				activeTime += Room.getRoom().getDeltaTime();
+				this.activeTime += Room.getRoom().getDeltaTime();
 				if(this.activeTime > this.waveEvents.peek().time) {
 					this.processEvent(this.waveEvents.poll());
 				}
@@ -45,37 +54,47 @@ public class Wave extends GameObject {
 		this.activeTime = 0;
 	}
 	
+	public void addEvent(WaveEvent event) {
+		this.waveEvents.add(event);
+	}
+	
 	protected void processEvent(WaveEvent event) {
-		
 		if(event instanceof ZombieSpawnEvent) {
 			ZombieSpawnEvent zombieEvent = (ZombieSpawnEvent)event;
-			int randNum = (int)Math.floor(Math.random() * 10) + 1;
-			System.out.println(randNum);
-			if (randNum < 3) {
-				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.ENGINEER);
-			}
-			else if (randNum < 6 ) {
-				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.POLITICS);
-			}
-			else if (randNum < 8) {
-				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.ASNAC);
-			}
-			else {
-				((GameRoom)Room.getRoom()).getZombieBuilder().setCurrentZombieType(ZombieBuilder.ZombieType.NORMAL);
-			}
-			((GameRoom)Room.getRoom()).addZombie(zombieEvent.lane);
+			((GameRoom)Room.getRoom()).addZombie(zombieEvent.lane, zombieEvent.zombieType);
+		} else if(event instanceof WaveChunk) {
+			((WaveChunk)event).wave.play();
 		}
-		
 		this.usedEvents.add(event);
 	}
 	
-	public static Wave getDemoWave(int length) {
-		Wave demo = new Wave();
-		
-		for(int i = 0; i < length; i++) {
-			demo.waveEvents.add(new ZombieSpawnEvent(2 * i + 2));
+	public Wave() {}
+	
+	public Wave(int zombies) {
+		for(int i = 0; i < zombies; i++) {
+			this.addEvent(new ZombieSpawnEvent(2 * i + 2));
 		}
+	}
+	
+	public Wave(double length, int zombies, HashMap<ZombieType, Float> zombieTypes, SpawnDistribution distribution) {
 		
-		return demo;
+		for(int i = 0; i < zombies; i++) {
+			
+			double randNum = Math.random();
+			
+			switch(distribution) {
+				case PEAK_START:
+					randNum = 1 - Math.sqrt(1 - randNum);
+					break;
+				case PEAK_MIDDLE:
+					randNum = 4 * Math.pow(randNum - 0.5, 3) + 0.5;
+					break;
+				case PEAK_END:
+					randNum = Math.sqrt(randNum);
+					break;
+			}
+			
+			this.addEvent(new ZombieSpawnEvent(randNum * length));
+		}
 	}
 }
