@@ -15,6 +15,7 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.lang.Thread;
 
 public class Game implements Runnable {
 
@@ -122,17 +123,36 @@ public class Game implements Runnable {
 			currentTime = (double)System.nanoTime()/1000000000; //Updates time.
 
 			if(currentTime >= targetTime) {
+//			    System.out.println(System.nanoTime() - targetTime*1000000000);
+
 				deltaTime = currentTime - lastTime; //Sets deltaTime to equal the time since the last update
 				lastTime = currentTime; //sets lastTime to equal time of this update
 
 				targetTime += (1/this.fps) * Math.ceil((currentTime - targetTime) * this.fps); //sets target time for next update
+
 
 				//Calls method to update game logic.
 				//Important to pass in deltaTime so objects know how much time has passed since their last update.
 				tick(deltaTime);
         
 				render(); //Calls some method to update rendering
+
+                if(System.nanoTime()/1000000000. > targetTime){
+                    System.out.println("[WARN] Ran out of rendering time for frame, overshot by " + (System.nanoTime()/1000000000. - targetTime) + "s");
+                }
 			}
+
+			// Pause until 1ms before we're supposed to render the next frame
+            // Because the windows kernel timer is shit and only has like 1ms resolution, we could be woken up late,
+            // so we then busysleep until the actual time to make sure it lines up.
+            int sleepnanos = (int)(targetTime*1000000000 - System.nanoTime()) - 1000000;
+			if(sleepnanos > 0) {
+                try {
+                    Thread.sleep(sleepnanos / 1000000, sleepnanos % 1000000);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
 
 		}
 
