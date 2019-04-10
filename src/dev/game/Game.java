@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Sequencer;
+
+
 public class Game implements Runnable {
 
     private Display display;
@@ -59,6 +63,9 @@ public class Game implements Runnable {
 
     private void init() {
         Assets.init();
+
+        MusicHandler.getInstance().playSong(Assets.theme);
+
         display = new Display(title, width, height);
         camera = new Camera(RenderSpace.getStandard(), display.getCanvas());
 

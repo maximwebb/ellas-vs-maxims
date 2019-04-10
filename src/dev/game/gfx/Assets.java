@@ -1,6 +1,7 @@
 package dev.game.gfx;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class Assets {
 
@@ -17,6 +18,9 @@ public class Assets {
 	public static BufferedImage abhiBullet;
 	public static BufferedImage lawn;
 	public static BufferedImage plantButton;
+	public static File bossTheme;
+	public static File theme;
+
 	/* Loads in all assets once */
 	public static void init() {
 		maxim = ImageLoader.loadImage("/textures/maxim.png");
@@ -50,5 +54,8 @@ public class Assets {
 		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
 		lawn = ImageLoader.loadImage("/backgrounds/lawn.png");
 		plantButton = ImageLoader.loadImage("/textures/plantButton.png");
+
+		theme = new File("./resources/music/MaximsVsElla-1_1.mid");
+		bossTheme = new File("./resources/music/boss_theme-1.mid");
 	}
 }
