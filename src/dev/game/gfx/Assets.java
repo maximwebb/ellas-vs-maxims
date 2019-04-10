@@ -17,8 +17,10 @@ public class Assets {
 	public static BufferedImage abhiBullet;
 	public static BufferedImage lawn;
 	public static BufferedImage title;
+	public static BufferedImage levels;
 	public static BufferedImage plantButton;
 	public static BufferedImage[] startButton;
+	public static BufferedImage[] levelsButton;
 	/* Loads in all assets once */
 	public static void init() {
 		maxim = ImageLoader.loadImage("/textures/maxim.png");
@@ -52,6 +54,7 @@ public class Assets {
 		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
 		lawn = ImageLoader.loadImage("/backgrounds/lawn.png");
 		title = ImageLoader.loadImage("/backgrounds/title.png");
+		levels = ImageLoader.loadImage("/backgrounds/levels.png");
 
 		/* Buttons */
 		plantButton = ImageLoader.loadImage("/textures/plantButton.png");
@@ -59,6 +62,10 @@ public class Assets {
 		startButton = new BufferedImage[2];
 		startButton[0] = ImageLoader.loadImage("/textures/startButton0.png");
 		startButton[1] = ImageLoader.loadImage("/textures/startButton1.png");
+
+		levelsButton = new BufferedImage[2];
+		levelsButton[0] = ImageLoader.loadImage("/textures/levelsButton0.png");
+		levelsButton[0] = ImageLoader.loadImage("/textures/levelsButton1.png");
 
 
 	}
