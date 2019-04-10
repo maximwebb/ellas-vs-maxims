@@ -64,7 +64,7 @@ public class Wave extends GameObject {
 			((GameRoom)Room.getRoom()).addZombie(zombieEvent.lane, zombieEvent.zombieType);
 		} else if(event instanceof WaveChunk) {
 			((WaveChunk)event).wave.play();
-		}	
+		}
 		this.usedEvents.add(event);
 	}
 	
