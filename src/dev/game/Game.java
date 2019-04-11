@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -40,7 +41,7 @@ public class Game implements Runnable {
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
-	private Graphics g;
+	private Graphics gx;
 
     private Game(String title, int width, int height, RenderSpace renderSpace) {
         this.title = title;
@@ -77,7 +78,11 @@ public class Game implements Runnable {
             display.getCanvas().createBufferStrategy(3);
             return;
         }
-        g = bs.getDrawGraphics();
+        gx = bs.getDrawGraphics();
+        Graphics2D g = (Graphics2D) gx;
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
         g.clearRect(0, 0, width, height);
 
         /* Draw graphics */
