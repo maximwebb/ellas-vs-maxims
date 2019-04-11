@@ -128,17 +128,22 @@ public class Game implements Runnable {
 				deltaTime = currentTime - lastTime; //Sets deltaTime to equal the time since the last update
 				lastTime = currentTime; //sets lastTime to equal time of this update
 
-				targetTime += (1/this.fps) * Math.ceil((currentTime - targetTime) * this.fps); //sets target time for next update
+                // Target next frame at next 16ms interval - this is subtly different
+				//targetTime += (1/this.fps) * Math.ceil((currentTime - targetTime) * this.fps); //sets target time for next update
 
+                // Target next frame in 16ms time
+                targetTime += (1/this.fps);
 
 				//Calls method to update game logic.
 				//Important to pass in deltaTime so objects know how much time has passed since their last update.
 				tick(deltaTime);
+
+				double tickTime = (double)System.nanoTime()/1000000000;
         
 				render(); //Calls some method to update rendering
 
                 if(System.nanoTime()/1000000000. > targetTime){
-                    System.out.println("[WARN] Ran out of rendering time for frame, overshot by " + (System.nanoTime()/1000000000. - targetTime) + "s");
+                    System.out.println("[WARN] Ran out of rendering time for frame, overshot by " + (System.nanoTime()/1000000000. - targetTime)*1000 + "ms. Timings: render " + (System.nanoTime()/1000000000. - tickTime)*1000 + "ms tick " + (tickTime - currentTime)*1000 + "ms");
                 }
 			}
 
