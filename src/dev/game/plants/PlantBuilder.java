@@ -12,6 +12,7 @@ public class PlantBuilder {
 	public enum PlantType {
 		EGGSHOOTER,
 		EGGFLOWER,
+		YOUMU,
 		WALBERT,
 		NONE
 	}
@@ -19,7 +20,7 @@ public class PlantBuilder {
 	public PlantType currentPlant;
 
 	public PlantBuilder() {
-		currentPlant = PlantType.EGGSHOOTER;
+		currentPlant = PlantType.YOUMU;
 	}
 
 	public PlantType getCurrentPlantType() {
@@ -41,6 +42,9 @@ public class PlantBuilder {
 				break;
 			case WALBERT:
 				plant = new Walbert(pos, Vector2D.zero, lane);
+				break;
+			case YOUMU:
+				plant = new Youmu(pos, Vector2D.zero, lane);
 				break;
 		}
 		return plant;
