@@ -20,6 +20,7 @@ public class Assets {
 	public static BufferedImage levels;
 	public static BufferedImage plantButton;
 	public static BufferedImage[] startButton;
+	public static BufferedImage[] levelSelectButton;
 	public static BufferedImage[] levelsButton;
 	/* Loads in all assets once */
 	public static void init() {
@@ -63,9 +64,15 @@ public class Assets {
 		startButton[0] = ImageLoader.loadImage("/textures/startButton0.png");
 		startButton[1] = ImageLoader.loadImage("/textures/startButton1.png");
 
-		levelsButton = new BufferedImage[2];
-		levelsButton[0] = ImageLoader.loadImage("/textures/levelsButton0.png");
-		levelsButton[0] = ImageLoader.loadImage("/textures/levelsButton1.png");
+		levelSelectButton = new BufferedImage[2];
+		levelSelectButton[0] = ImageLoader.loadImage("/textures/levelsButton0.png");
+		levelSelectButton[0] = ImageLoader.loadImage("/textures/levelsButton1.png");
+
+		levelsButton = new BufferedImage[4];
+		levelsButton[0] = ImageLoader.loadImage("/textures/level1.png");
+		levelsButton[1] = ImageLoader.loadImage("/textures/level2.png");
+		levelsButton[2] = ImageLoader.loadImage("/textures/level3.png");
+		levelsButton[3] = ImageLoader.loadImage("/textures/level4.png");
 
 
 	}
