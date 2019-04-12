@@ -1,6 +1,7 @@
 package dev.game.objects;
 import dev.game.gfx.Assets;
 import dev.game.maths.Vector2D;
+import dev.game.rooms.Lane;
 import dev.game.zombies.Zombie;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
@@ -9,23 +10,23 @@ import dev.game.rooms.Room;
 public class SlashHandler extends RenderedGameObject {
 
     int damage;
+    Lane lane;
 
-    public SlashHandler(int damage) {
+    public SlashHandler(int damage, Lane lane) {
         super(Vector2D.zero, Vector2D.zero, 0, 0, Assets.ella);
         this.damage = damage;
+        this.lane = lane;
     }
 
     @Override
     public void update()
     {
-        //damage all zombies
-        for(GameObject object : ((GameRoom)Room.getRoom()).gameObjectsList) {
-            if(object instanceof Zombie) {
-                //damage
-                ((Zombie) object).damage(this.damage);
-                //display wacky slash animation
-                ((GameRoom) Room.getRoom()).addGameObject(new Slash(((Zombie) object).pos));
-            }
+        //damage all zombies in lane
+        for (Zombie zombie : lane.getZombiesList()) {
+            //damage
+            ((Zombie) zombie).damage(this.damage);
+            //display wacky slash animation
+            ((GameRoom) Room.getRoom()).addGameObject(new Slash(((Zombie) zombie).pos));
         }
         ((GameRoom) Room.getRoom()).removeGameObject(this);
     }

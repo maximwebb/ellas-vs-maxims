@@ -57,20 +57,20 @@ public class Assets {
 
 		/*henry youmu plant*/
 		youmu = new BufferedImage[6];
-		youmu[0] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite0.png");
-		youmu[1] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite1.png");
-		youmu[2] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite2.png");
-		youmu[3] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite3.png");
-		youmu[4] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite4.png");
-		youmu[5] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite5.png");
+		youmu[0] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite000.png");
+		youmu[1] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite001.png");
+		youmu[2] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite002.png");
+		youmu[3] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite003.png");
+		youmu[4] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite004.png");
+		youmu[5] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite005.png");
 		slashes = new BufferedImage[7];
-		slashes[0] = ImageLoader.loadImage("/textures/slashes/slash_1.png");
-		slashes[1] = ImageLoader.loadImage("/textures/slashes/slash_2.png");
-		slashes[2] = ImageLoader.loadImage("/textures/slashes/slash_3.png");
-		slashes[3] = ImageLoader.loadImage("/textures/slashes/slash_4.png");
-		slashes[4] = ImageLoader.loadImage("/textures/slashes/slash_5.png");
-		slashes[5] = ImageLoader.loadImage("/textures/slashes/slash_6.png");
-		slashes[6] = ImageLoader.loadImage("/textures/slashes/slash_7.png");
+		slashes[0] = ImageLoader.loadImage("/textures/slashes/slash000.png");
+		slashes[1] = ImageLoader.loadImage("/textures/slashes/slash001.png");
+		slashes[2] = ImageLoader.loadImage("/textures/slashes/slash002.png");
+		slashes[3] = ImageLoader.loadImage("/textures/slashes/slash003.png");
+		slashes[4] = ImageLoader.loadImage("/textures/slashes/slash004.png");
+		slashes[5] = ImageLoader.loadImage("/textures/slashes/slash005.png");
+		slashes[6] = ImageLoader.loadImage("/textures/slashes/slash006.png");
 		explosion = ImageLoader.loadImage("/textures/explosion.png");
 
 		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
