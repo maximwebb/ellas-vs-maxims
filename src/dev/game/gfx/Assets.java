@@ -1,5 +1,6 @@
 package dev.game.gfx;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Assets {
@@ -19,6 +20,9 @@ public class Assets {
 	public static BufferedImage title;
 	public static BufferedImage levels;
 	public static BufferedImage plantButton;
+	public static BufferedImage explosion;
+	public static BufferedImage[] youmu;
+	public static BufferedImage[] slashes;
 	public static BufferedImage[] startButton;
 	public static BufferedImage[] levelsButton;
 	/* Loads in all assets once */
@@ -50,6 +54,24 @@ public class Assets {
 		eggFlower = ImageLoader.loadImage("/textures/eggFlower.png");
 		chenapult = ImageLoader.loadImage("/textures/chenapult.png");
 		walbert = ImageLoader.loadImage("/textures/walbert.png");
+
+		/*henry youmu plant*/
+		youmu = new BufferedImage[6];
+		youmu[0] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite000.png");
+		youmu[1] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite001.png");
+		youmu[2] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite002.png");
+		youmu[3] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite003.png");
+		youmu[4] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite004.png");
+		youmu[5] = ImageLoader.loadImage("/textures/youmuSprite/youmuSprite005.png");
+		slashes = new BufferedImage[7];
+		slashes[0] = ImageLoader.loadImage("/textures/slashes/slash000.png");
+		slashes[1] = ImageLoader.loadImage("/textures/slashes/slash001.png");
+		slashes[2] = ImageLoader.loadImage("/textures/slashes/slash002.png");
+		slashes[3] = ImageLoader.loadImage("/textures/slashes/slash003.png");
+		slashes[4] = ImageLoader.loadImage("/textures/slashes/slash004.png");
+		slashes[5] = ImageLoader.loadImage("/textures/slashes/slash005.png");
+		slashes[6] = ImageLoader.loadImage("/textures/slashes/slash006.png");
+		explosion = ImageLoader.loadImage("/textures/explosion.png");
 
 		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
 		lawn = ImageLoader.loadImage("/backgrounds/lawn.png");

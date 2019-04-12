@@ -130,6 +130,15 @@ public class GameRoom extends Room {
 
 	public Lane[] getLanesList() { return lanesList; }
 
+	/*public int getTotalZombies() {
+		int ret = 0;
+		//count the zombies in each lane
+		Lane[] lanes = this.getLanesList();
+		for (int i = 0; i < lanes.length; i++) {
+			ret += lanes[i].getZombiesList().size();
+		}
+		return ret;
+	}*/
 
 	public Plant addPlant(Vector2D pos, int lane) {
 		Plant plant = plantBuilder.buildPlant(pos, lane);
