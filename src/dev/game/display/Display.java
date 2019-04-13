@@ -64,10 +64,7 @@ public class Display {
 		panel.setLayout(new GridLayout());
 		panel.add(canvas);
 
-
-
 		frame.pack();
-
 	}
 
 	public Canvas getCanvas() {
@@ -80,6 +77,18 @@ public class Display {
 
 	public void setPlantButton(JButton b){
 		plantButton = b;
+	}
+
+	public void updateDisplaySize(int width, int height) {
+		this.width = width;
+		this.height = height;
+
+		int plantheight = Math.min(300, (this.height - plantButton.getHeight()) / plantList.size());
+		for (int i = 0; i < plantList.size(); i++) {
+			JButton plant = plantList.get(i);
+//			Image icon = plant.getIcon();
+			plant.setBounds(0, plantButton.getHeight() + (i * plantheight), plantButton.getWidth(), plantheight);
+		}
 	}
 
 	public void createPlantMenu(JFrame frame){
@@ -116,15 +125,15 @@ public class Display {
 		});
 		plantList.add(jButton);
 
-		jButton = new JButton(new ImageIcon(Assets.chenapult));
-		//I deserve to be hanged for this code...
-		jButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				//((GameRoom) Room.getRoom()).getPlantBuilder().setCurrentPlantType(PlantBuilder.PlantType...);
-			}
-		});
-		plantList.add(jButton);
+//		jButton = new JButton(new ImageIcon(Assets.chenapult));
+//		//I deserve to be hanged for this code...
+//		jButton.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent actionEvent) {
+//				((GameRoom) Room.getRoom()).getPlantBuilder().setCurrentPlantType(PlantBuilder.PlantType.value);
+//			}
+//		});
+//		plantList.add(jButton);
 
 		jButton = new JButton(new ImageIcon(Assets.walbert));
 		//I deserve to be hanged for this code...
@@ -136,21 +145,33 @@ public class Display {
 		});
 		plantList.add(jButton);
 
-
-
-		plantList.add(new JButton(new ImageIcon(Assets.chenapult)));
-		plantList.add(new JButton(new ImageIcon(Assets.walbert)));
+		jButton = new JButton(new ImageIcon(Assets.youmu[0]));
+		//I deserve to be hanged for this code...
+		jButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				((GameRoom) Room.getRoom()).getPlantBuilder().setCurrentPlantType(PlantBuilder.PlantType.YOUMU);
+			}
+		});
+		plantList.add(jButton);
+//
+//		plantList.add(new JButton(new ImageIcon(Assets.chenapult)));
+//		plantList.add(new JButton(new ImageIcon(Assets.walbert)));
 
 		plantNameList.add("eggShooter");
 		plantNameList.add("eggFlower");
-		plantNameList.add("chenapult");
+//		plantNameList.add("chenapult");
 		plantNameList.add("walbert");
+		plantNameList.add("youmu");
+
+		int plantheight = Math.min(200, (this.height - plantButton.getHeight()) / plantList.size());
+		System.out.println(plantList.size());
 
 		for (int i = 0; i < plantList.size(); i++) {
 			final int index = i;
 			JButton plant = plantList.get(i);
 			layers.add(plant, JLayeredPane.PALETTE_LAYER);
-			plant.setBounds(0, plantButton.getHeight() + (i * 200), plantButton.getWidth(), 200);
+			plant.setBounds(0, plantButton.getHeight() + (i * plantheight), plantButton.getWidth(), plantheight);
 			plant.setOpaque(true);
 			plantButton.setBorderPainted(false);
 			plant.setBackground(new Color(130, 100, 0));
@@ -172,8 +193,8 @@ public class Display {
 					plant.setVisible(true);
 					plant.setVisible(true);
 				}
-
 			}
+
 			else {
 				plantSelection = false;
 				plantingState = false;
@@ -183,21 +204,10 @@ public class Display {
 				}
 			}
 		});
-
-
-
 	}
 
-
-	public JLayeredPane getLayers(){
-		return layers;
-	}
-
-	public static boolean getState(){
-		return plantingState;
-	}
-
+	public JLayeredPane getLayers(){ return layers; }
+	public static boolean getState(){ return plantingState; }
 	public static String getSelectedPlant() { return selectedPlant; }
-
 
 }

@@ -85,8 +85,17 @@ public class Game implements Runnable {
 
         g.clearRect(0, 0, width, height);
 
+        // Run updates on screen size change
+        if(display.getCanvas().getWidth() != width | display.getCanvas().getHeight() != height) {
+            width = display.getCanvas().getWidth();
+            height = display.getCanvas().getHeight();
+//            System.out.println("Screen size changed " + width + " " + height);
+
+            display.updateDisplaySize(width, height);
+        }
+
         /* Draw graphics */
-		    g.drawImage(Room.getRoom().getBackground(), 0, 0, display.getCanvas().getWidth(),display.getCanvas().getHeight(), null);
+        g.drawImage(Room.getRoom().getBackground(), 0, 0, display.getCanvas().getWidth(), display.getCanvas().getHeight(), null);
         Iterable<RenderCall> renderCalls = Room.getRoom().render();
         
         for (RenderCall renderCall : renderCalls) {
