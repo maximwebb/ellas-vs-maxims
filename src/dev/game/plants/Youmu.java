@@ -7,8 +7,6 @@ import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
 import dev.game.objects.SlashHandler;
 
-import java.awt.image.BufferedImage;
-
 public class Youmu extends Plant {
 
     private double charge = 0;
