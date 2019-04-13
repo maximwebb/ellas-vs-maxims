@@ -193,6 +193,8 @@ public class Game implements Runnable {
         return instance;
     }
 
+    public double getFps() {return fps; }
+
     public synchronized void stop() {
         try {
             thread.join();

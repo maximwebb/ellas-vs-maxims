@@ -145,7 +145,7 @@ public class Display {
 		});
 		plantList.add(jButton);
 
-		jButton = new JButton(new ImageIcon(Assets.youmu[0]));
+		jButton = new JButton(new ImageIcon(Assets.youmu));
 		//I deserve to be hanged for this code...
 		jButton.addActionListener(new ActionListener() {
 			@Override

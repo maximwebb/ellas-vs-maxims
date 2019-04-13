@@ -1,5 +1,6 @@
 package dev.game.zombies;
 
+import dev.game.gfx.AnimationHandler;
 import dev.game.gfx.Assets;
 import dev.game.maths.Vector2D;
 import dev.game.plants.Plant;

@@ -43,4 +43,26 @@ public class ImageLoader {
 		}
 		return null;
 	}
+
+	private static String index(int n){
+		if (n < 0) {
+			System.out.println("Error in animationHandler. Can't handle negative index.");
+		}
+		if (n >= 100) {
+			return Integer.toString(n);
+		} else if (n >= 10) {
+			return "0" + n;
+		} else {
+			return "00" + n;
+		}
+	}
+
+	public static BufferedImage[] loadImageArray(String folderLocation, String namePrefix, int numberOfImages) {
+		//load all frames
+		BufferedImage[] assets = new BufferedImage[numberOfImages];
+		for (int i = 0; i < numberOfImages; i++) {
+			assets[i] = ImageLoader.loadImage(folderLocation + "/" + namePrefix + index(i) + ".png");
+		}
+		return assets;
+	}
 }
