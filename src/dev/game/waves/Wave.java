@@ -1,5 +1,6 @@
 package dev.game.waves;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -19,7 +20,9 @@ public class Wave extends GameObject {
 		PEAK_MIDDLE,
 		PEAK_END
 	}
-
+  
+	private ArrayList<GameObject> children = new ArrayList<GameObject>(); 
+  
 	protected boolean isActive = false;
 	protected double activeTime = 0;
 	protected PriorityQueue<WaveEvent> waveEvents = new PriorityQueue<WaveEvent>();
@@ -27,8 +30,9 @@ public class Wave extends GameObject {
 
 	@Override
 	public void update() {
-		if (this.isActive) {
-			if (this.waveEvents.isEmpty()) {
+		
+		if(this.isActive) {
+			if(this.waveEvents.isEmpty()) {
 				this.stop();
 				this.reset();
 			} else {
@@ -37,6 +41,10 @@ public class Wave extends GameObject {
 					this.processEvent(this.waveEvents.poll());
 				}
 			}
+		}
+		
+		for(GameObject child : children) {
+			child.update();
 		}
 	}
 
@@ -56,14 +64,19 @@ public class Wave extends GameObject {
 
 	public void addEvent(WaveEvent event) {
 		this.waveEvents.add(event);
+		if(event instanceof WaveChunk) {
+			children.add(((WaveChunk)event).wave);
+		}
 	}
 
 	protected void processEvent(WaveEvent event) {
-		if (event instanceof ZombieSpawnEvent) {
-			ZombieSpawnEvent zombieEvent = (ZombieSpawnEvent) event;
-			((GameRoom) Room.getRoom()).addZombie(zombieEvent.lane, zombieEvent.zombieType);
-		} else if (event instanceof WaveChunk) {
-			((WaveChunk) event).wave.play();
+		if(event instanceof ZombieSpawnEvent) {
+			ZombieSpawnEvent zombieEvent = (ZombieSpawnEvent)event;
+			((GameRoom)Room.getRoom()).addZombie(zombieEvent.lane, zombieEvent.zombieType);
+			System.out.println("ZOMBIE SPAWNED");
+		} else if(event instanceof WaveChunk) {
+			((WaveChunk)event).wave.play();
+			System.out.println("NEW WAVE_CHUNK");
 		}
 		this.usedEvents.add(event);
 	}

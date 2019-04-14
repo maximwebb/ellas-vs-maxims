@@ -28,6 +28,8 @@ public class GameRoom extends Room {
 	private static Tile[][] grid;
 	private int totalLanes;
 	private Lane[] lanesList;
+	
+	private Level level;
 	/* For convenience */
 	private int gameWidth = RenderSpace.getStandard().getWidth();
 	private int gameHeight = RenderSpace.getStandard().getHeight();
@@ -62,10 +64,15 @@ public class GameRoom extends Room {
 		for (int i = 0; i < totalLanes; i++) {
 			lanesList[i] = new Lane(i);
 		}
-
+		
+		/*
 		Wave wave1 = new CyclicWave(100, 20, null, SpawnDistribution.PEAK_END);
 		this.addGameObject(wave1);
 		wave1.play();
+		*/
+		
+		this.setLevel(Level.level1());
+		this.levelPlayNext();
 	}
 
 	@Override
@@ -183,8 +190,17 @@ public class GameRoom extends Room {
 	public void removeGameObject(GameObject e) {
 		gameObjectsToRemove.add(e);
 	}
-
-	public void setEggCount(int count) {
-		eggCount = count;
+  
+	public void setEggCount(int count) { eggCount = count; }
+	
+	public void setLevel(Level level) {
+		this.level = level;
+		for(Wave wave : level.waves) {
+			this.addGameObject(wave);
+		}
+	}
+	
+	public void levelPlayNext() {
+		this.level.playNext();
 	}
 }
