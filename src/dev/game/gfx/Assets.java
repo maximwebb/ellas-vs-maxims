@@ -17,6 +17,7 @@ public class Assets {
 	public static BufferedImage abhiBullet;
 	public static BufferedImage lawn;
 	public static BufferedImage title;
+	public static BufferedImage levelComplete;
 	public static BufferedImage gameOver;
 	public static BufferedImage levels;
 	public static BufferedImage plantButton;
@@ -57,6 +58,7 @@ public class Assets {
 		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
 		lawn = ImageLoader.loadImage("/backgrounds/lawn.png");
 		title = ImageLoader.loadImage("/backgrounds/title.png");
+		levelComplete = ImageLoader.loadImage("/backgrounds/levelComplete.png");
 		gameOver = ImageLoader.loadImage("/backgrounds/gameOver.png");
 		levels = ImageLoader.loadImage("/backgrounds/levels.png");
 

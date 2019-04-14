@@ -35,6 +35,7 @@ public class Game implements Runnable {
 	public Room mainMenuRoom;
 	public Room levelsRoom;
 	public Room gameOverRoom;
+	public Room levelCompleteRoom;
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
@@ -59,7 +60,8 @@ public class Game implements Runnable {
         mainMenuRoom = new MainMenuRoom();
         levelsRoom = new LevelsRoom();
         gameOverRoom = new GameOverRoom();
-        
+        levelCompleteRoom = new LevelCompleteRoom();
+
         Room.setRoom(mainMenuRoom);
 
         display.getCanvas().addMouseListener(mouseListener);
@@ -158,10 +160,13 @@ public class Game implements Runnable {
 		stop();
 	}
 
+	public void levelComplete() {
+		Room.setRoom(levelCompleteRoom);
+	}
+
 	public void gameOver() {
 		Room.setRoom(gameOverRoom);
 	}
-
 
     public synchronized void start() {
         /* Ensures evm is not restarted */

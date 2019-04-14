@@ -127,6 +127,10 @@ public class GameRoom extends Room {
 		}
 	}
 
+	public void levelComplete() {
+		Game.getInstance().levelComplete();
+	}
+
 	public void gameOver() {
 		Game.getInstance().gameOver();
 	}
