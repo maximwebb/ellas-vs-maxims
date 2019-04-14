@@ -48,6 +48,15 @@ public class Lane {
 		}
 	}
 
+	public boolean checkGameOver() {
+		for (Zombie zombie : zombiesList) {
+			if (zombie.getPos().x < 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public ArrayList<Zombie> getZombiesList() {
 		return zombiesList;
 	}

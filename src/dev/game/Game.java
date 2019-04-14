@@ -3,10 +3,7 @@ package dev.game;
 import dev.game.display.Display;
 import dev.game.gfx.Assets;
 import dev.game.rendering.*;
-import dev.game.rooms.GameRoom;
-import dev.game.rooms.LevelsRoom;
-import dev.game.rooms.MainMenuRoom;
-import dev.game.rooms.Room;
+import dev.game.rooms.*;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -37,6 +34,7 @@ public class Game implements Runnable {
 	public Room gameRoom;
 	public Room mainMenuRoom;
 	public Room levelsRoom;
+	public Room gameOverRoom;
 
 	/* A way for the computer to draw things to the screen */
 	private BufferStrategy bs;
@@ -60,7 +58,8 @@ public class Game implements Runnable {
         gameRoom.init();
         mainMenuRoom = new MainMenuRoom();
         levelsRoom = new LevelsRoom();
-        /* By default sets the room to the game room. Will likely be changed to the Main Menu in the future. */
+        gameOverRoom = new GameOverRoom();
+        
         Room.setRoom(mainMenuRoom);
 
         display.getCanvas().addMouseListener(mouseListener);
@@ -158,6 +157,11 @@ public class Game implements Runnable {
 
 		stop();
 	}
+
+	public void gameOver() {
+		Room.setRoom(gameOverRoom);
+	}
+
 
     public synchronized void start() {
         /* Ensures evm is not restarted */

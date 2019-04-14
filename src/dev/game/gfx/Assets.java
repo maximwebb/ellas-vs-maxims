@@ -17,8 +17,10 @@ public class Assets {
 	public static BufferedImage abhiBullet;
 	public static BufferedImage lawn;
 	public static BufferedImage title;
+	public static BufferedImage gameOver;
 	public static BufferedImage levels;
 	public static BufferedImage plantButton;
+	public static BufferedImage mainMenuButton;
 	public static BufferedImage[] startButton;
 	public static BufferedImage[] levelSelectButton;
 	public static BufferedImage[] levelsButton;
@@ -55,10 +57,12 @@ public class Assets {
 		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
 		lawn = ImageLoader.loadImage("/backgrounds/lawn.png");
 		title = ImageLoader.loadImage("/backgrounds/title.png");
+		gameOver = ImageLoader.loadImage("/backgrounds/gameOver.png");
 		levels = ImageLoader.loadImage("/backgrounds/levels.png");
 
 		/* Buttons */
 		plantButton = ImageLoader.loadImage("/textures/plantButton.png");
+		mainMenuButton = ImageLoader.loadImage("/textures/mainMenuButton.png");
 
 		startButton = new BufferedImage[2];
 		startButton[0] = ImageLoader.loadImage("/textures/startButton0.png");

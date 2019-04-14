@@ -45,8 +45,8 @@ public class GameRoom extends Room {
 		super(Assets.lawn);
 		totalLanes = 4;
 		gameObjectsList = new ArrayList<>();
-		gameObjectsToAdd=new Stack<>();
-		gameObjectsToRemove=new Stack<>();
+		gameObjectsToAdd = new Stack<>();
+		gameObjectsToRemove = new Stack<>();
 	}
 
 	public void init() {
@@ -78,6 +78,9 @@ public class GameRoom extends Room {
 
 		for(int i = 0; i < totalLanes; i++) {
 			lanesList[i].removeObjects();
+			if (lanesList[i].checkGameOver()) {
+				gameOver();
+			}
 		}
 		//Performs concurrent changes to the object list
 		while(!gameObjectsToAdd.empty()){
@@ -122,6 +125,10 @@ public class GameRoom extends Room {
 				addGameObject(grid[i][j]);
 			}
 		}
+	}
+
+	public void gameOver() {
+		Game.getInstance().gameOver();
 	}
 
 	public static Tile[][] getGrid(){
