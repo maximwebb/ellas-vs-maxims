@@ -20,8 +20,7 @@ public class PoliticsZombie extends Zombie {
 
 		if (attacking) {
 			this.velocity = Vector2D.zero;
-		}
-		else {
+		} else {
 			this.velocity = this.initialVelocity;
 		}
 
@@ -51,8 +50,7 @@ public class PoliticsZombie extends Zombie {
 						plant.damage(attackAmount);
 						charge = 0;
 					}
-				}
-				else {
+				} else {
 					if (charge > 5) {
 						plant.damage(attackAmount);
 						charge = 0;

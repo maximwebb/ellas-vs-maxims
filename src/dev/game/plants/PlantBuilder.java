@@ -33,7 +33,7 @@ public class PlantBuilder {
 
 	public Plant buildPlant(Vector2D pos, int lane) {
 		Plant plant = null;
-		switch(currentPlant) {
+		switch (currentPlant) {
 			case EGGSHOOTER:
 				plant = new EggShooter(pos, Vector2D.zero, lane);
 				break;

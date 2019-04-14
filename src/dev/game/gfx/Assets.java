@@ -25,6 +25,7 @@ public class Assets {
 	public static BufferedImage[] slashes;
 	public static BufferedImage[] startButton;
 	public static BufferedImage[] levelsButton;
+
 	/* Loads in all assets once */
 	public static void init() {
 		maxim = ImageLoader.loadImage("/textures/maxim.png");

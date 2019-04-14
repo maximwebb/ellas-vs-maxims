@@ -1,6 +1,6 @@
 package dev.game.objects;
 
 @FunctionalInterface
-public interface MouseLeaveAction extends Runnable{
+public interface MouseLeaveAction extends Runnable {
 
 }

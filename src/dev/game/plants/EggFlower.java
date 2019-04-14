@@ -16,9 +16,8 @@ public class EggFlower extends Plant {
 	public void update() {
 		if (charge < 300) {
 			charge++;
-		}
-		else {
-			((GameRoom)Room.getRoom()).setEggCount(((GameRoom)Room.getRoom()).eggCount + 50);
+		} else {
+			((GameRoom) Room.getRoom()).setEggCount(((GameRoom) Room.getRoom()).eggCount + 50);
 			charge = 0;
 		}
 	}

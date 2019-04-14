@@ -7,13 +7,13 @@ import dev.game.maths.Vector2D;
 import dev.game.zombies.ZombieBuilder;
 import dev.game.zombies.ZombieBuilder.ZombieType;
 
-public class ZombieSpawnEvent extends WaveEvent{
-	
+public class ZombieSpawnEvent extends WaveEvent {
+
 	private static Random random = new Random();
-	
+
 	public int lane = 0;
 	public ZombieType zombieType;
-	
+
 	//main constructor
 	public ZombieSpawnEvent(double time, int lane, ZombieType zombieType) {
 		super(time);
@@ -22,7 +22,7 @@ public class ZombieSpawnEvent extends WaveEvent{
 		this.lane = lane;
 		this.zombieType = zombieType;
 	}
-	
+
 	//alternative constructor for spawning random zombies into random lanes
 	public ZombieSpawnEvent(double time) {
 		this(time, random.nextInt(4), ZombieBuilder.getRandomZombieType());

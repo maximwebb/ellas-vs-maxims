@@ -29,9 +29,9 @@ public abstract class Zombie extends RenderedGameObject {
 		collider = new CircleCollider(this.pos, 5);
 		this.laneNumber = laneNum;
 		this.attackAmount = attack;
-		this.lane = ((GameRoom)Room.getRoom()).getLanesList()[this.laneNumber];
+		this.lane = ((GameRoom) Room.getRoom()).getLanesList()[this.laneNumber];
 
-		setClickAction(() ->  ((GameRoom) Room.getRoom()).removeGameObject(this) );
+		setClickAction(() -> ((GameRoom) Room.getRoom()).removeGameObject(this));
 	}
 
 	public abstract void update();
@@ -42,5 +42,7 @@ public abstract class Zombie extends RenderedGameObject {
 		super.update();
 	}
 
-	public int getLaneNumber() { return this.laneNumber; }
+	public int getLaneNumber() {
+		return this.laneNumber;
+	}
 }
