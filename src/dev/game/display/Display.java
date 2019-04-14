@@ -71,11 +71,11 @@ public class Display {
 		return canvas;
 	}
 
-	public JButton getPlantButton(){
+	public JButton getPlantButton() {
 		return plantButton;
 	}
 
-	public void setPlantButton(JButton b){
+	public void setPlantButton(JButton b) {
 		plantButton = b;
 	}
 
@@ -91,10 +91,10 @@ public class Display {
 		}
 	}
 
-	public void createPlantMenu(JFrame frame){
+	public void createPlantMenu(JFrame frame) {
 		BufferedImage b = ImageLoader.loadImage("/textures/plantButton.png");
 		ImageIcon icon = new ImageIcon(b);
-		plantButton = new JButton (icon);
+		plantButton = new JButton(icon);
 		layers = frame.getLayeredPane();
 		layers.add(plantButton, JLayeredPane.PALETTE_LAYER);
 		plantButton.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
@@ -193,9 +193,7 @@ public class Display {
 					plant.setVisible(true);
 					plant.setVisible(true);
 				}
-			}
-
-			else {
+			} else {
 				plantSelection = false;
 				plantingState = false;
 				for (JButton plant : plantList) {
@@ -206,8 +204,16 @@ public class Display {
 		});
 	}
 
-	public JLayeredPane getLayers(){ return layers; }
-	public static boolean getState(){ return plantingState; }
-	public static String getSelectedPlant() { return selectedPlant; }
+	public JLayeredPane getLayers() {
+		return layers;
+	}
+
+	public static boolean getState() {
+		return plantingState;
+	}
+
+	public static String getSelectedPlant() {
+		return selectedPlant;
+	}
 
 }

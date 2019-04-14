@@ -22,7 +22,7 @@ public class EggShooter extends Plant {
 			charge += Room.getRoom().getDeltaTime();
 		}
 
-		if(zombieTargets > 0 && charge >= 1) {
+		if (zombieTargets > 0 && charge >= 1) {
 			charge = 0;
 			((GameRoom) Room.getRoom()).addGameObject(new Bullet(this.pos, Vector2D.i.scale(100), 20));
 		}

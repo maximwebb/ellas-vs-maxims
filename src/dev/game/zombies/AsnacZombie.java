@@ -18,8 +18,7 @@ public class AsnacZombie extends Zombie {
 
 		if (attacking) {
 			this.velocity = Vector2D.zero;
-		}
-		else {
+		} else {
 			this.velocity = this.initialVelocity;
 		}
 
@@ -29,16 +28,14 @@ public class AsnacZombie extends Zombie {
 
 		if (health <= 280 && health > 200) {
 			this.sprite = Assets.asnacZombie[1];
-		}
-		else if (health <= 150 && health > 100) {
+		} else if (health <= 150 && health > 100) {
 
 			this.sprite = Assets.asnacZombie[2];
-		}
-		else if (health < 100) {
+		} else if (health < 100) {
 			this.sprite = Assets.asnacZombie[3];
 		}
 
-		if(health <= 0) {
+		if (health <= 0) {
 			((GameRoom) Room.getRoom()).removeZombie(this);
 		}
 	}

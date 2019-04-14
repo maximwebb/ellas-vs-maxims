@@ -16,8 +16,8 @@ public abstract class UIObject extends RenderedGameObject {
 		super(pos, Vector2D.zero, width, height, sprite);
 	}
 
-	public boolean contains(int x, int y){
-		return this.x<x && this.x+width>x && this.y<y && this.y+height>y;
+	public boolean contains(int x, int y) {
+		return this.x < x && this.x + width > x && this.y < y && this.y + height > y;
 	}
 
 	public void mouseEntered(MouseEvent e) {

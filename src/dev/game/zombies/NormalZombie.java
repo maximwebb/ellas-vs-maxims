@@ -17,8 +17,7 @@ public class NormalZombie extends Zombie {
 		attack();
 		if (attacking) {
 			this.velocity = Vector2D.zero;
-		}
-		else {
+		} else {
 			this.velocity = new Vector2D(-10f, 0);
 		}
 
@@ -26,7 +25,7 @@ public class NormalZombie extends Zombie {
 
 		collider.pos = this.pos;
 
-		if(health <= 0) {
+		if (health <= 0) {
 			((GameRoom) Room.getRoom()).removeZombie(this);
 		}
 	}

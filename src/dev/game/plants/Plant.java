@@ -34,5 +34,7 @@ public abstract class Plant extends RenderedGameObject {
 		return this.eggCost;
 	}
 
-	public int getLaneNumber() { return this.laneNumber; }
+	public int getLaneNumber() {
+		return this.laneNumber;
+	}
 }

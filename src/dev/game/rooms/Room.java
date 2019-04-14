@@ -7,9 +7,9 @@ import java.awt.image.BufferedImage;
 
 public abstract class Room {
 	private UIManager uiManager = new UIManager();
-	
+
 	private double deltaTime;
-	
+
 	private static Room currentRoom = null;
 
 	private BufferedImage background;
@@ -31,18 +31,18 @@ public abstract class Room {
 	}
 
 	public abstract void init();
-	
-    public void tick(double deltaTime) {
-    	this.deltaTime = deltaTime;
-    }
-    
-    public double getDeltaTime() {
-    	return this.deltaTime;
-    }
 
-    public abstract Iterable<RenderCall> render();
+	public void tick(double deltaTime) {
+		this.deltaTime = deltaTime;
+	}
 
-    public UIManager getUiManager() {
-    	return uiManager;
+	public double getDeltaTime() {
+		return this.deltaTime;
+	}
+
+	public abstract Iterable<RenderCall> render();
+
+	public UIManager getUiManager() {
+		return uiManager;
 	}
 }
