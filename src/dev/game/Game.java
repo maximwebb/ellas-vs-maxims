@@ -259,5 +259,4 @@ public class Game implements Runnable {
 
 		}
 	}
-master
 }
