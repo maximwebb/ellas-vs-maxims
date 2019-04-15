@@ -7,28 +7,28 @@ import dev.game.waves.Wave.SpawnDistribution;
 import dev.game.zombies.ZombieBuilder.ZombieType;
 
 public class CyclicWave extends Wave {
-	
+
 	@Override
 	public void update() {
-		if(this.isActive) {
-			if(this.waveEvents.isEmpty()) {
+		if (this.isActive) {
+			if (this.waveEvents.isEmpty()) {
 				this.reset();
 			} else {
 				this.activeTime += Room.getRoom().getDeltaTime();
-				if(this.activeTime > this.waveEvents.peek().time) {
+				if (this.activeTime > this.waveEvents.peek().time) {
 					this.processEvent(this.waveEvents.poll());
 				}
 			}
 		}
 	}
-	
+
 	public CyclicWave(double length, int zombies, HashMap<ZombieType, Float> zombieTypes, SpawnDistribution distribution) {
-			
-		for(int i = 0; i < zombies; i++) {
-			
+
+		for (int i = 0; i < zombies; i++) {
+
 			double randNum = Math.random();
-			
-			switch(distribution) {
+
+			switch (distribution) {
 				case PEAK_START:
 					randNum = 1 - Math.sqrt(1 - randNum);
 					break;
@@ -39,7 +39,7 @@ public class CyclicWave extends Wave {
 					randNum = Math.sqrt(randNum);
 					break;
 			}
-			
+
 			this.addEvent(new ZombieSpawnEvent(randNum * length));
 		}
 	}

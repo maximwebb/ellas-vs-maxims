@@ -19,8 +19,7 @@ public class EngineerZombie extends Zombie {
 
 		if (attacking) {
 			this.velocity = Vector2D.zero;
-		}
-		else {
+		} else {
 			this.velocity = initialVelocity;
 		}
 
@@ -30,16 +29,14 @@ public class EngineerZombie extends Zombie {
 
 		if (health <= 160 && health > 130) {
 			this.sprite = Assets.engineerZombie[1];
-		}
-		else if (health <= 130 && health > 100) {
+		} else if (health <= 130 && health > 100) {
 
 			this.sprite = Assets.engineerZombie[2];
-		}
-		else if (health < 100) {
+		} else if (health < 100) {
 			this.sprite = Assets.engineerZombie[3];
 		}
 
-		if(health <= 0) {
+		if (health <= 0) {
 			((GameRoom) Room.getRoom()).removeZombie(this);
 		}
 	}

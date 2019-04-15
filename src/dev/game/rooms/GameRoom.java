@@ -28,6 +28,8 @@ public class GameRoom extends Room {
 	private static Tile[][] grid;
 	private int totalLanes;
 	private Lane[] lanesList;
+	
+	private Level level;
 	/* For convenience */
 	private int gameWidth = RenderSpace.getStandard().getWidth();
 	private int gameHeight = RenderSpace.getStandard().getHeight();
@@ -45,14 +47,14 @@ public class GameRoom extends Room {
 		super(Assets.lawn);
 		totalLanes = 4;
 		gameObjectsList = new ArrayList<>();
-		gameObjectsToAdd=new Stack<>();
-		gameObjectsToRemove=new Stack<>();
+		gameObjectsToAdd = new Stack<>();
+		gameObjectsToRemove = new Stack<>();
 	}
 
 	public void init() {
 		gameObjectsList = new ArrayList<>();
-		gameObjectsToAdd=new Stack<>();
-		gameObjectsToRemove=new Stack<>();
+		gameObjectsToAdd = new Stack<>();
+		gameObjectsToRemove = new Stack<>();
 
 		this.plantBuilder = new PlantBuilder();
 		//this.zombieBuilder = new ZombieBuilder(); - not needed
@@ -62,36 +64,40 @@ public class GameRoom extends Room {
 		for (int i = 0; i < totalLanes; i++) {
 			lanesList[i] = new Lane(i);
 		}
-
+		
+		/*
 		Wave wave1 = new CyclicWave(100, 20, null, SpawnDistribution.PEAK_END);
 		this.addGameObject(wave1);
 		wave1.play();
+		*/
+		
+		this.setLevel(Level.level1());
+		this.levelPlayNext();
 	}
 
 	@Override
 	public void tick(double deltaTime) {
 		super.tick(deltaTime);
 
-		for(GameObject gameObject : gameObjectsList) {
+		for (GameObject gameObject : gameObjectsList) {
 			gameObject.update();
 		}
 
-		for(int i = 0; i < totalLanes; i++) {
+		for (int i = 0; i < totalLanes; i++) {
 			lanesList[i].removeObjects();
 		}
 		//Performs concurrent changes to the object list
-		while(!gameObjectsToAdd.empty()){
+		while (!gameObjectsToAdd.empty()) {
 			gameObjectsList.add(gameObjectsToAdd.pop());
 		}
-		while(!gameObjectsToRemove.empty()){
+		while (!gameObjectsToRemove.empty()) {
 			gameObjectsList.remove(gameObjectsToRemove.pop());
 		}
 
 		if (eggCountTimer > 150) {
 			eggCount += 25;
 			eggCountTimer = 0;
-		}
-		else {
+		} else {
 			eggCountTimer++;
 		}
 	}
@@ -100,7 +106,7 @@ public class GameRoom extends Room {
 	public Iterable<RenderCall> render() {
 		List<RenderCall> renderCalls = new ArrayList<>();
 
-		for (GameObject object : gameObjectsList){
+		for (GameObject object : gameObjectsList) {
 			//Maybe this shouldn't access camera...
 			renderCalls.add(Game.getInstance().getCamera().translate(object));
 		}
@@ -111,24 +117,26 @@ public class GameRoom extends Room {
 	}
 
 	/* Vertical and horizontal determine number of tiles in the grid, border the free space on the right */
-	public void fillGrid(int vertical, int horizontal, int border){
+	public void fillGrid(int vertical, int horizontal, int border) {
 		grid = new Tile[vertical][horizontal];
-		int w = gameWidth/horizontal;
-		int h = gameHeight/vertical;
+		int w = gameWidth / horizontal;
+		int h = gameHeight / vertical;
 
-		for(int i = 0; i<vertical; i++){
-			for(int j = 0; j < horizontal; j++){
+		for (int i = 0; i < vertical; i++) {
+			for (int j = 0; j < horizontal; j++) {
 				grid[i][j] = new Tile(new Vector2D((border + j * w), (i * h)), w, h, i);
 				addGameObject(grid[i][j]);
 			}
 		}
 	}
 
-	public static Tile[][] getGrid(){
+	public static Tile[][] getGrid() {
 		return grid;
 	}
 
-	public Lane[] getLanesList() { return lanesList; }
+	public Lane[] getLanesList() {
+		return lanesList;
+	}
 
 	/*public int getTotalZombies() {
 		int ret = 0;
@@ -175,13 +183,24 @@ public class GameRoom extends Room {
 	}
 	*/
 
-	public void addGameObject(GameObject e){
+	public void addGameObject(GameObject e) {
 		gameObjectsToAdd.add(e);
 	}
 
-	public void removeGameObject(GameObject e){
+	public void removeGameObject(GameObject e) {
 		gameObjectsToRemove.add(e);
 	}
-
+  
 	public void setEggCount(int count) { eggCount = count; }
+	
+	public void setLevel(Level level) {
+		this.level = level;
+		for(Wave wave : level.waves) {
+			this.addGameObject(wave);
+		}
+	}
+	
+	public void levelPlayNext() {
+		this.level.playNext();
+	}
 }

@@ -9,6 +9,7 @@ import dev.game.objects.SlashHandler;
 
 public class Youmu extends Plant {
 
+animation-handler
     private double charge = 0;
     private int slash = 0;
 
@@ -68,5 +69,6 @@ public class Youmu extends Plant {
             }
         }
     }
+master
 }
 

@@ -8,6 +8,7 @@ import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
 
 public class Slash extends RenderedGameObject {
+animation-handler
     public Slash(Vector2D pos) {
         super(pos, Vector2D.zero, 20, 20, Assets.EMPTY);
     }
