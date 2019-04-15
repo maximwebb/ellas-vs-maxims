@@ -15,6 +15,7 @@ public class Assets {
 	public static BufferedImage chenapult;
 	public static BufferedImage walbert;
 	public static BufferedImage abhiBullet;
+	public static BufferedImage lawnmower;
 	public static BufferedImage lawn;
 	public static BufferedImage title;
 	public static BufferedImage levelComplete;
@@ -56,6 +57,7 @@ public class Assets {
 		walbert = ImageLoader.loadImage("/textures/walbert.png");
 
 		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
+		lawnmower = ImageLoader.loadImage("/textures/lawnmower.png");
 		lawn = ImageLoader.loadImage("/backgrounds/lawn.png");
 		title = ImageLoader.loadImage("/backgrounds/title.png");
 		levelComplete = ImageLoader.loadImage("/backgrounds/levelComplete.png");

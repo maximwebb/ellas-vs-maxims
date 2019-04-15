@@ -5,6 +5,7 @@ import dev.game.gfx.Assets;
 import dev.game.objects.*;
 import dev.game.plants.Plant;
 import dev.game.plants.PlantBuilder;
+import dev.game.projectiles.Lawnmower;
 import dev.game.rendering.RenderCall;
 import dev.game.rendering.RenderSpace;
 import dev.game.rendering.RenderText;
@@ -66,6 +67,12 @@ public class GameRoom extends Room {
 		Wave wave1 = new CyclicWave(100, 20, null, SpawnDistribution.PEAK_END);
 		this.addGameObject(wave1);
 		wave1.play();
+
+		for (int i = 0; i < totalLanes; i++) {
+			Lawnmower lawnmower = new Lawnmower(new Vector2D(0, i * (gameHeight / totalLanes)), i);
+			lanesList[i].addLawnmower(lawnmower);
+			this.addGameObject(lawnmower);
+		}
 	}
 
 	@Override
@@ -79,7 +86,7 @@ public class GameRoom extends Room {
 		for(int i = 0; i < totalLanes; i++) {
 			lanesList[i].removeObjects();
 			if (lanesList[i].checkGameOver()) {
-				gameOver();
+				//gameOver();
 			}
 		}
 		//Performs concurrent changes to the object list
