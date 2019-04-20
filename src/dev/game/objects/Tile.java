@@ -16,8 +16,10 @@ public class Tile extends RenderedGameObject {
 		empty = true;
 		this.laneNumber = lane;
 		setClickAction(() -> {
-			setPlant(((GameRoom) Room.getRoom()).addPlant(pos, lane));
-			setEmpty(false);
+			if (isEmpty()) {
+				setPlant(((GameRoom) Room.getRoom()).addPlant(pos, lane));
+				setEmpty(false);
+			}
 		});
 	}
 
