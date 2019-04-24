@@ -2,6 +2,7 @@ package dev.game.plants;
 
 import dev.game.maths.Vector2D;
 import dev.game.objects.RenderedGameObject;
+import dev.game.objects.Tile;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Lane;
 import dev.game.rooms.Room;
@@ -13,14 +14,16 @@ public abstract class Plant extends RenderedGameObject {
 	private int eggCost;
 	protected int health;
 	protected Lane lane;
+	protected Tile tile;
 
-	public Plant(Vector2D pos, Vector2D velocity, int laneNum, int cost, int health, BufferedImage sprite) {
+	public Plant(Vector2D pos, Vector2D velocity, Tile tile, int cost, int health, BufferedImage sprite) {
 		super(pos, velocity, 18, 32, sprite);
 		/* Will vary for different plants in future */
-		this.laneNumber = laneNum;
+		this.laneNumber = tile.getLaneNumber();
 		this.eggCost = cost;
 		this.health = health;
 		this.lane = ((GameRoom) Room.getRoom()).getLanesList()[this.laneNumber];
+		this.tile = tile;
 	}
 
 	public void damage(int attackAmount) {
@@ -36,5 +39,9 @@ public abstract class Plant extends RenderedGameObject {
 
 	public int getLaneNumber() {
 		return this.laneNumber;
+	}
+
+	public Tile getTile() {
+		return this.tile;
 	}
 }

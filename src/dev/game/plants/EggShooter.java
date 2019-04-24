@@ -3,6 +3,7 @@ package dev.game.plants;
 import dev.game.gfx.Assets;
 import dev.game.maths.Vector2D;
 import dev.game.objects.Bullet;
+import dev.game.objects.Tile;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
 
@@ -10,8 +11,8 @@ public class EggShooter extends Plant {
 
 	private double charge = 0;
 
-	public EggShooter(Vector2D pos, Vector2D velocity, int laneNum) {
-		super(pos, velocity, laneNum, 100, 100, Assets.eggShooter);
+	public EggShooter(Vector2D pos, Vector2D velocity, Tile tile) {
+		super(pos, velocity, tile, 100, 100, Assets.eggShooter);
 	}
 
 	public void update() {

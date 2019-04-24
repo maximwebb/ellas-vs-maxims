@@ -40,6 +40,8 @@ public class Lane {
 
 	public void removeObjects() {
 		while (!plantsToRemove.empty()) {
+			Plant plant = plantsToRemove.peek();
+			plant.getTile().setEmpty(true);
 			plantsList.remove(plantsToRemove.pop());
 		}
 

@@ -17,7 +17,7 @@ public class Tile extends RenderedGameObject {
 		this.laneNumber = lane;
 		setClickAction(() -> {
 			if (isEmpty()) {
-				setPlant(((GameRoom) Room.getRoom()).addPlant(pos, lane));
+				setPlant(((GameRoom) Room.getRoom()).addPlant(pos, this));
 				setEmpty(false);
 			}
 		});
@@ -29,6 +29,10 @@ public class Tile extends RenderedGameObject {
 
 	public Plant getPlant() {
 		return plant;
+	}
+
+	public int getLaneNumber() {
+		return laneNumber;
 	}
 
 	public boolean isEmpty() {

@@ -148,11 +148,11 @@ public class GameRoom extends Room {
 		return ret;
 	}*/
 
-	public Plant addPlant(Vector2D pos, int lane) {
-		Plant plant = plantBuilder.buildPlant(pos, lane);
+	public Plant addPlant(Vector2D pos, Tile tile) {
+		Plant plant = plantBuilder.buildPlant(pos, tile);
 		if (plant != null && plant.getEggCost() < eggCount) {
 			addGameObject(plant);
-			lanesList[lane].addPlant(plant);
+			lanesList[tile.getLaneNumber()].addPlant(plant);
 		}
 		return plant;
 	}

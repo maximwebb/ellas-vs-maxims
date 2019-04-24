@@ -3,6 +3,7 @@ package dev.game.plants;
 import dev.game.gfx.AnimationHandler;
 import dev.game.gfx.Assets;
 import dev.game.maths.Vector2D;
+import dev.game.objects.Tile;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
 import dev.game.objects.SlashHandler;
@@ -22,8 +23,8 @@ public class Youmu extends Plant {
     AnimationHandler anim =
             new AnimationHandler(Assets.youmuSprites,10.0, 1);
 
-    public Youmu(Vector2D pos, Vector2D velocity, int laneNum) {
-        super(pos, velocity, laneNum, 400, 100, Assets.EMPTY);
+    public Youmu(Vector2D pos, Vector2D velocity, Tile tile) {
+        super(pos, velocity, tile, 400, 100, Assets.EMPTY);
     }
 
     public void update() {

@@ -6,6 +6,7 @@ import dev.game.collision.*;
 import dev.game.gfx.Assets;
 import dev.game.maths.Vector2D;
 import dev.game.maths.VectorLine;
+import dev.game.objects.Tile;
 import dev.game.projectiles.Bullet;
 import dev.game.projectiles.Projectile;
 import dev.game.rooms.GameRoom;
@@ -15,8 +16,8 @@ public class Chenapult extends Plant {
 
 	private float shootingSpeed = 75;
 
-	public Chenapult(Vector2D pos, Vector2D velocity, int laneNum) {
-		super(pos, velocity, laneNum, 100, 100, Assets.chenapult);
+	public Chenapult(Vector2D pos, Vector2D velocity, Tile tile) {
+		super(pos, velocity, tile, 100, 100, Assets.chenapult);
 	}
 
 	public void shoot(Vector2D targetPos, Vector2D targetVelocity) {
