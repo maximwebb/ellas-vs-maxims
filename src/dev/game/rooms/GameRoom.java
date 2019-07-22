@@ -71,7 +71,7 @@ public class GameRoom extends Room {
 		wave1.play();
 		*/
 		
-		this.setLevel(Level.level1());
+		this.setLevel(LevelManager.getLevel("level1"));
 		this.levelPlayNext();
 	}
 
