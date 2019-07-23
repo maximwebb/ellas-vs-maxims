@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import dev.game.Game;
+import dev.game.maths.DiscreteDistribution;
 import dev.game.maths.Vector2D;
 import dev.game.rooms.GameRoom;
 import dev.game.rooms.Room;
@@ -64,26 +65,20 @@ public class ZombieBuilder {
 		return zombie;
 	}
 
-	public static ZombieType getRandomZombieType(ZombieType[] zombieTypes) {
-
-		if (zombieTypes == null) {
-			double randNum = Math.random() * 7;
-			if (randNum < 3) {
-				return ZombieType.NORMAL;
-			} else if (randNum < 5) {
-				return ZombieType.ENGINEER;
-			} else if (randNum < 6) {
-				return ZombieType.ASNAC;
-			} else {
-				return ZombieType.POLITICS;
-			}
+	public static ZombieType getRandomZombieType(HashMap<ZombieType, Double> zombieRatios) {
+		if (zombieRatios == null) {
+			zombieRatios = new HashMap<>() {{
+				put(ZombieType.NORMAL, 5d);
+				put(ZombieType.ENGINEER, 2d);
+				put(ZombieType.ASNAC, 1d);
+				put(ZombieType.POLITICS, 1d);
+			}};
 		}
-		else {
-			double randNum = Math.floor(Math.random() * zombieTypes.length);
-			return zombieTypes[(int)randNum];
-		}
+		return new DiscreteDistribution<>(zombieRatios).getRandom();
 	}
-
+	
+	//No longer needed thanks to the DiscreteDistribution class
+	/*
 	public ZombieType getZombieType(LinkedHashMap<Float, ZombieType> cumulativeRatios) {
 
 		double randNum = Math.random();
@@ -98,4 +93,5 @@ public class ZombieBuilder {
 
 		return null;
 	}
+	*/
 }

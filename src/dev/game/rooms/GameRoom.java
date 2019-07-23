@@ -70,9 +70,9 @@ public class GameRoom extends Room {
 		this.addGameObject(wave1);
 		wave1.play();
 		*/
-		
+
 		this.setLevel(LevelManager.getLevel("level1"));
-		this.levelPlayNext();
+		this.level.playNext();
 	}
 
 	@Override
@@ -198,9 +198,5 @@ public class GameRoom extends Room {
 		for(Wave wave : level.waves) {
 			this.addGameObject(wave);
 		}
-	}
-	
-	public void levelPlayNext() {
-		this.level.playNext();
 	}
 }
