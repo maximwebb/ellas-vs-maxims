@@ -17,11 +17,10 @@ public class WaveChunk extends WaveEvent {
 		}
 	}
 
-	public WaveChunk(double time, double length, int zombies, ZombieBuilder.ZombieType[] zombieTypes, Wave.SpawnDistribution distribution) {
+	public WaveChunk(double time, double length, int zombies, HashMap<ZombieBuilder.ZombieType, Double> zombieRatios, Wave.SpawnDistribution distribution) {
 		super(time);
 		waveEvents = new ArrayList<>();
 		for (int i = 0; i < zombies; i++) {
-
 			double randNum = Math.random();
 
 			switch (distribution) {
@@ -36,7 +35,7 @@ public class WaveChunk extends WaveEvent {
 					break;
 			}
 			System.out.println("Random number: " + randNum);
-			waveEvents.add(new ZombieSpawnEvent(randNum * length, zombieTypes));
+			waveEvents.add(new ZombieSpawnEvent(randNum * length, zombieRatios));
 		}
 	}
 }

@@ -1,12 +1,15 @@
 package dev.game.waves;
 import dev.game.zombies.ZombieBuilder;
 
+import java.util.HashMap;
+
 public class LevelManager {
 
-	public static ZombieBuilder.ZombieType[] normalZombie = new ZombieBuilder.ZombieType[]{ZombieBuilder.ZombieType.NORMAL};
-	public static ZombieBuilder.ZombieType[] engineerZombie = new ZombieBuilder.ZombieType[]{ZombieBuilder.ZombieType.ENGINEER};
-	public static ZombieBuilder.ZombieType[] asnacZombie = new ZombieBuilder.ZombieType[]{ZombieBuilder.ZombieType.ASNAC};
-	public static ZombieBuilder.ZombieType[] politicsZombie = new ZombieBuilder.ZombieType[]{ZombieBuilder.ZombieType.POLITICS};
+	// Might be an idea to add an alternative constructor for WaveChunk, to simplify this.
+	public static HashMap<ZombieBuilder.ZombieType, Double> normalZombie = new HashMap<>() {{ put(ZombieBuilder.ZombieType.NORMAL, 1d); }};
+	public static HashMap<ZombieBuilder.ZombieType, Double> engineerZombie = new HashMap<>() {{ put(ZombieBuilder.ZombieType.ENGINEER, 1d); }};
+	public static HashMap<ZombieBuilder.ZombieType, Double> asnacZombie = new HashMap<>() {{ put(ZombieBuilder.ZombieType.ASNAC, 1d); }};
+	public static HashMap<ZombieBuilder.ZombieType, Double> politicsZombie = new HashMap<>() {{ put(ZombieBuilder.ZombieType.POLITICS, 1d); }};
 
 	public LevelManager() {
 	}

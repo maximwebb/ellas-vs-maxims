@@ -1,5 +1,6 @@
 package dev.game.waves;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import dev.game.Game;
@@ -24,7 +25,7 @@ public class ZombieSpawnEvent extends WaveEvent {
 	}
 
 	//If zombieTypes is set to null, all zombie types will be selected.
-	public ZombieSpawnEvent(double time, ZombieType[] zombieTypes) {
-		this(time, random.nextInt(4), ZombieBuilder.getRandomZombieType(zombieTypes));
+	public ZombieSpawnEvent(double time, HashMap<ZombieType, Double> zombieRatios) {
+		this(time, random.nextInt(4), ZombieBuilder.getRandomZombieType(zombieRatios));
 	}
 }
