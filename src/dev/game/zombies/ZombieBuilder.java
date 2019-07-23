@@ -67,7 +67,7 @@ public class ZombieBuilder {
 
 	public static ZombieType getRandomZombieType(HashMap<ZombieType, Double> zombieRatios) {
 		if (zombieRatios == null) {
-			zombieRatios = new HashMap<>() {{
+			zombieRatios = new HashMap<ZombieType, Double>() {{
 				put(ZombieType.NORMAL, 5d);
 				put(ZombieType.ENGINEER, 2d);
 				put(ZombieType.ASNAC, 1d);
@@ -76,22 +76,4 @@ public class ZombieBuilder {
 		}
 		return new DiscreteDistribution<>(zombieRatios).getRandom();
 	}
-	
-	//No longer needed thanks to the DiscreteDistribution class
-	/*
-	public ZombieType getZombieType(LinkedHashMap<Float, ZombieType> cumulativeRatios) {
-
-		double randNum = Math.random();
-		Iterator<Entry<Float, ZombieType>> iterator = cumulativeRatios.entrySet().iterator();
-
-		while (iterator.hasNext()) {
-			Entry<Float, ZombieType> entry = iterator.next();
-			if (randNum < entry.getKey().doubleValue()) {
-				return entry.getValue();
-			}
-		}
-
-		return null;
-	}
-	*/
 }

@@ -6,16 +6,24 @@ import java.util.HashMap;
 public class LevelManager {
 
 	// Might be an idea to add an alternative constructor for WaveChunk, to simplify this.
-	public static HashMap<ZombieBuilder.ZombieType, Double> normalZombie = new HashMap<>() {{ put(ZombieBuilder.ZombieType.NORMAL, 1d); }};
-	public static HashMap<ZombieBuilder.ZombieType, Double> engineerZombie = new HashMap<>() {{ put(ZombieBuilder.ZombieType.ENGINEER, 1d); }};
-	public static HashMap<ZombieBuilder.ZombieType, Double> asnacZombie = new HashMap<>() {{ put(ZombieBuilder.ZombieType.ASNAC, 1d); }};
-	public static HashMap<ZombieBuilder.ZombieType, Double> politicsZombie = new HashMap<>() {{ put(ZombieBuilder.ZombieType.POLITICS, 1d); }};
+	public static HashMap<ZombieBuilder.ZombieType, Double> normalZombie = new HashMap<>();
+	public static HashMap<ZombieBuilder.ZombieType, Double> engineerZombie = new HashMap<>();
+	public static HashMap<ZombieBuilder.ZombieType, Double> asnacZombie = new HashMap<>();
+	public static HashMap<ZombieBuilder.ZombieType, Double> politicsZombie = new HashMap<>();
+
+
 
 	public LevelManager() {
+
 	}
 
 	/* Checks to see if level exists, and if so, builds it. */
 	public static Level getLevel(String levelName) {
+		normalZombie.putIfAbsent(ZombieBuilder.ZombieType.NORMAL, 1d);
+		engineerZombie.putIfAbsent(ZombieBuilder.ZombieType.ENGINEER, 1d);
+		asnacZombie.putIfAbsent(ZombieBuilder.ZombieType.ASNAC, 1d);
+		politicsZombie.putIfAbsent(ZombieBuilder.ZombieType.POLITICS, 1d);
+
 		switch(levelName) {
 			case "level1": {
 				WaveChunk[] chunkList = {
