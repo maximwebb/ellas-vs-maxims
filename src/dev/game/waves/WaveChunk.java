@@ -7,24 +7,17 @@ import java.util.HashMap;
 
 public class WaveChunk extends WaveEvent {
 
-	public enum SpawnDistribution {
-		EVEN,
-		PEAK_START,
-		PEAK_MIDDLE,
-		PEAK_END
-	}
-
 	public ArrayList<WaveEvent> waveEvents;
 
 	public WaveChunk(double time, int zombies) {
 		super(time);
 		waveEvents = new ArrayList<>();
 		for (int i = 0; i < zombies; i++) {
-			waveEvents.add(new ZombieSpawnEvent(2 * i + 2));
+			waveEvents.add(new ZombieSpawnEvent(2 * i + 2, null));
 		}
 	}
 
-	public WaveChunk(double time, double length, int zombies, HashMap<ZombieBuilder.ZombieType, Float> zombieTypes, Wave.SpawnDistribution distribution) {
+	public WaveChunk(double time, double length, int zombies, ZombieBuilder.ZombieType[] zombieTypes, Wave.SpawnDistribution distribution) {
 		super(time);
 		waveEvents = new ArrayList<>();
 		for (int i = 0; i < zombies; i++) {
@@ -43,7 +36,7 @@ public class WaveChunk extends WaveEvent {
 					break;
 			}
 			System.out.println("Random number: " + randNum);
-			waveEvents.add(new ZombieSpawnEvent(randNum * length));
+			waveEvents.add(new ZombieSpawnEvent(randNum * length, zombieTypes));
 		}
 	}
 }

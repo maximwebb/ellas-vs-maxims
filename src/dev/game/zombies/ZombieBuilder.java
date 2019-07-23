@@ -61,22 +61,26 @@ public class ZombieBuilder {
 				zombie = new AsnacZombie(pos, lane);
 				break;
 		}
-
 		return zombie;
 	}
 
-	public static ZombieType getRandomZombieType() {
+	public static ZombieType getRandomZombieType(ZombieType[] zombieTypes) {
 
-		double randNum = Math.random() * 7;
-
-		if (randNum < 3) {
-			return ZombieType.NORMAL;
-		} else if (randNum < 5) {
-			return ZombieType.ENGINEER;
-		} else if (randNum < 6) {
-			return ZombieType.ASNAC;
-		} else {
-			return ZombieType.POLITICS;
+		if (zombieTypes == null) {
+			double randNum = Math.random() * 7;
+			if (randNum < 3) {
+				return ZombieType.NORMAL;
+			} else if (randNum < 5) {
+				return ZombieType.ENGINEER;
+			} else if (randNum < 6) {
+				return ZombieType.ASNAC;
+			} else {
+				return ZombieType.POLITICS;
+			}
+		}
+		else {
+			double randNum = Math.floor(Math.random() * zombieTypes.length);
+			return zombieTypes[(int)randNum];
 		}
 	}
 
