@@ -1,5 +1,6 @@
 package dev.game.waves;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import dev.game.Game;
@@ -23,8 +24,8 @@ public class ZombieSpawnEvent extends WaveEvent {
 		this.zombieType = zombieType;
 	}
 
-	//alternative constructor for spawning random zombies into random lanes
-	public ZombieSpawnEvent(double time) {
-		this(time, random.nextInt(4), ZombieBuilder.getRandomZombieType());
+	//If zombieTypes is set to null, all zombie types will be selected.
+	public ZombieSpawnEvent(double time, HashMap<ZombieType, Double> zombieRatios) {
+		this(time, random.nextInt(4), ZombieBuilder.getRandomZombieType(zombieRatios));
 	}
 }

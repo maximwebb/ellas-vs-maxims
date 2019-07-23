@@ -31,7 +31,7 @@ public class Wave extends GameObject {
 	@Override
 	public void update() {
 		
-		if(this.isActive) {
+		if (this.isActive) {
 			if(this.waveEvents.isEmpty()) {
 				this.stop();
 				this.reset();
@@ -64,19 +64,20 @@ public class Wave extends GameObject {
 
 	public void addEvent(WaveEvent event) {
 		this.waveEvents.add(event);
-		if(event instanceof WaveChunk) {
-			children.add(((WaveChunk)event).wave);
-		}
 	}
 
 	protected void processEvent(WaveEvent event) {
-		if(event instanceof ZombieSpawnEvent) {
+		if (event instanceof ZombieSpawnEvent) {
 			ZombieSpawnEvent zombieEvent = (ZombieSpawnEvent)event;
 			((GameRoom)Room.getRoom()).addZombie(zombieEvent.lane, zombieEvent.zombieType);
 			System.out.println("ZOMBIE SPAWNED");
-		} else if(event instanceof WaveChunk) {
-			((WaveChunk)event).wave.play();
-			System.out.println("NEW WAVE_CHUNK");
+		}
+		else if (event instanceof WaveChunk) {
+			WaveChunk chunk = (WaveChunk)event;
+			for (int i = 0; i < chunk.waveEvents.size(); i++) {
+				addEvent(chunk.waveEvents.get(i));
+			}
+			System.out.println("NEW WAVE CHUNK");
 		}
 		this.usedEvents.add(event);
 	}
@@ -84,7 +85,9 @@ public class Wave extends GameObject {
 	public Wave() {
 	}
 
-	public Wave(int zombies) {
+	//Commenting this code out for now, we should delete once we're happy with the refactor.
+
+	/*public Wave(int zombies) {
 		for (int i = 0; i < zombies; i++) {
 			this.addEvent(new ZombieSpawnEvent(2 * i + 2));
 		}
@@ -107,8 +110,14 @@ public class Wave extends GameObject {
 					randNum = Math.sqrt(randNum);
 					break;
 			}
-
 			this.addEvent(new ZombieSpawnEvent(randNum * length));
+		}
+	}*/
+
+	/* All waves should be created using this constructor */
+	public Wave(WaveChunk[] waveChunksList) {
+		for (int i = 0; i < waveChunksList.length; i++) {
+			this.addEvent(waveChunksList[i]);
 		}
 	}
 }
