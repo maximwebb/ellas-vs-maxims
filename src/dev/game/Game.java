@@ -163,7 +163,7 @@ public class Game implements Runnable {
 			}
 
 			// Pause until 1ms before we're supposed to render the next frame
-			// Because the windows kernel timer is shit and only has like 1ms resolution, we could be woken up late,
+			// Because the windows kernel timer is sh*t and only has like 1ms resolution, we could be woken up late,
 			// so we then busysleep until the actual time to make sure it lines up.
 			int sleepnanos = (int) (targetTime * 1000000000 - System.nanoTime()) - 1000000;
 			if (sleepnanos > 0) {
