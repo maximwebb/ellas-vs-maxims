@@ -5,6 +5,7 @@ import dev.game.gfx.Assets;
 import dev.game.objects.*;
 import dev.game.plants.Plant;
 import dev.game.plants.PlantBuilder;
+import dev.game.projectiles.Lawnmower;
 import dev.game.rendering.RenderCall;
 import dev.game.rendering.RenderSpace;
 import dev.game.rendering.RenderText;
@@ -28,7 +29,7 @@ public class GameRoom extends Room {
 	private static Tile[][] grid;
 	private int totalLanes;
 	private Lane[] lanesList;
-	
+
 	private Level level;
 	/* For convenience */
 	private int gameWidth = RenderSpace.getStandard().getWidth();
@@ -64,7 +65,7 @@ public class GameRoom extends Room {
 		for (int i = 0; i < totalLanes; i++) {
 			lanesList[i] = new Lane(i);
 		}
-		
+
 		/*
 		Wave wave1 = new CyclicWave(100, 20, null, SpawnDistribution.PEAK_END);
 		this.addGameObject(wave1);
@@ -73,6 +74,12 @@ public class GameRoom extends Room {
 
 		this.setLevel(LevelManager.getLevel("level1"));
 		this.level.playNext();
+
+		for (int i = 0; i < totalLanes; i++) {
+			Lawnmower lawnmower = new Lawnmower(new Vector2D(0, i * (gameHeight / totalLanes)), i);
+			lanesList[i].addLawnmower(lawnmower);
+			this.addGameObject(lawnmower);
+		}
 	}
 
 	@Override
@@ -85,6 +92,9 @@ public class GameRoom extends Room {
 
 		for (int i = 0; i < totalLanes; i++) {
 			lanesList[i].removeObjects();
+			if (lanesList[i].checkGameOver()) {
+				//gameOver();
+			}
 		}
 		//Performs concurrent changes to the object list
 		while (!gameObjectsToAdd.empty()) {
@@ -130,7 +140,15 @@ public class GameRoom extends Room {
 		}
 	}
 
-	public static Tile[][] getGrid() {
+	public void levelComplete() {
+		Game.getInstance().levelComplete();
+	}
+
+	public void gameOver() {
+		Game.getInstance().gameOver();
+	}
+
+	public static Tile[][] getGrid(){
 		return grid;
 	}
 
@@ -176,7 +194,7 @@ public class GameRoom extends Room {
 	public PlantBuilder getPlantBuilder() {
 		return plantBuilder;
 	}
-	
+
 	/*
 	public ZombieBuilder getZombieBuilder() {
 		return zombieBuilder;
@@ -190,9 +208,9 @@ public class GameRoom extends Room {
 	public void removeGameObject(GameObject e) {
 		gameObjectsToRemove.add(e);
 	}
-  
+
 	public void setEggCount(int count) { eggCount = count; }
-	
+
 	public void setLevel(Level level) {
 		this.level = level;
 		for(Wave wave : level.waves) {

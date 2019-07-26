@@ -16,14 +16,19 @@ public class Assets {
 	public static BufferedImage chenapult;
 	public static BufferedImage walbert;
 	public static BufferedImage abhiBullet;
+	public static BufferedImage lawnmower;
 	public static BufferedImage lawn;
 	public static BufferedImage title;
+	public static BufferedImage levelComplete;
+	public static BufferedImage gameOver;
 	public static BufferedImage levels;
 	public static BufferedImage plantButton;
 	public static BufferedImage youmu;
 	public static BufferedImage[] youmuSprites;
 	public static BufferedImage[] slashSprites;
+	public static BufferedImage mainMenuButton;
 	public static BufferedImage[] startButton;
+	public static BufferedImage[] levelSelectButton;
 	public static BufferedImage[] levelsButton;
 
 	/* Loads in all assets once */
@@ -52,20 +57,30 @@ public class Assets {
 		slashSprites = ImageLoader.loadImageArray("/textures/slashes", "slash", 7);
 
 		abhiBullet = ImageLoader.loadImage("/textures/abhiBullet.png");
+		lawnmower = ImageLoader.loadImage("/textures/lawnmower.png");
 		lawn = ImageLoader.loadImage("/backgrounds/lawn.png");
 		title = ImageLoader.loadImage("/backgrounds/title.png");
+		levelComplete = ImageLoader.loadImage("/backgrounds/levelComplete.png");
+		gameOver = ImageLoader.loadImage("/backgrounds/gameOver.png");
 		levels = ImageLoader.loadImage("/backgrounds/levels.png");
 
 		/* Buttons */
 		plantButton = ImageLoader.loadImage("/textures/plantButton.png");
+		mainMenuButton = ImageLoader.loadImage("/textures/mainMenuButton.png");
 
 		startButton = new BufferedImage[2];
 		startButton[0] = ImageLoader.loadImage("/textures/startButton0.png");
 		startButton[1] = ImageLoader.loadImage("/textures/startButton1.png");
 
-		levelsButton = new BufferedImage[2];
-		levelsButton[0] = ImageLoader.loadImage("/textures/levelsButton0.png");
-		levelsButton[0] = ImageLoader.loadImage("/textures/levelsButton1.png");
+		levelSelectButton = new BufferedImage[2];
+		levelSelectButton[0] = ImageLoader.loadImage("/textures/levelsButton0.png");
+		levelSelectButton[0] = ImageLoader.loadImage("/textures/levelsButton1.png");
+
+		levelsButton = new BufferedImage[4];
+		levelsButton[0] = ImageLoader.loadImage("/textures/level1.png");
+		levelsButton[1] = ImageLoader.loadImage("/textures/level2.png");
+		levelsButton[2] = ImageLoader.loadImage("/textures/level3.png");
+		levelsButton[3] = ImageLoader.loadImage("/textures/level4.png");
 
 
 	}

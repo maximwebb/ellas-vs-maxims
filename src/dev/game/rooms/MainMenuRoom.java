@@ -32,12 +32,19 @@ public class MainMenuRoom extends Room {
 		//objectsList.add(this.SettingsButton);
 		//objectsList.add(this.ExitButton);
 		uiManager = new UIManager();
-		uiManager.addButton(new Vector2D(0.75f * gameWidth, 0.75f * gameHeight), 30, 15, () -> {
-			Room.setRoom(Game.getInstance().gameRoom);
-		}, Assets.startButton[0], Assets.startButton[1]);
-		uiManager.addButton(new Vector2D(0.75f * gameWidth, 0.75f * gameHeight + 20), 30, 15, () -> {
-			Room.setRoom(Game.getInstance().levelsRoom);
-		}, Assets.levelsButton[0], Assets.levelsButton[1]);
+		
+		uiManager.addButton(
+			new Vector2D(0.75f * gameWidth, 0.75f * gameHeight),
+			30, 15,
+			() -> { Room.setRoom(Game.getInstance().gameRoom);},
+			Assets.startButton[0], Assets.startButton[1]
+		);
+		uiManager.addButton(
+			new Vector2D(0.75f * gameWidth, 0.75f * gameHeight + 20),
+			30, 15,
+			() -> { Room.setRoom(Game.getInstance().levelsRoom);},
+			Assets.levelsButton[0], Assets.levelsButton[1]
+		);
 	}
 
 	public void init() {

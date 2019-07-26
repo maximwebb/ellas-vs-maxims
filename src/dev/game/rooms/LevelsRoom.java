@@ -15,13 +15,17 @@ public class LevelsRoom extends Room {
 
 	private int gameWidth = RenderSpace.getStandard().getWidth();
 	private int gameHeight = RenderSpace.getStandard().getHeight();
+	private int levelButtonHeight = 32;
 	public UIManager uiManager;
 
 	public LevelsRoom() {
 		super(Assets.levels);
 
 		uiManager = new UIManager();
-		//uiManager.addButton(new Vector2D(0.75f * gameWidth, 0.75f * gameHeight), 30, 15, () -> {Room.setRoom(Game.getInstance().gameRoom);}, Assets.levelsButton[0], Assets.levelsButton[1]);
+		uiManager.addButton(new Vector2D(80, 5), 155, levelButtonHeight, () -> {Room.setRoom(Game.getInstance().gameRoom);}, Assets.levelsButton[0], Assets.levelsButton[1]);
+		uiManager.addButton(new Vector2D( 80, 10 + levelButtonHeight), 155, levelButtonHeight, () -> {Room.setRoom(Game.getInstance().mainMenuRoom);}, Assets.levelsButton[1], Assets.levelsButton[1]);
+		uiManager.addButton(new Vector2D(80, 5 + 2 * (levelButtonHeight + 5)), 155, levelButtonHeight, () -> {Room.setRoom(Game.getInstance().gameRoom);}, Assets.levelsButton[2], Assets.levelsButton[1]);
+		uiManager.addButton(new Vector2D(80, 5 + 3 * (levelButtonHeight + 5)), 155, levelButtonHeight, () -> {Room.setRoom(Game.getInstance().gameRoom);}, Assets.levelsButton[3], Assets.levelsButton[1]);
 	}
 
 	@Override
